@@ -128,13 +128,12 @@
 		config.enforceVerification = typeof config.enforceVerification === 'undefined' ? false : config.enforceVerification;
 		config.agent = typeof config.agent === 'undefined' ? "" : config.agent;
 
-		config.candidates = config.candidates < 1 ? 0 : (config.candidates > 10 ? 10 : config.candidates);
-
 		// Parameter used for internal uses. If set to true, freeform will fail. Use with caution
 		config.xIncludeInvalid = typeof config.xIncludeInvalid === 'undefined' ? false : config.xIncludeInvalid;
 
-		if (typeof config.autocomplete === 'number')
-			config.autocomplete = config.autocomplete < 1 ? false : (config.autocomplete > 10 ? 10 : config.autocomplete);
+		if (typeof config.autocomplete === 'number' && config.autocomplete < 1) {
+			config.autocomplete = false;
+		}
 
 		config.target = config.target || defaults.target;
 		config.target = config.target.toUpperCase().replace(/\s+/g, "").split("|");
