@@ -135,7 +135,9 @@
 			config.autocomplete = false;
 		}
 
-		config.target = config.target || defaults.target;
+		if(!config.target || typeof config.target != "string") {
+			config.target = defaults.target;
+		}
 		config.target = config.target.toUpperCase().replace(/\s+/g, "").split("|");
 
 		/*
@@ -438,9 +440,7 @@
 			},
 			deactivate: function (addressID) {
 				if (!addressID) {
-					ui.clean();
-					config = {};
-					return;
+					return ui.clean();
 				}
 				var addr = instance.getMappedAddressByID(addressID);
 				if (addr) {
