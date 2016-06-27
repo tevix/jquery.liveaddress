@@ -2262,14 +2262,14 @@
 			}
 
 			$.ajax({
-					url: requestUrl + "?" + credentials +
-					"&agent=" + encodeURIComponent("plugin:jquery@" + instance.version + "\|" + config.agent) +
-					(config.debug ? "_debug" : ""),
-					contentType: "jsonp",
-					headers: headers,
-					data: addrData,
-					timeout: config.timeout
-				})
+				url: requestUrl + "?" + credentials +
+				"&agent=" + encodeURIComponent("plugin:jquery@" + instance.version + "\|" + config.agent) +
+				(config.debug ? "_debug" : ""),
+				contentType: "jsonp",
+				headers: headers,
+				data: addrData,
+				timeout: config.timeout
+			})
 				.done(function (response, statusText, xhr) {
 					trigger("ResponseReceived", {
 						address: self,
@@ -2379,7 +2379,7 @@
 			var obj = {};
 			if (fields.address1 && fields.address1.dom && fields.address1.dom.value) {
 				obj.street = fields.address1.dom.value;
-			} else if(fields.address1 && fields.address1.value) { // Covers a special case where the user calls .verify on the instance
+			} else if (fields.address1 && fields.address1.value) { // Covers a special case where the user calls .verify on the instance
 				obj.street = fields.address1.value;
 			}
 			if (fields.address2 && fields.address2.dom && fields.address2.dom.value) {
@@ -2428,13 +2428,13 @@
 				return (fields.freeform ? fields.freeform.value + " " : "") + (fields.country ? fields.country.value : "");
 			} else {
 				var addrString = (fields.address1 ? fields.address1.value + " " : "") + (fields.address2 ? fields.address2.value + " " : "") +
-				(fields.address3 ? fields.address3.value + " " : "") + (fields.address4 ? fields.address4.value + " " : "") +
-				(fields.locality ? fields.locality.value + " " : "");
+					(fields.address3 ? fields.address3.value + " " : "") + (fields.address4 ? fields.address4.value + " " : "") +
+					(fields.locality ? fields.locality.value + " " : "");
 				if (fields.administrative_area) {
 					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT") {
 						addrString += fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex].text + " ";
 					} else {
-						addrString  += fields.administrative_area.dom.value + " ";
+						addrString += fields.administrative_area.dom.value + " ";
 					}
 				}
 				addrString += (fields.postal_code ? fields.postal_code.value + " " : "") + (fields.country ? fields.country.value : "");
