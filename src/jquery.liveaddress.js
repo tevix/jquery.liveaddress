@@ -437,8 +437,11 @@
 				}
 			},
 			deactivate: function (addressID) {
-				if (!addressID)
-					return ui.clean();
+				if (!addressID) {
+					ui.clean();
+					config = {};
+					return;
+				}
 				var addr = instance.getMappedAddressByID(addressID);
 				if (addr) {
 					addr.active = false;
@@ -1243,7 +1246,7 @@
 							if (config.debug)
 								console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
 							delete address[fieldType];
-						} else if (matched.parents().filter('form').length == 0) { // We should only map elements inside a <form> tag; otherwise we can't bind to submit handlers later
+						} else if (matched.parents('form').length == 0) { // We should only map elements inside a <form> tag; otherwise we can't bind to submit handlers later
 							if (config.debug)
 								console.log("NOTICE: Element with selector \"" + address[fieldType] + "\" is not inside a <form> tag. Skipping...");
 							delete address[fieldType];
@@ -1266,9 +1269,9 @@
 				}
 
 				// Acquire the form based on the first member
-				var formDom = $(address.address1).parents().filter('form')[0];
+				var formDom = $(address.address1).parents('form')[0];
 				if (!formDom) {
-					formDom = $(address.freeform).parents().filter('form')[0];
+					formDom = $(address.freeform).parents('form')[0];
 				}
 				var form = new Form(formDom);
 
