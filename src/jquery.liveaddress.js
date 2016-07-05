@@ -135,7 +135,7 @@
 			config.autocomplete = false;
 		}
 
-		if(!config.target || typeof config.target != "string") {
+		if (!config.target || typeof config.target != "string") {
 			config.target = defaults.target;
 		}
 		config.target = config.target.toUpperCase().replace(/\s+/g, "").split("|");
@@ -527,7 +527,7 @@
 			"box-shadow: 0px 10px 35px rgba(0, 0, 0, .8); }" + ".smarty-popup-header { background: #DDD; height: 12px; " +
 			"text-transform: uppercase; font: bold 12px/1em 'Arial Black', sans-serif; padding: 12px; }" +
 			".smarty-popup-ambiguous-header { color: #333; height: 20px; }" + ".smarty-popup-invalid-header { color: #CC0000; }" +
-			".smarty-popup-missing-input-header { color: #CC0000; height: 58px; }" +
+			".smarty-popup-missing-input-header { color: #CC0000; height: 20px; }" +
 			".smarty-popup-close { color: #CC0000 !important; text-decoration: none !important; position: absolute; " +
 			"right: 15px; top: 10px; display: block; padding: 4px 6px; text-transform: uppercase; }" +
 			".smarty-popup-close:hover { color: #FFF !important; background: #CC0000; }" +
@@ -1709,7 +1709,6 @@
 				return;
 
 			var addr = data.address;
-			var missing = data.address.missing;
 			var response = data.response;
 			var corners = addr.corners();
 			corners.width = Math.max(corners.width, 300); // minimum width
@@ -1721,7 +1720,7 @@
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
 				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
 				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage + missing +
+				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage +
 				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
 				'<div class="smarty-choice-list"><a href="javascript:" ' +
 				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>' +
@@ -2311,46 +2310,27 @@
 				}
 			}
 
-			self.missing = "(Missing ";
-			var baseLength = self.missing.length;
 			if (fields.country && !fields.country.value) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "country";
+				return false;
 			}
 			if (fields.freeform && !fields.freeform.value) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "freeform";
+				return false;
 			}
 			if (fields.address1 && !fields.address1.value) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "address1";
+				return false;
 			}
 			if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && !fields.locality.value && !(stateText.length > 0)) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "postal code or locality and administrative area";
+				return false;
 			} else if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && fields.locality.value && !(stateText.length > 0)) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "postal code or administrative area";
+				return false;
 			} else if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && !fields.locality.value && stateText.length > 0) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "postal code or locality";
+				return false;
 			} else if (fields.postal_code && !fields.locality && !fields.administrative_area && !fields.postal_code.value) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "postal code";
+				return false;
 			} else if (!fields.postal_code && fields.locality && fields.administrative_area && (!fields.locality.value || !(stateText.length > 0))) {
-				if (self.missing.length > baseLength)
-					self.missing += ", ";
-				self.missing += "locality and administrative area";
+				return false;
 			}
-			self.missing += ")";
-			return (self.missing.length === baseLength + 1);
+			return true;
 		};
 
 		this.toRequestIntl = function () {
