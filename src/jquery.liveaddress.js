@@ -934,7 +934,7 @@
 					} else {
 						for (var j = 0; j < json.suggestions.length; j++) {
 							var suggAddr = json.suggestions[j].text.replace(/<|>/g, "");
-							suggAddr = suggAddr.replace(new RegExp('(' + data.input + ')', 'ig'), '<b>$1</b>');
+							suggAddr = suggAddr.replace(new RegExp('(' + data.input.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&') + ')', 'ig'), '<b>$1</b>');
 							var link = $('<a href="javascript:" class="smarty-suggestion">' + suggAddr + '</a>');
 							link.data("suggIndex", j);
 
