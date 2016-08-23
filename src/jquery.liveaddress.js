@@ -36,7 +36,7 @@
 		requestUrlUS: "https://api.smartystreets.com/street-address", // US API endpoint
 		timeout: 5000, // How long to wait before the request times out (5000 = 5 seconds)
 		speed: "medium", // Animation speed
-		ambiguousMessage: "Matched multiple addresses. <br> which did you mean?", // Message when address is ambiguous
+		ambiguousMessage: "Matched multiple addresses.<br>which did you mean?", // Message when address is ambiguous
 		invalidMessage: "You entered an unknown address:", // Message when address is invalid
 		invalidCountryMessage: "Unknown country", // Message when the country is invalid
 		missingSecondaryMessage: "Did you forget your apt/suite number?", // Message when address is missing a secondary number
