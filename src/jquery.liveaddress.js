@@ -36,13 +36,13 @@
 		requestUrlUS: "https://api.smartystreets.com/street-address", // US API endpoint
 		timeout: 5000, // How long to wait before the request times out (5000 = 5 seconds)
 		speed: "medium", // Animation speed
-		ambiguousMessage: "Matched multiple addresses.<br>Which address did you mean?", // Message when address is ambiguous
-		invalidMessage: "You entered an unknown address", // Message when address is invalid
+		ambiguousMessage: "Matched multiple addresses. <br> which did you mean?", // Message when address is ambiguous
+		invalidMessage: "You entered an unknown address:", // Message when address is invalid
 		invalidCountryMessage: "Unknown country", // Message when the country is invalid
 		missingSecondaryMessage: "Did you forget your apt/suite number?", // Message when address is missing a secondary number
-		certifyMessage: "Use it the way I typed it.",
-		missingInputMessage: "You didn't enter enough information<br>",
-		changeMessage: "Take me back so I can try again.",
+		certifyMessage: "Use as it is",
+		missingInputMessage: "You didn't enter enough information",
+		changeMessage: "Try again",
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US"
@@ -523,23 +523,25 @@
 			"MrM9Pb0nJqcxMLE7O7s/P78////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABWPgdUmEJZ4WaZ6XAlWmEgUBg5wSRRvSmRwOR0HSoBkVIoMxYBA" +
 			"RFgBHdPJYBgSXijVAuAykUsBii5VsK96oelFc9i5K40MkgYInigHtAcHFH28XP1EFXSMwLBcWFRIrJwoCiCEAOw=='); }" +
 			".smarty-ui { position: absolute; z-index: 999; text-shadow: none; text-align: left; text-decoration: none; }" +
-			".smarty-popup { border: 3px solid #4C4C4C; padding: 0; background: #F6F6F6; " +
-			"box-shadow: 0px 10px 35px rgba(0, 0, 0, .8); }" + ".smarty-popup-header { background: #DDD; height: 12px; " +
-			"text-transform: uppercase; font: bold 12px/1em 'Arial Black', sans-serif; padding: 12px; }" +
-			".smarty-popup-ambiguous-header { color: #333; height: 20px; }" + ".smarty-popup-invalid-header { color: #CC0000; }" +
-			".smarty-popup-missing-input-header { color: #CC0000; height: 20px; }" +
+			".smarty-popup { padding: 20px 30px; background: #FFFFFF; " +
+			"box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }" + ".smarty-popup-header { " +
+			"text-transform: uppercase; font: bold 10pt/1em 'Helvetica', sans-serif; color: #CEA737; padding: 12px 0px 0px; text-align: center;}" +
+			".smarty-popup-ambiguous-header { color: #CEA737; }" + ".smarty-popup-invalid-header { color: #D0021B; }" +
+			".smarty-popup-missing-input-header { color: #CEA737; }" +
+			".smarty-popup-typed-address{ font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
 			".smarty-popup-close { color: #CC0000 !important; text-decoration: none !important; position: absolute; " +
 			"right: 15px; top: 10px; display: block; padding: 4px 6px; text-transform: uppercase; }" +
 			".smarty-popup-close:hover { color: #FFF !important; background: #CC0000; }" +
-			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #1A1A1A; }" +
-			".smarty-choice { display: block; font: 300 14px/1.5em sans-serif; text-decoration: none !important; " +
-			"border-top: 1px solid #CCC; }" + ".smarty-choice-list .smarty-choice:hover { color: #EEE !important; " +
-			"background: #333; text-decoration: none !important; }" + ".smarty-choice-alt { border-top: 1px solid #4C4C4C; " +
-			"background: #F6F6F6 !important; box-shadow: inset 0 4px 15px -5px rgba(0, 0, 0, .45); }" + ".smarty-choice-alt" +
-			" .smarty-choice-abort, .smarty-choice-override { padding: 6px 15px; color: #B3B3B3 !important; " +
-			"font-size: 12px; text-decoration: none !important; }" + ".smarty-choice-alt " +
-			".smarty-choice:first-child { border-top: 0; }" + ".smarty-choice-abort:hover { color: #333 !important; }" +
-			".smarty-choice-override:hover { color: #CC0000 !important; }" + ".smarty-tag { position: absolute; " +
+			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
+			".smarty-choice { display: block; font: 300 10pt/1em sans-serif; text-decoration: none !important; " +
+			"border: 1px solid #D4D4D4; }" + ".smarty-choice-list .smarty-choice:hover { color: #333 !important; " +
+			"background: #F7F7F7; text-decoration: none !important; border: 1px solid #333 }" + ".smarty-choice-alt { " +
+			"background: inherit !important; clear: both; }" + ".smarty-choice-alt" +
+			" .smarty-choice-abort, .smarty-choice-override { padding: 10px 15px; color: #FFF !important; " +
+			"font-size: 11pt; text-decoration: none !important; background: #606060; border-radius: 3px; }" + 
+			" .smarty-choice-override { float: right }" + " .smarty-choice-abort { float: left }" +
+			".smarty-choice-alt " + ".smarty-choice:first-child { border-top: 0; }" + ".smarty-choice-abort:hover { background: #333 !important; }" +
+			".smarty-choice-override:hover { background: #333 !important; }" + ".smarty-tag { position: absolute; " +
 			"display: block; overflow: hidden; font: 15px/1.2em sans-serif; text-decoration: none !important; width: 20px; " +
 			"height: 18px; border-radius: 25px; transition: all .25s; -moz-transition: all .25s; " +
 			"-webkit-transition: all .25s; -o-transition: all .25s; }" + ".smarty-tag:hover { width: 70px; " +
@@ -1384,7 +1386,7 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = Math.max(corners.width, 300); // minimum width
+			corners.width = 300; //Math.max(corners.width, 300); // minimum width
 			corners.height = Math.max(corners.height, response.length * 63 + 127); // minimum height
 			if (config.enforceVerification) {
 				corners.height -= 49;
@@ -1394,7 +1396,7 @@
 				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
 				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-ambiguous-header">' + config.ambiguousMessage +
-				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
+				'</div>' +'<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
 				'<div class="smarty-choice-list">';
 
 			if (addr.isDomestic()) {
@@ -1437,8 +1439,7 @@
 			html += '</div><div class="smarty-choice-alt">';
 			html += '<a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' + config.certifyMessage + '<br>(' +
-					addr.toString() + ')</a>';
+				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' + config.certifyMessage + '</a>';
 			}
 			html += '</div></div></div>';
 			$(html).hide().appendTo('body').show(defaults.speed);
@@ -1512,25 +1513,24 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = Math.max(corners.width, 320); // minimum width
-			corners.height = Math.max(corners.height, 180); // minimum height
+			corners.width = 300; //Math.max(corners.width, 320); // minimum width
+			corners.height = 130; //Math.max(corners.height, 180); // minimum height
 			if (config.enforceVerification) {
 				corners.height -= 49;
 			}
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
-				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
+			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' + 
+				'<div class="smarty-popup smarty-addr-' +
+				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidMessage +
-				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
-				'<div class="smarty-choice-list"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>' +
-				'<div class="smarty-choice-alt">';
+				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'<div class="smarty-choice-alt"><a href="javascript:" ' +
+				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '<br>(' + addr.toString() + ')</a>';
+					config.certifyMessage + '</a>';
 			}
-			html += '</div></div></div>';
+			html += '</div></div>';
 
 			$(html).hide().appendTo('body').show(defaults.speed);
 
@@ -1579,25 +1579,24 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = Math.max(corners.width, 250); // minimum width
-			corners.height = Math.max(corners.height, 180); // minimum height
+			corners.width = 300; //Math.max(corners.width, 250); // minimum width
+			corners.height = 130; //Math.max(corners.height, 180); // minimum height
 			if (config.enforceVerification) {
 				corners.height -= 49;
 			}
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
-				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
+			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
+				'<div class="smarty-popup smarty-addr-' +
+				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidCountryMessage +
-				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
-				'<div class="smarty-choice-list"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>' +
-				'<div class="smarty-choice-alt">';
+				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'<div class="smarty-choice-alt"><a href="javascript:" ' +
+				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '<br>(' + addr.toString() + ')</a>';
+					config.certifyMessage + '</a>';
 			}
-			html += '</div></div></div>';
+			html += '</div></div>';
 
 			$(html).hide().appendTo('body').show(defaults.speed);
 
@@ -1644,23 +1643,22 @@
 				return;
 			var addr = data.address;
 			var corners = addr.corners();
-			corners.width = Math.max(corners.width, 300);
-			corners.height = Math.max(corners.height, 180);
+			corners.width = 300; //Math.max(corners.width, 300);
+			corners.height = 130; //Math.max(corners.height, 180);
 			if (config.enforceVerification) {
 				corners.height -= 49;
 			}
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
-				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
+			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' + 
+				'<div class="smarty-popup smarty-addr-' +
+				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
-				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
-				'<div class="smarty-choice-list"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>' +
-				'<div class="smarty-choice-alt">';
+				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'<div class="smarty-choice-alt"><a href="javascript:" ' +
+				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '<br>(' + addr.toString() + ')</a>';
+					config.certifyMessage + '</a>';
 			}
 			html += '</div>' + '</div></div>';
 
@@ -1711,25 +1709,24 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = Math.max(corners.width, 300); // minimum width
-			corners.height = Math.max(corners.height, 180); // minimum height
+			corners.width = 300; //Math.max(corners.width, 300); // minimum width
+			corners.height = 140; //Math.max(corners.height, 180); // minimum height
 			if (config.enforceVerification) {
 				corners.height -= 49;
 			}
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
-				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
+			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' + 
+				'<div class="smarty-popup smarty-addr-' +
+				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage +
-				'<a href="javascript:" class="smarty-popup-close smarty-abort" title="Cancel">x</a></div>' +
-				'<div class="smarty-choice-list"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>' +
-				'<div class="smarty-choice-alt">';
+				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'<div class="smarty-choice-alt"><a href="javascript:" ' +
+				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '<br>(' + addr.toString() + ')</a>';
+					config.certifyMessage + '</a>';
 			}
-			html += '</div></div></div>';
+			html += '</div></div>';
 
 			$(html).hide().appendTo('body').show(defaults.speed);
 
