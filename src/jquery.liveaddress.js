@@ -529,9 +529,6 @@
 			".smarty-popup-ambiguous-header { color: #CEA737; }" + ".smarty-popup-invalid-header { color: #D0021B; }" +
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
 			".smarty-popup-typed-address{ font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
-			".smarty-popup-close { color: #CC0000 !important; text-decoration: none !important; position: absolute; " +
-			"right: 15px; top: 10px; display: block; padding: 4px 6px; text-transform: uppercase; }" +
-			".smarty-popup-close:hover { color: #FFF !important; background: #CC0000; }" +
 			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
 			".smarty-choice { display: block; font: 300 10pt/1em sans-serif; text-decoration: none !important; " +
 			"border: 1px solid #D4D4D4; }" + ".smarty-choice-list .smarty-choice:hover { color: #333 !important; " +
