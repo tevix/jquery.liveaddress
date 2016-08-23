@@ -1387,17 +1387,14 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = 300; //Math.max(corners.width, 300); // minimum width
-			corners.height = Math.max(corners.height, response.length * 63 + 127); // minimum height
-			if (config.enforceVerification) {
-				corners.height -= 49;
-			}
+			corners.width = 294;
+			corners.height = response.length * 63 + 124;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px; width: ' +
-				corners.width + 'px; height: ' + corners.height + 'px;">' + '<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + (corners.width - 6) + 'px; height: ' + (corners.height - 3) + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-ambiguous-header">' + config.ambiguousMessage +
-				'</div>' +'<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
+				'<div class="smarty-popup-header smarty-popup-ambiguous-header">' + config.ambiguousMessage + '</div>' +
+				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<div class="smarty-choice-list">';
 
 			if (addr.isDomestic()) {
@@ -1514,19 +1511,16 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = 300; //Math.max(corners.width, 320); // minimum width
-			corners.height = 130; //Math.max(corners.height, 180); // minimum height
-			if (config.enforceVerification) {
-				corners.height -= 49;
-			}
+			corners.width = 300;
+			corners.height = 130;
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
-				'<div class="smarty-choice-alt"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
+				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidMessage + '</div>' +
+				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
+				'<div class="smarty-choice-alt">' +
+				'<a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
 					config.certifyMessage + '</a>';
@@ -1580,19 +1574,16 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = 300; //Math.max(corners.width, 250); // minimum width
-			corners.height = 130; //Math.max(corners.height, 180); // minimum height
-			if (config.enforceVerification) {
-				corners.height -= 49;
-			}
+			corners.width = 300;
+			corners.height = 130;
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidCountryMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
-				'<div class="smarty-choice-alt"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>';
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
+				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidCountryMessage + '</div>' +
+				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
+				'<div class="smarty-choice-alt"><a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' +
+				config.changeMessage + '</a></div>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
 					config.certifyMessage + '</a>';
@@ -1644,17 +1635,15 @@
 				return;
 			var addr = data.address;
 			var corners = addr.corners();
-			corners.width = 300; //Math.max(corners.width, 300);
-			corners.height = 130; //Math.max(corners.height, 180);
-			if (config.enforceVerification) {
-				corners.height -= 49;
-			}
+			corners.width = 300;
+			corners.height = 130;
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'</div>' +
+				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<div class="smarty-choice-alt"><a href="javascript:" ' +
 				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>';
 			if (!config.enforceVerification) {
@@ -1710,17 +1699,14 @@
 			var addr = data.address;
 			var response = data.response;
 			var corners = addr.corners();
-			corners.width = 300; //Math.max(corners.width, 300); // minimum width
-			corners.height = 140; //Math.max(corners.height, 180); // minimum height
-			if (config.enforceVerification) {
-				corners.height -= 49;
-			}
+			corners.width = 300;
+			corners.height = 140;
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
+				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage + '</div>' +
+				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<div class="smarty-choice-alt"><a href="javascript:" ' +
 				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
