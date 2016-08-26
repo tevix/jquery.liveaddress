@@ -14,10 +14,13 @@ our customers have used before that you can copy+paste into your page, then twea
 
 Full documentation
 -----------------------
+
 https://smartystreets.com/docs/plugin
+
 
 Working Examples
 -----------------------
+
 http://smartystreets.github.io/jquery.liveaddress/
 
 
@@ -39,13 +42,14 @@ to help you find problems, and if necessary, map the fields manually. See the
 
 Node.js
 -----------------------
+
 If you prefer a local copy via Node.js, ```npm install liveaddress```
 
 
 Troubleshooting
 -----------------------
-https://smartystreets.com/docs/plugin/troubleshooting
 
+https://smartystreets.com/docs/plugin/troubleshooting
 
 
 Test Runner File
@@ -68,7 +72,6 @@ We are happy to see customers fork the project and improve upon it, and we will 
 come our way.
 
 
-
 Updates
 -----------------------
 
@@ -80,7 +83,6 @@ This GitHub repository is where the plugin is being actively developed. It will 
 and fixes, but also bugs. So while you can link to the raw file here on GitHub instead, it is more prone to bugs and
 breaking changes. It also may jump to a new minor or major version without warning, potentially breaking your implementation.
 Only the latest production version is actively maintained.
-
 
 
 Bug Reports
@@ -99,9 +101,8 @@ errors and report those to us. Or, submit a pull request with the fix and we'll 
 
 Forks
 -----------------------
-These are user-contributed changes to the plugin that you may find useful. Please note that we cannot support or endorse them, but we do link to them as a courtesy since you may find them helpful.
 
-- [The cerealcable fork](https://github.com/cerealcable/jquery.liveaddress/blob/13185e2b1548fd886f99a0f2822230ea18e90213/src/jquery.liveaddress.js) puts secondary data into the second street field, if there is one. (Just be aware that those addresses are no longer in the standardized format.)
+These are user-contributed changes to the plugin that you may find useful. Please note that we cannot support or endorse them, but we do link to them as a courtesy since you may find them helpful.
 
 
 License (GPLv3)
@@ -111,6 +112,7 @@ All source code, resources, and other contents herein are copyright (c) 2012-201
 under [Version 3 of the GNU General Public License](http://opensource.org/licenses/GPL-3.0).
 
 If you require alternative licensing to embed this code into your product, please contact us to discuss your requirements.
+
 
 Disclaimer
 -----------------------
