@@ -42,7 +42,7 @@
 		missingSecondaryMessage: "Did you forget your apt/suite number?", // Message when address is missing a secondary number
 		certifyMessage: "Use as it is",
 		missingInputMessage: "You didn't enter enough information",
-		changeMessage: "Try again",
+		changeMessage: "Go back",
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US"
@@ -530,16 +530,16 @@
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
 			".smarty-popup-typed-address{ font-family: sans-serif; font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
 			".smarty-popup-secondary-number-form { font-family: sans-serif; margin: 10px auto 20px; padding: 0; border: none; float: none; background: none; width: auto; }" +
-			".smarty-street1-string { font-size: 10pt; padding: 0px 10px; }" + "#smarty-secondary-number-input-box { width: 50px; font-size: 10pt;}" +
+			".smarty-street1-string { font-size: 11pt; padding: 0px 10px; }" + "#smarty-secondary-number-input-box { width: 50px; font-size: 11pt;}" +
 			"#smarty-popup-secondary-number-form-submit-button { line-height: 23px; background: #606060; border: none; color: #fff; border-radius: 3px;" + 
-			" padding: 2px 15px; margin-left: 5px; font-size: 10pt;}" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
+			" padding: 2px 15px; margin-left: 5px; font-size: 11pt;}" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
 			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
 			".smarty-choice { display: block; font: 300 10pt/1em sans-serif; text-decoration: none !important; " +
 			"border: 1px solid #D4D4D4; }" + ".smarty-choice-list .smarty-choice:hover { color: #333 !important; " +
 			"background: #F7F7F7; text-decoration: none !important; border: 1px solid #333 }" + ".smarty-choice-alt { " +
 			"background: inherit !important; clear: both; }" + ".smarty-choice-alt" +
-			" .smarty-choice-abort, .smarty-choice-override { padding: 10px 15px; color: #FFF !important; " +
-			"font-size: 11pt; text-decoration: none !important; background: #606060; border-radius: 3px; }" + 
+			" .smarty-choice-abort, .smarty-choice-override { padding: 8px 10px; color: #FFF !important; " +
+			"font-size: 10pt; text-decoration: none !important; background: #606060; border-radius: 3px; border: none; }" + 
 			" .smarty-choice-override { float: right }" +
 			" .smarty-choice-abort { float: left }" + ".smarty-choice-alt " + ".smarty-choice:first-child { border-top: 0; }" + 
 			".smarty-choice-abort:hover { background: #333 !important; }" + 
