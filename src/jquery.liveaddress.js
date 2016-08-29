@@ -42,7 +42,7 @@
 		missingSecondaryMessage: "Did you forget your apt/suite number?", // Message when address is missing a secondary number
 		certifyMessage: "Use as it is",
 		missingInputMessage: "You didn't enter enough information",
-		changeMessage: "Try again",
+		changeMessage: "Go back",
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US"
@@ -525,16 +525,21 @@
 			"text-transform: uppercase; font: bold 10pt/1em 'Helvetica', sans-serif; color: #CEA737; padding: 12px 0px 0px; text-align: center;}" +
 			".smarty-popup-ambiguous-header { color: #CEA737; }" + ".smarty-popup-invalid-header { color: #D0021B; }" +
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
-			".smarty-popup-typed-address{ font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
+			".smarty-popup-typed-address{ font-family: sans-serif; font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
+			".smarty-popup-secondary-number-form { font-family: sans-serif; margin: 10px auto 20px; padding: 0; border: none; float: none; background: none; width: auto; }" +
+			".smarty-street1-string { font-size: 11pt; padding: 0px 10px; }" + "#smarty-secondary-number-input-box { width: 50px; font-size: 11pt;}" +
+			"#smarty-popup-secondary-number-form-submit-button { line-height: 23px; background: #606060; border: none; color: #fff; border-radius: 3px;" +
+			" padding: 2px 15px; margin-left: 5px; font-size: 11pt;}" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
 			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
 			".smarty-choice { display: block; font: 300 10pt/1em sans-serif; text-decoration: none !important; " +
 			"border: 1px solid #D4D4D4; }" + ".smarty-choice-list .smarty-choice:hover { color: #333 !important; " +
 			"background: #F7F7F7; text-decoration: none !important; border: 1px solid #333 }" + ".smarty-choice-alt { " +
 			"background: inherit !important; clear: both; }" + ".smarty-choice-alt" +
-			" .smarty-choice-abort, .smarty-choice-override { padding: 10px 15px; color: #FFF !important; " +
-			"font-size: 11pt; text-decoration: none !important; background: #606060; border-radius: 3px; }" +
-			" .smarty-choice-override { float: right }" + " .smarty-choice-abort { float: left }" +
-			".smarty-choice-alt " + ".smarty-choice:first-child { border-top: 0; }" + ".smarty-choice-abort:hover { background: #333 !important; }" +
+			" .smarty-choice-abort, .smarty-choice-override { padding: 8px 10px; color: #FFF !important; " +
+			"font-size: 10pt; text-decoration: none !important; background: #606060; border-radius: 3px; border: none; }" +
+			" .smarty-choice-override { float: right }" +
+			" .smarty-choice-abort { float: left }" + ".smarty-choice-alt " + ".smarty-choice:first-child { border-top: 0; }" +
+			".smarty-choice-abort:hover { background: #333 !important; }" +
 			".smarty-choice-override:hover { background: #333 !important; }" + ".smarty-tag { position: absolute; " +
 			"display: block; overflow: hidden; font: 15px/1.2em sans-serif; text-decoration: none !important; width: 20px; " +
 			"height: 18px; border-radius: 25px; transition: all .25s; -moz-transition: all .25s; " +
@@ -1635,17 +1640,24 @@
 				return;
 			var addr = data.address;
 			var corners = addr.corners();
-			corners.width = 300;
-			corners.height = 130;
+			corners.width = 300; //Math.max(corners.width, 300);
+			corners.height = 200; //Math.max(corners.height, 180);
+			if (config.enforceVerification) {
+				corners.height -= 49;
+			}
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
 				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
 				corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
-				'</div>' +
-				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<div class="smarty-choice-alt"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a></div>';
+				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
+				'<form class="smarty-popup-secondary-number-form">' +
+				'<span class="smarty-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
+				'<input id="smarty-secondary-number-input-box" type="text" name="secondarynumber" placeholder="Ex. 101">' +
+				'<input id="smarty-popup-secondary-number-form-submit-button" type="submit" value="Submit">' +
+				'</form>' +
+				'<hr style="margin-bottom: 15px;">' + '<div class="smarty-choice-alt">' + '<a href="javascript:" ' +
+				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
 				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
 					config.certifyMessage + '</a>';
