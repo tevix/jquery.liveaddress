@@ -533,7 +533,7 @@
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
 			".smarty-popup-typed-address{ font-family: sans-serif; font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
 			".smarty-popup-secondary-number-form { font-family: sans-serif; margin: 10px auto 20px; padding: 0; border: none; float: none; background: none; width: auto; }" +
-			".smarty-street1-string { font-size: 11pt; padding: 0px 10px; }" + "#smarty-secondary-number-input-box { width: 50px; font-size: 11pt;}" +
+			".smarty-popup-street1-string { font-size: 11pt; padding: 0px 10px; }" + "#smarty-popup-secondary-number-input-box { width: 50px; font-size: 11pt;}" +
 			"#smarty-popup-secondary-number-form-submit-button { line-height: 23px; background: #606060; border: none; color: #fff; border-radius: 3px;" +
 			" padding: 2px 15px; margin-left: 5px; font-size: 11pt;}" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
 			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
@@ -1655,8 +1655,8 @@
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
 				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<form class="smarty-popup-secondary-number-form">' +
-				'<span class="smarty-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
-				'<input id="smarty-secondary-number-input-box" class="smarty-addr-' + addr.id() +
+				'<span class="smarty-popup-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
+				'<input id="smarty-popup-secondary-number-input-box" class="smarty-addr-' + addr.id() +
 				'" type="text" name="secondarynumber" placeholder="Ex. 101">' +
 				'<input id="smarty-popup-secondary-number-form-submit-button" class="smarty-addr-' + addr.id() +
 				'" type="submit" value="Submit">' +
@@ -1703,7 +1703,7 @@
 			undelegateAllClicks(data.selectors.submit);
 			// User enters a secondary address
 			$('body').delegate(data.selectors.submit, 'click', data, function (e) {
-				e.data.address.secondary = $("#smarty-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
+				e.data.address.secondary = $("#smarty-popup-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
 				e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
 				e.data.address.zipcode = e.data.response.raw[0].components.zipcode;
 				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
