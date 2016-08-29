@@ -306,6 +306,12 @@
 					ui.showMissingInput(data);
 				},
 
+				AddedSecondary: function (event, data) {
+					if (config.debug)
+						console.log("EVENT:", "AddedSecondary", "(User entered a secondary number to attempt revalidation)", event, data);
+					data.address.verify(data.invoke, data.invokeFn);
+				},
+
 				OriginalInputSelected: function (event, data) {
 					if (config.debug)
 						console.log("EVENT:", "OriginalInputSelected", "(User chose to use original input)", event, data);
@@ -1650,8 +1656,10 @@
 				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<form class="smarty-popup-secondary-number-form">' +
 				'<span class="smarty-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
-				'<input id="smarty-secondary-number-input-box" type="text" name="secondarynumber" placeholder="Ex. 101">' +
-				'<input id="smarty-popup-secondary-number-form-submit-button" type="submit" value="Submit">' +
+				'<input id="smarty-secondary-number-input-box" class="smarty-addr-' + addr.id() +
+				'" type="text" name="secondarynumber" placeholder="Ex. 101">' +
+				'<input id="smarty-popup-secondary-number-form-submit-button" class="smarty-addr-' + addr.id() +
+				'" type="submit" value="Submit">' +
 				'</form>' +
 				'<hr style="margin-bottom: 15px;">' + '<div class="smarty-choice-alt">' + '<a href="javascript:" ' +
 				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
@@ -1665,7 +1673,8 @@
 
 			data.selectors = {
 				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override ',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort'
+				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort',
+				submit: '#smarty-popup-secondary-number-form-submit-button.smarty-addr-' + addr.id()
 			};
 
 			// Scroll to it if necessary
@@ -1689,6 +1698,18 @@
 				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
+			});
+
+			undelegateAllClicks(data.selectors.submit);
+			// User enters a secondary address
+			$('body').delegate(data.selectors.submit, 'click', data, function (e) {
+				e.data.address.secondary = $("#smarty-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
+				e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
+				e.data.address.zipcode = e.data.response.raw[0].components.zipcode;
+				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+				delete e.data.selectors;
+				suppress(e);
+				trigger("AddedSecondary", e.data);
 			});
 
 			// User presses esc key
@@ -2392,6 +2413,20 @@
 			if (fields.freeform && fields.freeform.dom.value) {
 				obj.street = fields.freeform.dom.value;
 			}
+			if (typeof this.secondary !== "undefined") {
+				obj.secondary = this.secondary;
+				delete this.secondary;
+			}
+			if (typeof this.address1 !== "undefined") {
+				obj.street = this.address1;
+				delete this.address1;
+				if (typeof this.zipcode !== "undefined") {
+					obj.zipcode = this.zipcode;
+					delete this.zipcode;
+				}
+				delete obj.freeform;
+			}
+
 			obj.match = this.match;
 			obj.candidates = config.candidates;
 			return obj;
