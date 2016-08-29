@@ -1647,13 +1647,15 @@
 			}
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' +
-				addr.id() + '" style="width: ' + corners.width + 'px; height: ' + corners.height + 'px;">' +
+				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
+				corners.height + 'px;">' +
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">'+ addr.toString()+ '</div>'+
-				'<form class="smarty-popup-secondary-number-form">' + '<span class="smarty-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
-				'<input id="smarty-secondary-number-input-box" type="text" name="secondarynumber" placeholder="Ex. 101">'+ '</input>' +
-				'<input id="smarty-popup-secondary-number-form-submit-button" type="submit" value="Submit">' + '</input>' + '</form>' +
+				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
+				'<form class="smarty-popup-secondary-number-form">' +
+				'<span class="smarty-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
+				'<input id="smarty-secondary-number-input-box" type="text" name="secondarynumber" placeholder="Ex. 101">' +
+				'<input id="smarty-popup-secondary-number-form-submit-button" type="submit" value="Submit">' +
+				'</form>' +
 				'<hr style="margin-bottom: 15px;">' + '<div class="smarty-choice-alt">' + '<a href="javascript:" ' +
 				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
 			if (!config.enforceVerification) {
