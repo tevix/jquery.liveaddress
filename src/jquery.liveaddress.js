@@ -532,10 +532,10 @@
 			".smarty-popup-ambiguous-header { color: #CEA737; }" + ".smarty-popup-invalid-header { color: #D0021B; }" +
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
 			".smarty-popup-typed-address{ font-family: sans-serif; font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
-			".smarty-popup-secondary-number-form { font-family: sans-serif; margin: 10px auto 20px; padding: 0; border: none; float: none; background: none; width: auto; }" +
-			".smarty-popup-street1-string { font-size: 11pt; padding: 0px 10px; }" + "#smarty-popup-secondary-number-input-box { width: 50px; font-size: 11pt;}" +
+			".smarty-popup-secondary-number-form { font-family: sans-serif; margin: 10px auto 20px; padding: 0; border: none; float: none; background: none; width: auto; text-align: center; }" +
+			"#smarty-popup-secondary-number-input-box {width: 200px; font-size: 11pt; margin-bottom: 10px; text-align: center;}" +
 			"#smarty-popup-secondary-number-form-submit-button { line-height: 23px; background: #606060; border: none; color: #fff; border-radius: 3px;" +
-			" padding: 2px 15px; margin-left: 5px; font-size: 11pt;}" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
+			" padding: 2px 15px; font-size: 11pt; width: 215px; }" + "#smarty-popup-secondary-number-form-submit-button:hover { background: #333; }" +
 			".smarty-choice-list .smarty-choice { background: #FFF; padding: 10px 15px; color: #9B9B9B; margin-bottom: 10px; }" +
 			".smarty-choice { display: block; font: 300 10pt/1em sans-serif; text-decoration: none !important; " +
 			"border: 1px solid #D4D4D4; }" + ".smarty-choice-list .smarty-choice:hover { color: #333 !important; " +
@@ -1647,7 +1647,7 @@
 			var addr = data.address;
 			var corners = addr.corners();
 			corners.width = 300;
-			corners.height = 200;
+			corners.height = 230;
 
 			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
 				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
@@ -1655,9 +1655,8 @@
 				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
 				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
 				'<form class="smarty-popup-secondary-number-form">' +
-				'<span class="smarty-popup-street1-string">' + data.response.raw[0].delivery_line_1 + '</span>' +
 				'<input id="smarty-popup-secondary-number-input-box" class="smarty-addr-' + addr.id() +
-				'" type="text" name="secondarynumber" placeholder="Ex. 101">' +
+				'" type="text" name="secondarynumber" placeholder="Enter apt/suite number here"><br>' +
 				'<input id="smarty-popup-secondary-number-form-submit-button" class="smarty-addr-' + addr.id() +
 				'" type="submit" value="Submit">' +
 				'</form>' +
