@@ -1703,7 +1703,9 @@
 			// User enters a secondary address
 			$('body').delegate(data.selectors.submit, 'click', data, function (e) {
 				e.data.address.secondary = $("#smarty-popup-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
-				e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
+				if (e.data.address.isFreeform()) {
+					e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
+				}
 				e.data.address.zipcode = e.data.response.raw[0].components.zipcode;
 				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
 				delete e.data.selectors;
