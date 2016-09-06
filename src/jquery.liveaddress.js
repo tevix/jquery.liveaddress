@@ -43,6 +43,7 @@
 		certifyMessage: "Use as it is",
 		missingInputMessage: "You didn't enter enough information",
 		changeMessage: "Go back",
+		noSuggestionsMessage: "No suggestions",
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US"
@@ -112,6 +113,7 @@
 		config.certifyMessage = config.certifyMessage || defaults.certifyMessage;
 		config.missingInputMessage = config.missingInputMessage || defaults.missingInputMessage;
 		config.changeMessage = config.changeMessage || defaults.changeMessage;
+		config.noSuggestionsMessage = config.noSuggestionsMessage || defaults.noSuggestionsMessage;
 		config.fieldSelector = config.fieldSelector || defaults.fieldSelector;
 		config.submitSelector = config.submitSelector || defaults.submitSelector;
 		config.requestUrlInternational = config.requestUrlInternational || defaults.requestUrlInternational;
@@ -926,7 +928,7 @@
 					data.suggContainer.empty();
 
 					if (!json.suggestions || json.suggestions.length == 0) {
-						data.suggContainer.html('<div class="smarty-no-suggestions">No suggestions</div>');
+						data.suggContainer.html('<div class="smarty-no-suggestions">' + config.noSuggestionsMessage + '</div>');
 						return;
 					}
 
