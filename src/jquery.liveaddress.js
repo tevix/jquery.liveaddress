@@ -686,16 +686,6 @@
 								});
 								strField.attr("autocomplete", "off"); // Tell Firefox to keep quiet
 
-								strField.blur({
-									containerUi: containerUi
-								}, function (event) {
-									setTimeout((function (event) {
-										return function () {
-											if (event.data) event.data.containerUi.hide();
-										};
-									})(event), 300); // This line is proudly IE9-compatible
-								});
-
 								strField.keydown({
 									containerUi: containerUi,
 									addr: addr
@@ -714,7 +704,7 @@
 											useAutocompleteSuggestion(event.data.addr, autocompleteResponse.suggestions[currentChoice.data("suggIndex")], event.data.containerUi);
 											return addr.isFreeform() ? true : suppress(event);
 										} else
-											event.data.containerUi.hide();
+											ui.hideAutocomplete(event.data.addr.id());
 									} else if (event.keyCode == 40) { // Down arrow
 										if (!currentChoice.hasClass('smarty-suggestion')) {
 											currentChoice = $('.smarty-suggestion', suggContainer).first().mouseover();
@@ -880,13 +870,13 @@
 			if (!input) {
 				addr.lastStreetInput = input;
 				suggContainer.empty();
-				containerUi.hide();
+				ui.hideAutocomplete(addr.id());
 			}
 
 			if (event.keyCode == 13) { // Enter/return
 				if ($('.smarty-active-suggestion:visible').length > 0)
 					useAutocompleteSuggestion(addr, autocompleteResponse.suggestions[$('.smarty-active-suggestion:visible').first().data('suggIndex')], containerUi);
-				containerUi.hide();
+				ui.hideAutocomplete(addr.id());
 				streetField.blur();
 				return suppress(event);
 			}
@@ -990,12 +980,14 @@
 		};
 
 		function useAutocompleteSuggestion(addr, suggestion, containerUi) {
+			addr.usedAutocomplete = false;
 			var domfields = addr.getDomFields();
-			containerUi.hide(); // It's important that the suggestions are hidden before AddressChanged event fires
+			ui.hideAutocomplete(addr.id()); // It's important that the suggestions are hidden before AddressChanged event fires
 
-			if (addr.isFreeform())
+			if (addr.isFreeform()) {
 				$(domfields['freeform']).val(suggestion.text).change();
-			else {
+				addr.usedAutocomplete = true;
+			} else {
 				if (domfields['postal_code']) {
 					$(domfields['postal_code']).val("").change();
 				}
@@ -1123,6 +1115,11 @@
 				range.select();
 			}
 		}
+
+		// Hides the autocomplete UI
+		this.hideAutocomplete = function (addressID) {
+			$('.smarty-autocomplete.smarty-addr-' + addressID).closest('.smarty-ui').hide();
+		};
 
 		//shows the SmartyUI when activating 1 address
 		this.showSmartyUI = function (addressID) {
@@ -2035,12 +2032,30 @@
 						value: val
 					};
 
+					// Capture the element that is clicked on so we know whether or not to close the autocomplete UI
+					// (http://stackoverflow.com/a/11544766/4462191)
+					var clicky;
+
+					$(document).mousedown(function (e) {
+						// The latest element clicked
+						clicky = $(e.target);
+					});
+
+					// when 'clicky == null' on blur, we know it was not caused by a click
+					// but maybe by pressing the tab key
+					$(document).mouseup(function (e) {
+						clicky = null;
+					});
+
 					// Bind the DOM element to needed events, passing in the data above
 					// NOTE: When the user types a street, city, and state, then hits Enter without leaving
 					// the state field, this change() event fires before the form is submitted, and if autoVerify is
 					// on, the verification will not invoke form submit, because it didn't come from a form submit.
 					// This is known behavior and is actually proper functioning in this uncommon edge case.
 					!isData && $(domMap[prop]).change(data, function (e) {
+						if (clicky != null && clicky[0].className != "smarty-suggestion smarty-active-suggestion") {
+							ui.hideAutocomplete(e.data.address.id());
+						}
 						e.data.address.set(e.data.field, e.target.value, false, false, e, false);
 					});
 				}
