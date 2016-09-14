@@ -33,7 +33,7 @@
 		candidates: 3, // Number of suggestions to show if ambiguous
 		autocomplete: 10, // Number of autocomplete suggestions; set to 0 or false to disable
 		requestUrlInternational: "https://international-street.api.smartystreets.com/verify", // International API endpoint
-		requestUrlUS: "https://api.smartystreets.com/street-address", // US API endpoint
+		requestUrlUS: "https://us-street.api.smartystreets.com/street-address", // US API endpoint
 		timeout: 5000, // How long to wait before the request times out (5000 = 5 seconds)
 		speed: "medium", // Animation speed
 		ambiguousMessage: "Matched multiple addresses.<br>which did you mean?", // Message when address is ambiguous
@@ -955,7 +955,7 @@
 
 			autocplRequests[autocplrequest.number] = autocplrequest;
 
-			$.getJSON("https://autocomplete-api.smartystreets.com/suggest?callback=?", {
+			$.getJSON("https://us-autocomplete.api.smartystreets.com/suggest?", {
 				"auth-id": config.key,
 				"auth-token": config.token,
 				prefix: data.input,
