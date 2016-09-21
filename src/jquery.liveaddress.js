@@ -585,7 +585,7 @@
 						'"><span class="smarty-tag-check">&#10003;</span><span class="smarty-tag-text">Verify</span></a></div>');
 
 					// Move the UI elements around when browser window is resized
-					$(window).resize({
+					$(window).on("resize.smarty", {
 						addr: addresses[i]
 					}, function (e) {
 						var addr = e.data.addr;
@@ -754,10 +754,10 @@
 
 					// Try .5 and 1.5 seconds after the DOM loads to re-position UI elements; hack for Firefox.
 					setTimeout(function () {
-						$(window).resize();
+						$(window).trigger("resize.smarty");
 					}, 500);
 					setTimeout(function () {
-						$(window).resize();
+						$(window).trigger("resize.smarty");
 					}, 1500);
 				}
 
@@ -1186,7 +1186,7 @@
 			$('.smarty-ui').undelegate('.smarty-suggestion', 'click').undelegate('.smarty-suggestion', 'mouseover').undelegate('.smarty-suggestion', 'mouseleave').remove();
 			$('body').undelegate('.smarty-undo', 'click');
 			$('body').undelegate('.smarty-tag-grayed', 'click');
-			$(window).unbind('resize');
+			$(window).unbind('resize.smarty');
 			$(document).unbind('keyup');
 
 			forms = [];
