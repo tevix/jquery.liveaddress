@@ -50,7 +50,7 @@
 	};
 	var config = {}; // Configuration settings as set by the user or just the defaults
 	var forms = []; // List of forms (which hold lists of addresses)
-	var defaultSelector = 'body'; // Default selector which should be over the whole page (must be compatible with the .find() function; not document)
+	var defaultSelector = "body"; // Default selector which should be over the whole page (must be compatible with the .find() function; not document)
 	var mappedAddressCount = 0; // The number of currently-mapped addresses
 	var acceptableFields = [
 		"freeform", "address1", "address2", "address3", "address4", "organization", "locality", "administrative_area", "postal_code", "country", "match"
@@ -90,21 +90,21 @@
 			});
 
 		// Determine if user passed in an API key or a settings/config object
-		if (typeof arg === 'string') {
+		if (typeof arg === "string") {
 			// Use the default configuration
 			config = {
 				key: arg
 			};
-		} else if (typeof arg === 'object') {
+		} else if (typeof arg === "object") {
 			// Use the user's configuration on top of the default
 			config = arg;
 		}
 
 		// Enforce some defaults
 		config.candidates = config.candidates || defaults.candidates;
-		config.ui = typeof config.ui === 'undefined' ? true : config.ui;
+		config.ui = typeof config.ui === "undefined" ? true : config.ui;
 		config.autoVerify = config.autoVerify !== true && config.autoVerify !== false ? true : config.autoVerify;
-		config.submitVerify = typeof config.submitVerify === 'undefined' ? true : config.submitVerify;
+		config.submitVerify = typeof config.submitVerify === "undefined" ? true : config.submitVerify;
 		config.timeout = config.timeout || defaults.timeout;
 		config.ambiguousMessage = config.ambiguousMessage || defaults.ambiguousMessage;
 		config.invalidMessage = config.invalidMessage || defaults.invalidMessage;
@@ -118,19 +118,19 @@
 		config.submitSelector = config.submitSelector || defaults.submitSelector;
 		config.requestUrlInternational = config.requestUrlInternational || defaults.requestUrlInternational;
 		config.requestUrlUS = config.requestUrlUS || defaults.requestUrlUS;
-		config.autocomplete = typeof config.autocomplete === 'undefined' ? defaults.autocomplete : config.autocomplete;
-		config.cityFilter = typeof config.cityFilter === 'undefined' ? "" : config.cityFilter;
-		config.stateFilter = typeof config.stateFilter === 'undefined' ? "" : config.stateFilter;
-		config.cityStatePreference = typeof config.cityStatePreference === 'undefined' ? "" : config.cityStatePreference;
-		config.geolocate = typeof config.geolocate === 'undefined' ? true : config.geolocate;
-		config.geolocatePrecision = typeof config.geolocatePrecision === 'undefined' ? 'city' : config.geolocatePrecision;
-		config.waitForStreet = typeof config.waitForStreet === 'undefined' ? false : config.waitForStreet;
-		config.verifySecondary = typeof config.verifySecondary === 'undefined' ? false : config.verifySecondary;
-		config.geocode = typeof config.geocode === 'undefined' ? false : config.geocode;
-		config.enforceVerification = typeof config.enforceVerification === 'undefined' ? false : config.enforceVerification;
-		config.agent = typeof config.agent === 'undefined' ? "" : config.agent;
+		config.autocomplete = typeof config.autocomplete === "undefined" ? defaults.autocomplete : config.autocomplete;
+		config.cityFilter = typeof config.cityFilter === "undefined" ? "" : config.cityFilter;
+		config.stateFilter = typeof config.stateFilter === "undefined" ? "" : config.stateFilter;
+		config.cityStatePreference = typeof config.cityStatePreference === "undefined" ? "" : config.cityStatePreference;
+		config.geolocate = typeof config.geolocate === "undefined" ? true : config.geolocate;
+		config.geolocatePrecision = typeof config.geolocatePrecision === "undefined" ? "city" : config.geolocatePrecision;
+		config.waitForStreet = typeof config.waitForStreet === "undefined" ? false : config.waitForStreet;
+		config.verifySecondary = typeof config.verifySecondary === "undefined" ? false : config.verifySecondary;
+		config.geocode = typeof config.geocode === "undefined" ? false : config.geocode;
+		config.enforceVerification = typeof config.enforceVerification === "undefined" ? false : config.enforceVerification;
+		config.agent = typeof config.agent === "undefined" ? "" : config.agent;
 
-		if (typeof config.autocomplete === 'number' && config.autocomplete < 1) {
+		if (typeof config.autocomplete === "number" && config.autocomplete < 1) {
 			config.autocomplete = false;
 		}
 
@@ -369,7 +369,7 @@
 				}
 			},
 			on: function (eventType, userHandler) {
-				if (!this.events[eventType] || typeof userHandler !== 'function')
+				if (!this.events[eventType] || typeof userHandler !== "function")
 					return false;
 
 				var previousHandler = this.events[eventType];
@@ -379,9 +379,9 @@
 			},
 			mapFields: function (map) {
 				var doMap = function (map) {
-					if (typeof map === 'object')
+					if (typeof map === "object")
 						return ui.mapFields(map, matched);
-					else if (!map && typeof config.addresses === 'object')
+					else if (!map && typeof config.addresses === "object")
 						return ui.mapFields(config.addresses, matched);
 					else
 						return false;
@@ -456,7 +456,7 @@
 				}
 			},
 			autoVerify: function (setting) {
-				if (typeof setting === 'undefined')
+				if (typeof setting === "undefined")
 					return config.autoVerify;
 				else if (setting === false)
 					config.autoVerify = false;
@@ -481,7 +481,7 @@
 		if (config.target.indexOf("US") >= 0 || config.target.indexOf("INTERNATIONAL") >= 0) {
 			instance.mapFields();
 		} else if (config.debug) {
-			console.log("Proper target not set in configuration. Please use 'US' or 'INTERNATIONAL'.");
+			console.log("Proper target not set in configuration. Please use \"US\" or \"INTERNATIONAL\".");
 		}
 
 		return instance;
@@ -506,7 +506,7 @@
 			loaderHeight = 8; // TODO: Update these if the image changes
 		var uiCss = "<style>" + ".smarty-dots { display: none; position: absolute; z-index: 999; width: " +
 			loaderWidth + "px; height: " + loaderHeight + "px; " +
-			"background-image: url('data:image/gif;base64,R0lGODlhGAAIAOMAALSytOTi5MTCxPTy9Ly6vPz6/Ozq7MzKzLS2tOTm5PT29Ly+v" +
+			"background-image: url(\"data:image/gif;base64,R0lGODlhGAAIAOMAALSytOTi5MTCxPTy9Ly6vPz6/Ozq7MzKzLS2tOTm5PT29Ly+v" +
 			"Pz+/MzOzP///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBgAOACwAAAAAGAAIAAAEUtA5NZi8jNrr2FBScQAAYVyKQC6gZBDkUTRkXUhLDSw" +
 			"hojc+XcAx0JEGjoRxCRgWjcjAkqZr5WoIiSJIaohIiATqimglg4KWwrDBDNiczgDpiAAAIfkECQYAFwAsAAAAABgACACEVFZUtLK05OLkxMbE9" +
 			"PL0jI6MvL68bG5s7Ors1NbU/Pr8ZGJkvLq8zM7MXFpctLa05ObkzMrM9Pb0nJqcxMLE7O7s/P78////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
@@ -526,11 +526,11 @@
 			"hJpnpchUKahIEjjnAxEE8xJHABA4VGhGQ0ighFBEA0swWBkYgxMEpfHkva4BKLBxRaBHdACCHT3C14U0VbkRWlsXgYLcERGJQxOD3Q8PkBCfyM" +
 			"DKygMDIoiDAIJJiEAIfkECQYAFwAsAAAAABgACACEVFZUtLK05OLkxMbE9PL0jI6MvL68bG5s7Ors1NbU/Pr8ZGJkvLq8zM7MXFpctLa05Obkz" +
 			"MrM9Pb0nJqcxMLE7O7s/P78////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABWPgdUmEJZ4WaZ6XAlWmEgUBg5wSRRvSmRwOR0HSoBkVIoMxYBA" +
-			"RFgBHdPJYBgSXijVAuAykUsBii5VsK96oelFc9i5K40MkgYInigHtAcHFH28XP1EFXSMwLBcWFRIrJwoCiCEAOw=='); }" +
+			"RFgBHdPJYBgSXijVAuAykUsBii5VsK96oelFc9i5K40MkgYInigHtAcHFH28XP1EFXSMwLBcWFRIrJwoCiCEAOw==\"); }" +
 			".smarty-ui { position: absolute; z-index: 999; text-shadow: none; text-align: left; text-decoration: none; }" +
 			".smarty-popup { padding: 20px 30px; background: #FFFFFF; " +
 			"box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }" + ".smarty-popup-header { " +
-			"text-transform: uppercase; font: bold 10pt/1em 'Helvetica', sans-serif; color: #CEA737; padding: 12px 0px 0px; text-align: center;}" +
+			"text-transform: uppercase; font: bold 10pt/1em \"Helvetica\", sans-serif; color: #CEA737; padding: 12px 0px 0px; text-align: center;}" +
 			".smarty-popup-ambiguous-header { color: #CEA737; }" + ".smarty-popup-invalid-header { color: #D0021B; }" +
 			".smarty-popup-missing-input-header { color: #CEA737; }" +
 			".smarty-popup-typed-address{ font-family: sans-serif; font-size: 10pt; font-style: italic; text-align: center; margin: 15px 0px;}" +
@@ -571,18 +571,18 @@
 
 			if (config.ui) {
 				// Prepend CSS to head tag to allow cascading and give their style rules priority
-				$('head').prepend(uiCss);
+				$("head").prepend(uiCss);
 
 				// For each address on the page, inject the loader and "address verified" markup after the last element
 				var addresses = instance.getMappedAddresses();
 				for (var i = 0; i < addresses.length; i++) {
 					var id = addresses[i].id();
-					$('body').append('<div class="smarty-ui"><div title="Loading..." class="smarty-dots smarty-addr-' + id + '"></div></div>');
+					$("body").append("<div class=\"smarty-ui\"><div title=\"Loading...\" class=\"smarty-dots smarty-addr-" + id + "\"></div></div>");
 					var offset = uiTagOffset(addresses[i].corners(true));
-					$('body').append('<div class="smarty-ui" style="top: ' + offset.top + 'px; left: ' + offset.left +
-						'px;"><a href="javascript:" class="smarty-tag smarty-tag-grayed smarty-addr-' + id +
-						'" title="Address not verified. Click to verify." data-addressid="' + id +
-						'"><span class="smarty-tag-check">&#10003;</span><span class="smarty-tag-text">Verify</span></a></div>');
+					$("body").append("<div class=\"smarty-ui\" style=\"top: " + offset.top + "px; left: " + offset.left +
+						"px;\"><a href=\"javascript:\" class=\"smarty-tag smarty-tag-grayed smarty-addr-" + id +
+						"\" title=\"Address not verified. Click to verify.\" data-addressid=\"" + id +
+						"\"><span class=\"smarty-tag-check\">&#10003;</span><span class=\"smarty-tag-text\">Verify</span></a></div>");
 
 					// Move the UI elements around when browser window is resized
 					$(window).on("resize.smarty", {
@@ -590,27 +590,27 @@
 					}, function (e) {
 						var addr = e.data.addr;
 						var offset = uiTagOffset(addr.corners(true)); // Position of lil' tag
-						$('.smarty-tag.smarty-addr-' + addr.id())
-							.parent('.smarty-ui')
-							.css('top', offset.top + 'px')
-							.css('left', offset.left + 'px');
+						$(".smarty-tag.smarty-addr-" + addr.id())
+							.parent(".smarty-ui")
+							.css("top", offset.top + "px")
+							.css("left", offset.left + "px");
 
 						var addrOffset = addr.corners(); // Position of any popup windows
-						$('.smarty-popup.smarty-addr-' + addr.id())
-							.parent('.smarty-ui')
-							.css('top', addrOffset.top + 'px')
-							.css('left', addrOffset.left + 'px');
+						$(".smarty-popup.smarty-addr-" + addr.id())
+							.parent(".smarty-ui")
+							.css("top", addrOffset.top + "px")
+							.css("left", addrOffset.left + "px");
 
 						if (config.autocomplete) { // Position of autocomplete boxes
-							var containerUi = $('.smarty-autocomplete.smarty-addr-' + addr.id()).closest('.smarty-ui');
+							var containerUi = $(".smarty-autocomplete.smarty-addr-" + addr.id()).closest(".smarty-ui");
 							var domFields = addr.getDomFields();
-							var mainInput = '';
-							if (domFields['address1']) {
-								mainInput = 'address1';
-							} else if (domFields['freeform']) {
-								mainInput = 'freeform';
+							var mainInput = "";
+							if (domFields["address1"]) {
+								mainInput = "address1";
+							} else if (domFields["freeform"]) {
+								mainInput = "freeform";
 							}
-							if (mainInput !== '') {
+							if (mainInput !== "") {
 								containerUi.css({
 									"left": $(domFields[mainInput]).offset().left + "px",
 									"top": ($(domFields[mainInput]).offset().top + $(domFields[mainInput]).outerHeight(false)) + "px"
@@ -620,15 +620,15 @@
 					});
 				}
 
-				$('body').delegate('.smarty-tag-grayed', 'click', function (e) {
+				$("body").delegate(".smarty-tag-grayed", "click", function (e) {
 					// "Verify" clicked -- manually invoke verification
-					var addrId = $(this).data('addressid');
+					var addrId = $(this).data("addressid");
 					instance.verify(addrId);
 				});
 
-				$('body').delegate('.smarty-undo', 'click', function (e) {
+				$("body").delegate(".smarty-undo", "click", function (e) {
 					// "Undo" clicked -- replace field values with previous input
-					var addrId = $(this).parent().data('addressid');
+					var addrId = $(this).parent().data("addressid");
 					var addr = instance.getMappedAddressByID(addrId);
 					addr.undo(true);
 					// If fields are re-mapped after an address was verified, it loses its "accepted" status even if no values were changed.
@@ -645,18 +645,18 @@
 						for (var j = 0; j < f.addresses.length; j++) {
 							var addr = f.addresses[j];
 							var domFields = addr.getDomFields();
-							var mainInput = '';
-							if (domFields['address1']) {
-								mainInput = 'address1';
-							} else if (domFields['freeform']) {
-								mainInput = 'freeform';
+							var mainInput = "";
+							if (domFields["address1"]) {
+								mainInput = "address1";
+							} else if (domFields["freeform"]) {
+								mainInput = "freeform";
 							}
-							if (mainInput !== '') {
+							if (mainInput !== "") {
 								var strField = $(domFields[mainInput]);
-								var containerUi = $('<div class="smarty-ui"></div>');
-								var autoUi = $('<div class="smarty-autocomplete"></div>');
+								var containerUi = $("<div class=\"smarty-ui\"></div>");
+								var autoUi = $("<div class=\"smarty-autocomplete\"></div>");
 
-								autoUi.addClass('smarty-addr-' + addr.id());
+								autoUi.addClass("smarty-addr-" + addr.id());
 								containerUi.data("addrID", addr.id());
 								containerUi.append(autoUi);
 
@@ -672,17 +672,17 @@
 									addr: addr,
 									containerUi: containerUi
 								}, function (event) {
-									var sugg = autocompleteResponse.suggestions[$(this).data('suggIndex')];
+									var sugg = autocompleteResponse.suggestions[$(this).data("suggIndex")];
 									useAutocompleteSuggestion(event.data.addr, sugg, event.data.containerUi);
 								});
 
 								containerUi.delegate(".smarty-suggestion", "mouseover", function () {
-									$('.smarty-active-suggestion').removeClass('smarty-active-suggestion');
-									$(this).addClass('smarty-active-suggestion');
+									$(".smarty-active-suggestion").removeClass("smarty-active-suggestion");
+									$(this).addClass("smarty-active-suggestion");
 								});
 
 								containerUi.delegate(".smarty-active-suggestion", "mouseleave", function () {
-									$(this).removeClass('smarty-active-suggestion');
+									$(this).removeClass("smarty-active-suggestion");
 								});
 								strField.attr("autocomplete", "off"); // Tell Firefox to keep quiet
 
@@ -690,15 +690,15 @@
 									containerUi: containerUi,
 									addr: addr
 								}, function (event) {
-									var suggContainer = $('.smarty-autocomplete', event.data.containerUi);
-									var currentChoice = $('.smarty-active-suggestion:visible', suggContainer).first();
+									var suggContainer = $(".smarty-autocomplete", event.data.containerUi);
+									var currentChoice = $(".smarty-active-suggestion:visible", suggContainer).first();
 									var choiceSelectionIsNew = false;
 
 									if (event.keyCode == 9) { // Tab key
 										if (currentChoice.length > 0) {
 											var domFields = event.data.addr.getDomFields();
-											if (domFields['zipcode'])
-												$(domFields['zipcode']).focus();
+											if (domFields["zipcode"])
+												$(domFields["zipcode"]).focus();
 											else
 												$(domFields[mainInput]).blur();
 											useAutocompleteSuggestion(event.data.addr, autocompleteResponse.suggestions[currentChoice.data("suggIndex")], event.data.containerUi);
@@ -706,30 +706,30 @@
 										} else
 											ui.hideAutocomplete(event.data.addr.id());
 									} else if (event.keyCode == 40) { // Down arrow
-										if (!currentChoice.hasClass('smarty-suggestion')) {
-											currentChoice = $('.smarty-suggestion', suggContainer).first().mouseover();
+										if (!currentChoice.hasClass("smarty-suggestion")) {
+											currentChoice = $(".smarty-suggestion", suggContainer).first().mouseover();
 											choiceSelectionIsNew = true;
 										}
 
 										if (!choiceSelectionIsNew) {
-											if (currentChoice.next('.smarty-addr-' + event.data.addr.id() + ' .smarty-suggestion').length > 0)
-												currentChoice.next('.smarty-suggestion').mouseover();
+											if (currentChoice.next(".smarty-addr-" + event.data.addr.id() + " .smarty-suggestion").length > 0)
+												currentChoice.next(".smarty-suggestion").mouseover();
 											else
-												currentChoice.removeClass('smarty-active-suggestion');
+												currentChoice.removeClass("smarty-active-suggestion");
 										}
 
 										moveCursorToEnd(this);
 									} else if (event.keyCode == 38) { // Up arrow
-										if (!currentChoice.hasClass('smarty-suggestion')) {
-											currentChoice = $('.smarty-suggestion', suggContainer).last().mouseover();
+										if (!currentChoice.hasClass("smarty-suggestion")) {
+											currentChoice = $(".smarty-suggestion", suggContainer).last().mouseover();
 											choiceSelectionIsNew = true;
 										}
 
 										if (!choiceSelectionIsNew) {
-											if (currentChoice.prev('.smarty-addr-' + event.data.addr.id() + ' .smarty-suggestion').length > 0)
-												currentChoice.prev('.smarty-suggestion').mouseover();
+											if (currentChoice.prev(".smarty-addr-" + event.data.addr.id() + " .smarty-suggestion").length > 0)
+												currentChoice.prev(".smarty-suggestion").mouseover();
 											else
-												currentChoice.removeClass('smarty-active-suggestion');
+												currentChoice.removeClass("smarty-active-suggestion");
 										}
 
 										moveCursorToEnd(this);
@@ -748,7 +748,7 @@
 
 						$(document).keyup(function (event) {
 							if (event.keyCode == 27) // Esc key
-								$('.smarty-autocomplete').closest('.smarty-ui').hide();
+								$(".smarty-autocomplete").closest(".smarty-ui").hide();
 						});
 					}
 
@@ -770,7 +770,7 @@
 
 					submitHandler = function (e) {
 						// Don't invoke verification if it's already processing or autocomplete is open and the user was pressing Enter to use a suggestion
-						if ((e.data.form && e.data.form.processing) || $('.smarty-active-suggestion:visible').length > 0)
+						if ((e.data.form && e.data.form.processing) || $(".smarty-active-suggestion:visible").length > 0)
 							return suppress(e);
 
 						/*
@@ -783,7 +783,7 @@
 						 form submission, which is unacceptable. As a safety measure to protect our
 						 customer's subscriptions, we've removed syncWithDom(). The website owner is
 						 responsible for making sure that any changes to address field values raise the
-						 "change" event on that element. Example: $('#city').val('New City').change();
+						 "change" event on that element. Example: $("#city").val("New City").change();
 						 */
 
 						if (!e.data.form.allActiveAddressesAccepted()) {
@@ -807,7 +807,7 @@
 							return;
 
 						var oldHandlers = [],
-							eventsRef = $._data(domElement, 'events');
+							eventsRef = $._data(domElement, "events");
 
 						// If there are previously-bound-event-handlers (from jQuery), get those.
 						if (eventsRef && eventsRef[eventName] && eventsRef[eventName].length > 0) {
@@ -827,9 +827,9 @@
 
 						// ... then bind theirs last:
 						// First bind their onclick="..." or onsubmit="..." handles...
-						if (typeof domElement['on' + eventName] === 'function') {
-							var temp = domElement['on' + eventName];
-							domElement['on' + eventName] = null;
+						if (typeof domElement["on" + eventName] === "function") {
+							var temp = domElement["on" + eventName];
+							domElement["on" + eventName] = null;
 							$(domElement)[eventName](temp);
 						}
 
@@ -844,14 +844,14 @@
 					// Highlight the submit button
 					if (config.debug) {
 						for (var j = 0; j < formSubmitElements.length; j++) {
-							formSubmitElements[j].style.color = '#4BA341';
+							formSubmitElements[j].style.color = "#4BA341";
 						}
 					}
 
 					// Form submit() events are apparently invoked by CLICKING the submit button (even jQuery does this at its core for binding)
 					// (but jQuery, when raising a form submit event with .submit() will NOT necessarily click the submit button)
 					formSubmitElements.each(function (idx) {
-						bindSubmitHandler(this, 'click'); // These get fired first
+						bindSubmitHandler(this, "click"); // These get fired first
 					});
 
 				}
@@ -865,7 +865,7 @@
 			var streetField = event.data.streetField;
 			var input = $.trim(event.data.streetField.val());
 			var containerUi = event.data.containerUi;
-			var suggContainer = $('.smarty-autocomplete', containerUi);
+			var suggContainer = $(".smarty-autocomplete", containerUi);
 
 			if (!input) {
 				addr.lastStreetInput = input;
@@ -874,8 +874,8 @@
 			}
 
 			if (event.keyCode == 13) { // Enter/return
-				if ($('.smarty-active-suggestion:visible').length > 0)
-					useAutocompleteSuggestion(addr, autocompleteResponse.suggestions[$('.smarty-active-suggestion:visible').first().data('suggIndex')], containerUi);
+				if ($(".smarty-active-suggestion:visible").length > 0)
+					useAutocompleteSuggestion(addr, autocompleteResponse.suggestions[$(".smarty-active-suggestion:visible").first().data("suggIndex")], containerUi);
 				ui.hideAutocomplete(addr.id());
 				streetField.blur();
 				return suppress(event);
@@ -896,7 +896,7 @@
 
 			addr.lastStreetInput = input; // Used so that autocomplete only fires on real changes (i.e. not just whitespace)
 			if (addr.isDomestic() && config.target.indexOf("US") >= 0) {
-				trigger('AutocompleteInvoked', {
+				trigger("AutocompleteInvoked", {
 					containerUi: containerUi,
 					suggContainer: suggContainer,
 					streetField: streetField,
@@ -918,7 +918,7 @@
 					data.suggContainer.empty();
 
 					if (!json.suggestions || json.suggestions.length == 0) {
-						data.suggContainer.html('<div class="smarty-no-suggestions">' + config.noSuggestionsMessage + '</div>');
+						data.suggContainer.html("<div class=\"smarty-no-suggestions\">" + config.noSuggestionsMessage + "</div>");
 						return;
 					}
 
@@ -929,12 +929,12 @@
 						} else {
 							message = "address";
 						}
-						data.suggContainer.html('<div class="smarty-no-suggestions">Type more for ' + message + ' suggestions</div>')
+						data.suggContainer.html("<div class=\"smarty-no-suggestions\">Type more for " + message + " suggestions</div>")
 					} else {
 						for (var j = 0; j < json.suggestions.length; j++) {
 							var suggAddr = json.suggestions[j].text.replace(/<|>/g, "");
-							suggAddr = suggAddr.replace(new RegExp('(' + data.input.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&') + ')', 'ig'), '<b>$1</b>');
-							var link = $('<a href="javascript:" class="smarty-suggestion">' + suggAddr + '</a>');
+							suggAddr = suggAddr.replace(new RegExp("(" + data.input.replace(/[#-.]|[[-^]|[?|{}]/g, "\\$&") + ")", "ig"), "<b>$1</b>");
+							var link = $("<a href=\"javascript:\" class=\"smarty-suggestion\">" + suggAddr + "</a>");
 							link.data("suggIndex", j);
 
 							data.suggContainer.append(link);
@@ -985,37 +985,37 @@
 			ui.hideAutocomplete(addr.id()); // It's important that the suggestions are hidden before AddressChanged event fires
 
 			if (addr.isFreeform()) {
-				$(domfields['freeform']).val(suggestion.text).change();
+				$(domfields["freeform"]).val(suggestion.text).change();
 				addr.usedAutocomplete = true;
 			} else {
-				if (domfields['postal_code']) {
-					$(domfields['postal_code']).val("").change();
+				if (domfields["postal_code"]) {
+					$(domfields["postal_code"]).val("").change();
 				}
-				if (domfields['address1'])
-					$(domfields['address1']).val(suggestion.street_line).change();
+				if (domfields["address1"])
+					$(domfields["address1"]).val(suggestion.street_line).change();
 				// State filled in before city so autoverify is not invoked without finishing using the suggestion
-				if (domfields['administrative_area']) {
-					if (domfields['administrative_area'].options) { // Checks for dropdown
-						for (var i = 0; i < domfields['administrative_area'].options.length; i++) {
+				if (domfields["administrative_area"]) {
+					if (domfields["administrative_area"].options) { // Checks for dropdown
+						for (var i = 0; i < domfields["administrative_area"].options.length; i++) {
 							// Checks for abbreviation match and maps full state name to abbreviation
-							if (domfields['administrative_area'].options[i].text.toUpperCase() === suggestion.state || allStatesByName[domfields['administrative_area'].options[i].text.toUpperCase()] === suggestion.state) {
-								$(domfields['administrative_area'])[0].selectedIndex = i;
-								$(domfields['administrative_area']).change();
+							if (domfields["administrative_area"].options[i].text.toUpperCase() === suggestion.state || allStatesByName[domfields["administrative_area"].options[i].text.toUpperCase()] === suggestion.state) {
+								$(domfields["administrative_area"])[0].selectedIndex = i;
+								$(domfields["administrative_area"]).change();
 								break;
 							}
 						}
 					} else {
-						$(domfields['administrative_area']).val(suggestion.state).change();
+						$(domfields["administrative_area"]).val(suggestion.state).change();
 					}
 				}
-				if (domfields['locality']) {
-					$(domfields['locality']).val("").change();
+				if (domfields["locality"]) {
+					$(domfields["locality"]).val("").change();
 					addr.usedAutocomplete = true;
-					$(domfields['locality']).val(suggestion.city).change();
+					$(domfields["locality"]).val(suggestion.city).change();
 				}
 			}
-			if (domfields['country'] && !domfields['country'].options) {
-				$(domfields['country']).val("USA").change();
+			if (domfields["country"] && !domfields["country"].options) {
+				$(domfields["country"]).val("USA").change();
 			}
 			trigger("AutocompleteUsed", {
 				address: addr,
@@ -1043,7 +1043,7 @@
 
 			var name = lowercase(domElement.name);
 			var id = lowercase(domElement.id);
-			var selectorSafeID = id.replace(/[\[|\]|\(|\)|\:|\'|\"|\=|\||\#|\.|\!|\||\@|\^|\&|\*]/g, '\\\\$&');
+			var selectorSafeID = id.replace(/[\[|\]|\(|\)|\:|\'|\"|\=|\||\#|\.|\!|\||\@|\^|\&|\*]/g, "\\\\$&");
 			var placeholder = lowercase(domElement.placeholder);
 			var title = lowercase(domElement.title);
 
@@ -1055,8 +1055,8 @@
 			// If we can't find it in name or id, look at labels associated to the element.
 			// Webkit automatically associates labels with form elements for us. But for other
 			// browsers, we have to find them manually, which this next block does.
-			if (!('labels' in domElement)) {
-				var lbl = $('label[for="' + selectorSafeID + '"]')[0] || $(domElement).parents('label')[0];
+			if (!("labels" in domElement)) {
+				var lbl = $("label[for=\"" + selectorSafeID + "\"]")[0] || $(domElement).parents("label")[0];
 				domElement.labels = !lbl ? [] : [lbl];
 			}
 
@@ -1082,9 +1082,9 @@
 			// Even though there may be more than one bound, and this disables the others,
 			// this is for simplicity: and I figure, it won't happen too often.
 			// (Otherwise "Completed" events are raised by pressing Esc even if nothing is happening)
-			$(document).unbind('keyup');
+			$(document).unbind("keyup");
 			$(uiPopup).slideUp(defaults.speed, function () {
-				$(this).parent('.smarty-ui').remove();
+				$(this).parent(".smarty-ui").remove();
 			});
 			trigger("Completed", e.data);
 		}
@@ -1095,10 +1095,10 @@
 		function undelegateAllClicks(selectors) {
 			if (Array.isArray(selectors) || typeof selectors == "object") {
 				for (var selector in selectors) {
-					$('body').undelegate(selectors[selector], 'click');
+					$("body").undelegate(selectors[selector], "click");
 				}
 			} else if (typeof selectors === "string") {
-				$('body').undelegate(selectors, 'click');
+				$("body").undelegate(selectors, "click");
 			} else {
 				alert("ERROR: Not an array, string, or object passed in to undelegate all clicks");
 			}
@@ -1118,12 +1118,12 @@
 
 		// Hides the autocomplete UI
 		this.hideAutocomplete = function (addressID) {
-			$('.smarty-autocomplete.smarty-addr-' + addressID).closest('.smarty-ui').hide();
+			$(".smarty-autocomplete.smarty-addr-" + addressID).closest(".smarty-ui").hide();
 		};
 
 		//shows the SmartyUI when activating 1 address
 		this.showSmartyUI = function (addressID) {
-			var smartyui = $('.deactivated.smarty-addr-' + addressID);
+			var smartyui = $(".deactivated.smarty-addr-" + addressID);
 			smartyui.push(smartyui[0].parentElement);
 			smartyui.removeClass("deactivated");
 			smartyui.addClass("activated");
@@ -1132,8 +1132,8 @@
 
 		//hides the SmartyUI when deactivating 1 address
 		this.hideSmartyUI = function (addressID) {
-			var smartyui = $('.smarty-addr-' + addressID + ':visible');
-			var autocompleteui = $('.smarty-autocomplete.smarty-addr-' + addressID);
+			var smartyui = $(".smarty-addr-" + addressID + ":visible");
+			var autocompleteui = $(".smarty-autocomplete.smarty-addr-" + addressID);
 			smartyui.addClass("deactivated");
 			smartyui.parent().addClass("deactivated");
 			autocompleteui.addClass("deactivated");
@@ -1153,41 +1153,41 @@
 			// Spare none alive!
 
 			for (var i = 0; i < forms.length; i++) {
-				$(forms[i].dom).data(formDataProperty, '');
+				$(forms[i].dom).data(formDataProperty, "");
 
 				// Clean up each form's DOM by resetting the address fields to the way they were
 				for (var j = 0; j < forms[i].addresses.length; j++) {
 					var doms = forms[i].addresses[j].getDomFields();
 					for (var prop in doms) {
 						if (config.debug) {
-							$(doms[prop]).css('background', 'none').attr('placeholder', '');
+							$(doms[prop]).css("background", "none").attr("placeholder", "");
 							var submitButtons = $(config.submitSelector);
 							for (var k = 0; k < submitButtons.length; k++) {
-								submitButtons[k].style.color = 'black';
+								submitButtons[k].style.color = "black";
 							}
 						}
-						$(doms[prop]).unbind('change');
+						$(doms[prop]).unbind("change");
 					}
-					if (doms['address1'])
-						$(doms['address1']).unbind('keyup').unbind('keydown').unbind('blur');
-					else if (doms['freeform'])
-						$(doms['freeform']).unbind('keyup').unbind('keydown').unbind('blur');
+					if (doms["address1"])
+						$(doms["address1"]).unbind("keyup").unbind("keydown").unbind("blur");
+					else if (doms["freeform"])
+						$(doms["freeform"]).unbind("keyup").unbind("keydown").unbind("blur");
 				}
 
 				// Unbind our form submit and submit-button click handlers
 				$.each(forms, function (idx) {
-					$(this.dom).unbind('submit', submitHandler);
+					$(this.dom).unbind("submit", submitHandler);
 				});
 				$(config.submitSelector, forms[i].dom).each(function (idx) {
-					$(this).unbind('click', submitHandler);
+					$(this).unbind("click", submitHandler);
 				});
 			}
 
-			$('.smarty-ui').undelegate('.smarty-suggestion', 'click').undelegate('.smarty-suggestion', 'mouseover').undelegate('.smarty-suggestion', 'mouseleave').remove();
-			$('body').undelegate('.smarty-undo', 'click');
-			$('body').undelegate('.smarty-tag-grayed', 'click');
-			$(window).unbind('resize.smarty');
-			$(document).unbind('keyup');
+			$(".smarty-ui").undelegate(".smarty-suggestion", "click").undelegate(".smarty-suggestion", "mouseover").undelegate(".smarty-suggestion", "mouseleave").remove();
+			$("body").undelegate(".smarty-undo", "click");
+			$("body").undelegate(".smarty-tag-grayed", "click");
+			$(window).unbind("resize.smarty");
+			$(document).unbind("keyup");
 
 			forms = [];
 			mappedAddressCount = 0;
@@ -1223,7 +1223,7 @@
 			// "map" should be an array of objects mapping field types
 			// to a field by selector, all supplied by the user.
 			// "context" should be the set of elements in which fields will be mapped
-			// Context can be acquired like: $('#something').not('#something-else').LiveAddress( ... ); ...
+			// Context can be acquired like: $("#something").not("#something-else").LiveAddress( ... ); ...
 
 			if (config.debug)
 				console.log("Manually mapping fields given this data:", map);
@@ -1259,7 +1259,7 @@
 							if (config.debug)
 								console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
 							delete address[fieldType];
-						} else if (matched.parents('form').length == 0) { // We should only map elements inside a <form> tag; otherwise we can't bind to submit handlers later
+						} else if (matched.parents("form").length == 0) { // We should only map elements inside a <form> tag; otherwise we can't bind to submit handlers later
 							if (config.debug)
 								console.log("NOTICE: Element with selector \"" + address[fieldType] + "\" is not inside a <form> tag. Skipping...");
 							delete address[fieldType];
@@ -1282,9 +1282,9 @@
 				}
 
 				// Acquire the form based on the first member
-				var formDom = $(address.address1).parents('form')[0];
+				var formDom = $(address.address1).parents("form")[0];
 				if (!formDom) {
-					formDom = $(address.freeform).parents('form')[0];
+					formDom = $(address.freeform).parents("form")[0];
 				}
 				var form = new Form(formDom);
 
@@ -1324,12 +1324,12 @@
 
 			var fields = address.getDomFields();
 			for (var field in fields)
-				$(fields[field]).prop ? $(fields[field]).prop('disabled', true) : $(fields[field]).attr('disabled', 'disabled');
+				$(fields[field]).prop ? $(fields[field]).prop("disabled", true) : $(fields[field]).attr("disabled", "disabled");
 
 			// Disable submit buttons
 			if (address.form && address.form.dom) {
 				var buttons = $(config.submitSelector, address.form.dom);
-				buttons.prop ? buttons.prop('disabled', true) : buttons.attr('disabled', 'disabled');
+				buttons.prop ? buttons.prop("disabled", true) : buttons.attr("disabled", "disabled");
 			}
 		};
 
@@ -1340,12 +1340,12 @@
 
 			var fields = address.getDomFields();
 			for (var field in fields)
-				$(fields[field]).prop ? $(fields[field]).prop('disabled', false) : $(fields[field]).removeAttr('disabled');
+				$(fields[field]).prop ? $(fields[field]).prop("disabled", false) : $(fields[field]).removeAttr("disabled");
 
 			// Enable submit buttons
 			if (address.form && address.form.dom) {
 				var buttons = $(config.submitSelector, address.form.dom);
-				buttons.prop ? buttons.prop('disabled', false) : buttons.removeAttr('disabled');
+				buttons.prop ? buttons.prop("disabled", false) : buttons.removeAttr("disabled");
 			}
 		};
 
@@ -1355,39 +1355,39 @@
 
 			// Get position information now instead of earlier in case elements shifted since page load
 			var lastFieldCorners = addr.corners(true);
-			var loaderUI = $('.smarty-dots.smarty-addr-' + addr.id()).parent();
+			var loaderUI = $(".smarty-dots.smarty-addr-" + addr.id()).parent();
 
 			loaderUI.css("top", (lastFieldCorners.top + lastFieldCorners.height / 2 - loaderHeight / 2) + "px")
 				.css("left", (lastFieldCorners.right - loaderWidth - 10) + "px");
-			$('.smarty-dots', loaderUI).show();
+			$(".smarty-dots", loaderUI).show();
 		};
 
 		this.hideLoader = function (addr) {
 			if (config.ui)
-				$('.smarty-dots.smarty-addr-' + addr.id()).hide();
+				$(".smarty-dots.smarty-addr-" + addr.id()).hide();
 		};
 
 		this.markAsValid = function (addr) {
 			if (!config.ui || !addr)
 				return;
 
-			var domTag = $('.smarty-tag.smarty-tag-grayed.smarty-addr-' + addr.id());
-			domTag.removeClass('smarty-tag-grayed').addClass('smarty-tag-green').attr("title", "Address verified! Click to undo.");
-			$('.smarty-tag-text', domTag).text('Verified').hover(function () {
-				$(this).text('Undo');
+			var domTag = $(".smarty-tag.smarty-tag-grayed.smarty-addr-" + addr.id());
+			domTag.removeClass("smarty-tag-grayed").addClass("smarty-tag-green").attr("title", "Address verified! Click to undo.");
+			$(".smarty-tag-text", domTag).text("Verified").hover(function () {
+				$(this).text("Undo");
 			}, function () {
-				$(this).text('Verified');
-			}).addClass('smarty-undo');
+				$(this).text("Verified");
+			}).addClass("smarty-undo");
 		};
 
 		this.unmarkAsValid = function (addr) {
-			var validSelector = '.smarty-tag.smarty-addr-' + addr.id();
+			var validSelector = ".smarty-tag.smarty-addr-" + addr.id();
 			if (!config.ui || !addr || $(validSelector).length == 0)
 				return;
 
-			var domTag = $('.smarty-tag.smarty-tag-green.smarty-addr-' + addr.id());
-			domTag.removeClass('smarty-tag-green').addClass('smarty-tag-grayed').attr("title", "Address not verified. Click to verify.");
-			$('.smarty-tag-text', domTag).text('Verify').unbind('mouseenter mouseleave').removeClass('smarty-undo');
+			var domTag = $(".smarty-tag.smarty-tag-green.smarty-addr-" + addr.id());
+			domTag.removeClass("smarty-tag-green").addClass("smarty-tag-grayed").attr("title", "Address not verified. Click to verify.");
+			$(".smarty-tag-text", domTag).text("Verify").unbind("mouseenter mouseleave").removeClass("smarty-undo");
 		};
 
 		this.showAmbiguous = function (data) {
@@ -1400,12 +1400,12 @@
 			corners.width = 294;
 			corners.height = response.length * 63 + 124;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
-				corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-ambiguous-header">' + config.ambiguousMessage + '</div>' +
-				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<div class="smarty-choice-list">';
+			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
+				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
+				corners.height + "px;\">" +
+				"<div class=\"smarty-popup-header smarty-popup-ambiguous-header\">" + config.ambiguousMessage + "</div>" +
+				"<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
+				"<div class=\"smarty-choice-list\">";
 
 			if (addr.isDomestic()) {
 				for (var i = 0; i < response.raw.length; i++) {
@@ -1413,7 +1413,7 @@
 						city = response.raw[i].components.city_name,
 						st = response.raw[i].components.state_abbreviation,
 						zip = response.raw[i].components.zipcode + "-" + response.raw[i].components.plus4_code;
-					html += '<a href="javascript:" class="smarty-choice" data-index="' + i + '">' + line1 + '<br>' + city + ', ' + st + ' ' + zip + '</a>';
+					html += "<a href=\"javascript:\" class=\"smarty-choice\" data-index=\"" + i + "\">" + line1 + "<br>" + city + ", " + st + " " + zip + "</a>";
 				}
 			} else {
 				var numCandidates = config.candidates;
@@ -1421,54 +1421,54 @@
 					numCandidates = response.raw.length;
 				}
 				for (var i = 0; i < numCandidates; i++) {
-					var ambigAddr = '';
+					var ambigAddr = "";
 					if (response.raw[i].address1) {
 						ambigAddr += response.raw[i].address1;
 					}
 					if (response.raw[i].address2) {
-						ambigAddr = ambigAddr + '<br>' + response.raw[i].address2;
+						ambigAddr = ambigAddr + "<br>" + response.raw[i].address2;
 					}
 					if (response.raw[i].address3) {
-						ambigAddr = ambigAddr + '<br>' + response.raw[i].address3;
+						ambigAddr = ambigAddr + "<br>" + response.raw[i].address3;
 					}
 					if (response.raw[i].address4) {
-						ambigAddr = ambigAddr + '<br>' + response.raw[i].address4;
+						ambigAddr = ambigAddr + "<br>" + response.raw[i].address4;
 					}
 					if (response.raw[i].address5) {
-						ambigAddr = ambigAddr + '<br>' + response.raw[i].address5;
+						ambigAddr = ambigAddr + "<br>" + response.raw[i].address5;
 					}
 					if (response.raw[i].address6) {
-						ambigAddr = ambigAddr + '<br>' + response.raw[i].address6;
+						ambigAddr = ambigAddr + "<br>" + response.raw[i].address6;
 					}
-					html += '<a href="javascript:" class="smarty-choice" data-index="' + i + '">' + ambigAddr + '</a>';
+					html += "<a href=\"javascript:\" class=\"smarty-choice\" data-index=\"" + i + "\">" + ambigAddr + "</a>";
 				}
 			}
 
-			html += '</div><div class="smarty-choice-alt">';
-			html += '<a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
+			html += "</div><div class=\"smarty-choice-alt\">";
+			html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-abort smarty-abort\">" + config.changeMessage + "</a>";
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' + config.certifyMessage + '</a>';
+				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" + config.certifyMessage + "</a>";
 			}
-			html += '</div></div></div>';
-			$(html).hide().appendTo('body').show(defaults.speed);
+			html += "</div></div></div>";
+			$(html).hide().appendTo("body").show(defaults.speed);
 
 			// Scroll to it if needed
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
-				$('html, body').stop().animate({
-					scrollTop: $('.smarty-popup.smarty-addr-' + addr.id()).offset().top - 100
+				$("html, body").stop().animate({
+					scrollTop: $(".smarty-popup.smarty-addr-" + addr.id()).offset().top - 100
 				}, 500);
 			}
 
 			data.selectors = {
-				goodAddr: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-list .smarty-choice',
-				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort'
+				goodAddr: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-list .smarty-choice",
+				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override",
+				abort: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-abort"
 			};
 
 			// User chose a candidate address
-			$('body').delegate(data.selectors.goodAddr, 'click', data, function (e) {
-				$('.smarty-popup.smarty-addr-' + addr.id()).slideUp(defaults.speed, function () {
-					$(this).parent('.smarty-ui').remove();
+			$("body").delegate(data.selectors.goodAddr, "click", data, function (e) {
+				$(".smarty-popup.smarty-addr-" + addr.id()).slideUp(defaults.speed, function () {
+					$(this).parent(".smarty-ui").remove();
 					$(this).remove();
 				});
 
@@ -1480,14 +1480,14 @@
 					response: e.data.response,
 					invoke: e.data.invoke,
 					invokeFn: e.data.invokeFn,
-					chosenCandidate: response.raw[$(this).data('index')]
+					chosenCandidate: response.raw[$(this).data("index")]
 				});
 			});
 
 			// User wants to revert to what they typed (forced accept)
-			$('body').delegate(data.selectors.useOriginal, 'click', data, function (e) {
-				$(this).parents('.smarty-popup').slideUp(defaults.speed, function () {
-					$(this).parent('.smarty-ui').remove();
+			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+				$(this).parents(".smarty-popup").slideUp(defaults.speed, function () {
+					$(this).parent(".smarty-ui").remove();
 					$(this).remove();
 				});
 
@@ -1501,16 +1501,16 @@
 				if (e.keyCode == 27) { //Esc
 					undelegateAllClicks(e.data.selectors);
 					delete e.data.selectors;
-					userAborted($('.smarty-popup.smarty-addr-' + e.data.address.id()), e);
+					userAborted($(".smarty-popup.smarty-addr-" + e.data.address.id()), e);
 					suppress(e);
 				}
 			});
 
 			// User clicks "x" in corner or chooses to try a different address (same effect as Esc key)
-			$('body').delegate(data.selectors.abort, 'click', data, function (e) {
+			$("body").delegate(data.selectors.abort, "click", data, function (e) {
 				undelegateAllClicks(e.data.selectors);
 				delete e.data.selectors;
-				userAborted($(this).parents('.smarty-popup'), e);
+				userAborted($(this).parents(".smarty-popup"), e);
 			});
 		};
 
@@ -1524,45 +1524,45 @@
 			corners.width = 300;
 			corners.height = 130;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
-				corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidMessage + '</div>' +
-				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<div class="smarty-choice-alt">' +
-				'<a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
+			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
+				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
+				corners.height + "px;\">" +
+				"<div class=\"smarty-popup-header smarty-popup-invalid-header\">" + config.invalidMessage + "</div>" +
+				"<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
+				"<div class=\"smarty-choice-alt\">" +
+				"<a href=\"javascript:\" class=\"smarty-choice smarty-choice-abort smarty-abort\">" + config.changeMessage + "</a>";
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '</a>';
+				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" +
+					config.certifyMessage + "</a>";
 			}
-			html += '</div></div>';
+			html += "</div></div>";
 
-			$(html).hide().appendTo('body').show(defaults.speed);
+			$(html).hide().appendTo("body").show(defaults.speed);
 
 			data.selectors = {
-				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override ',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort'
+				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
+				abort: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-abort"
 			};
 
 			// Scroll to it if necessary
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
-				$('html, body').stop().animate({
-					scrollTop: $('.smarty-popup.smarty-addr-' + addr.id()).offset().top - 100
+				$("html, body").stop().animate({
+					scrollTop: $(".smarty-popup.smarty-addr-" + addr.id()).offset().top - 100
 				}, 500);
 			}
 
 			undelegateAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$('body').delegate(data.selectors.abort, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
 			undelegateAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$('body').delegate(data.selectors.useOriginal, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
@@ -1572,7 +1572,7 @@
 				if (e.keyCode == 27) { //Esc
 					undelegateAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
-					userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
 			});
 		};
@@ -1587,45 +1587,45 @@
 			corners.width = 300;
 			corners.height = 130;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
-				corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-invalid-header">' + config.invalidCountryMessage + '</div>' +
-				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<div class="smarty-choice-alt"><a href="javascript:" class="smarty-choice smarty-choice-abort smarty-abort">' +
-				config.changeMessage + '</a></div>';
+			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
+				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
+				corners.height + "px;\">" +
+				"<div class=\"smarty-popup-header smarty-popup-invalid-header\">" + config.invalidCountryMessage + "</div>" +
+				"<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
+				"<div class=\"smarty-choice-alt\"><a href=\"javascript:\" class=\"smarty-choice smarty-choice-abort smarty-abort\">" +
+				config.changeMessage + "</a></div>";
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '</a>';
+				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" +
+					config.certifyMessage + "</a>";
 			}
-			html += '</div></div>';
+			html += "</div></div>";
 
-			$(html).hide().appendTo('body').show(defaults.speed);
+			$(html).hide().appendTo("body").show(defaults.speed);
 
 			data.selectors = {
-				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override ',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort'
+				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
+				abort: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-abort"
 			};
 
 			// Scroll to it if necessary
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
-				$('html, body').stop().animate({
-					scrollTop: $('.smarty-popup.smarty-addr-' + addr.id()).offset().top - 100
+				$("html, body").stop().animate({
+					scrollTop: $(".smarty-popup.smarty-addr-" + addr.id()).offset().top - 100
 				}, 500);
 			}
 
 			undelegateAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$('body').delegate(data.selectors.abort, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
 			undelegateAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$('body').delegate(data.selectors.useOriginal, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
@@ -1635,7 +1635,7 @@
 				if (e.keyCode == 27) { //Esc
 					undelegateAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
-					userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
 			});
 		};
@@ -1648,65 +1648,65 @@
 			corners.width = 300;
 			corners.height = 230;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
-				corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-missing-secondary-header">' + config.missingSecondaryMessage +
-				'</div>' + '<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<form class="smarty-popup-secondary-number-form">' +
-				'<input id="smarty-popup-secondary-number-input-box" class="smarty-addr-' + addr.id() +
-				'" type="text" name="secondarynumber" placeholder="Enter apt/suite number here"><br>' +
-				'<input id="smarty-popup-secondary-number-form-submit-button" class="smarty-addr-' + addr.id() +
-				'" type="submit" value="Submit">' +
-				'</form>' +
-				'<hr style="margin-bottom: 15px;">' + '<div class="smarty-choice-alt">' + '<a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
+			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
+				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
+				corners.height + "px;\">" +
+				"<div class=\"smarty-popup-header smarty-popup-missing-secondary-header\">" + config.missingSecondaryMessage +
+				"</div>" + "<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
+				"<form class=\"smarty-popup-secondary-number-form\">" +
+				"<input id=\"smarty-popup-secondary-number-input-box\" class=\"smarty-addr-" + addr.id() +
+				"\" type=\"text\" name=\"secondarynumber\" placeholder=\"Enter apt/suite number here\"><br>" +
+				"<input id=\"smarty-popup-secondary-number-form-submit-button\" class=\"smarty-addr-" + addr.id() +
+				"\" type=\"submit\" value=\"Submit\">" +
+				"</form>" +
+				"<hr style=\"margin-bottom: 15px;\">" + "<div class=\"smarty-choice-alt\">" + "<a href=\"javascript:\" " +
+				"class=\"smarty-choice smarty-choice-abort smarty-abort\">" + config.changeMessage + "</a>";
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '</a>';
+				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" +
+					config.certifyMessage + "</a>";
 			}
-			html += '</div>' + '</div></div>';
+			html += "</div></div></div>";
 
-			$(html).hide().appendTo('body').show(defaults.speed);
+			$(html).hide().appendTo("body").show(defaults.speed);
 
 			data.selectors = {
-				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override ',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort',
-				submit: '#smarty-popup-secondary-number-form-submit-button.smarty-addr-' + addr.id()
+				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
+				abort: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-abort",
+				submit: "#smarty-popup-secondary-number-form-submit-button.smarty-addr-" + addr.id()
 			};
 
 			// Scroll to it if necessary
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
-				$('html, body').stop().animate({
-					scrollTop: $('.smarty-popup.smarty-addr-' + addr.id()).offset().top - 100
+				$("html, body").stop().animate({
+					scrollTop: $(".smarty-popup.smarty-addr-" + addr.id()).offset().top - 100
 				}, 500);
 			}
 
 			undelegateAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$('body').delegate(data.selectors.abort, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
 			undelegateAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$('body').delegate(data.selectors.useOriginal, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
 
 			undelegateAllClicks(data.selectors.submit);
 			// User enters a secondary address
-			$('body').delegate(data.selectors.submit, 'click', data, function (e) {
+			$("body").delegate(data.selectors.submit, "click", data, function (e) {
 				e.data.address.secondary = $("#smarty-popup-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
 				if (e.data.address.isFreeform()) {
 					e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
 				}
 				e.data.address.zipcode = e.data.response.raw[0].components.zipcode;
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				suppress(e);
 				trigger("AddedSecondary", e.data);
@@ -1717,7 +1717,7 @@
 				if (e.keyCode == 27) { //Esc
 					undelegateAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
-					userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
 			});
 		};
@@ -1732,45 +1732,45 @@
 			corners.width = 300;
 			corners.height = 120;
 
-			var html = '<div class="smarty-ui" style="top: ' + corners.top + 'px; left: ' + corners.left + 'px;">' +
-				'<div class="smarty-popup smarty-addr-' + addr.id() + '" style="width: ' + corners.width + 'px; height: ' +
-				corners.height + 'px;">' +
-				'<div class="smarty-popup-header smarty-popup-missing-input-header">' + config.missingInputMessage + '</div>' +
-				'<div class="smarty-popup-typed-address">' + addr.toString() + '</div>' +
-				'<div class="smarty-choice-alt"><a href="javascript:" ' +
-				'class="smarty-choice smarty-choice-abort smarty-abort">' + config.changeMessage + '</a>';
+			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
+				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
+				corners.height + "px;\">" +
+				"<div class=\"smarty-popup-header smarty-popup-missing-input-header\">" + config.missingInputMessage + "</div>" +
+				"<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
+				"<div class=\"smarty-choice-alt\"><a href=\"javascript:\" " +
+				"class=\"smarty-choice smarty-choice-abort smarty-abort\">" + config.changeMessage + "</a>";
 			if (!config.enforceVerification) {
-				html += '<a href="javascript:" class="smarty-choice smarty-choice-override">' +
-					config.certifyMessage + '</a>';
+				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" +
+					config.certifyMessage + "</a>";
 			}
-			html += '</div></div>';
+			html += "</div></div>";
 
-			$(html).hide().appendTo('body').show(defaults.speed);
+			$(html).hide().appendTo("body").show(defaults.speed);
 
 			data.selectors = {
-				useOriginal: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-choice-override ',
-				abort: '.smarty-popup.smarty-addr-' + addr.id() + ' .smarty-abort'
+				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
+				abort: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-abort"
 			};
 
 			// Scroll to it if necessary
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
-				$('html, body').stop().animate({
-					scrollTop: $('.smarty-popup.smarty-addr-' + addr.id()).offset().top - 100
+				$("html, body").stop().animate({
+					scrollTop: $(".smarty-popup.smarty-addr-" + addr.id()).offset().top - 100
 				}, 500);
 			}
 
 			undelegateAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$('body').delegate(data.selectors.abort, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
 			undelegateAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$('body').delegate(data.selectors.useOriginal, 'click', data, function (e) {
-				userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
@@ -1780,7 +1780,7 @@
 				if (e.keyCode == 27) { //Esc
 					undelegateAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
-					userAborted('.smarty-popup.smarty-addr-' + e.data.address.id(), e);
+					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
 			});
 		};
@@ -1927,7 +1927,7 @@
 							}
 							return false;
 						}
-					}).attr('selected', true);
+					}).attr("selected", true);
 				}
 			}
 
@@ -1941,27 +1941,27 @@
 
 			if (differentVal && !keepState) {
 				ui.unmarkAsValid(self);
-				var uiTag = config.ui ? $('.smarty-ui .smarty-tag.smarty-addr-' + id) : undefined;
+				var uiTag = config.ui ? $(".smarty-ui .smarty-tag.smarty-addr-" + id) : undefined;
 				if (config.target.indexOf("US") >= 0 && config.target.indexOf("INTERNATIONAL") < 0) {
 					if (self.isDomestic()) {
-						if (uiTag && !uiTag.is(':visible'))
+						if (uiTag && !uiTag.is(":visible"))
 							uiTag.show(); // Show checkmark tag if address is in US
 						self.unaccept();
 						trigger("AddressChanged", eventMeta);
 					} else {
-						if (uiTag && uiTag.is(':visible'))
+						if (uiTag && uiTag.is(":visible"))
 							uiTag.hide(); // Hide checkmark tag if address is non-US
 						self.accept({
 							address: self
 						}, false);
 					}
 				} else if (config.target.indexOf("INTERNATIONAL") >= 0 && config.target.indexOf("US") < 0) {
-					if (uiTag && !uiTag.is(':visible'))
+					if (uiTag && !uiTag.is(":visible"))
 						uiTag.show(); // Show checkmark tag if address is in US
 					self.unaccept();
 					trigger("AddressChanged", eventMeta);
 				} else if (config.target.indexOf("US") >= 0 && config.target.indexOf("INTERNATIONAL") >= 0) {
-					if (uiTag && !uiTag.is(':visible'))
+					if (uiTag && !uiTag.is(":visible"))
 						uiTag.show(); // Show checkmark tag if address is in US
 					self.unaccept();
 					trigger("AddressChanged", eventMeta);
@@ -1983,9 +1983,9 @@
 		// Constructor-esque functionality (save the fields in this address object)
 		this.load = function (domMap, addressID) {
 			fields = {};
-			id = addressID ? addressID.replace(/[^a-z0-9_\-]/ig, '') : randomInt(1, 99999); // Strips non-selector-friendly characters
+			id = addressID ? addressID.replace(/[^a-z0-9_\-]/ig, "") : randomInt(1, 99999); // Strips non-selector-friendly characters
 
-			if (typeof domMap === 'object') { // can be an actual map to DOM elements or just field/value data
+			if (typeof domMap === "object") { // can be an actual map to DOM elements or just field/value data
 				// Find the last field likely to appear on the DOM (used for UI attachments)
 				this.lastField = domMap[Object.keys(domMap)[Object.keys(domMap).length - 1]];
 
@@ -2019,8 +2019,8 @@
 
 					if (!isData) {
 						if (config.debug) {
-							elem.css('background', '#FFFFCC');
-							elem.attr('placeholder', prop + ":" + id);
+							elem.css("background", "#FFFFCC");
+							elem.attr("placeholder", prop + ":" + id);
 						}
 						fields[prop].dom = domMap[prop];
 					}
@@ -2041,7 +2041,7 @@
 						clicky = $(e.target);
 					});
 
-					// when 'clicky == null' on blur, we know it was not caused by a click
+					// when "clicky == null" on blur, we know it was not caused by a click
 					// but maybe by pressing the tab key
 					$(document).mouseup(function (e) {
 						clicky = null;
@@ -2084,9 +2084,9 @@
 		this.load(domMap, addressID);
 
 		this.set = function (key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify) {
-			if (typeof key === 'string' && arguments.length >= 2)
+			if (typeof key === "string" && arguments.length >= 2)
 				return doSet(key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify);
-			else if (typeof key === 'object') {
+			else if (typeof key === "object") {
 				var successful = true;
 				for (var prop in key)
 					successful = doSet(prop, key[prop], updateDomElement, keepState, sourceEvent, suppressAutoVerify) ? successful : false;
@@ -2099,11 +2099,11 @@
 			// replace the values in the address... and if updateDomElement is true,
 			// then change the values in the fields on the page accordingly.
 
-			if (typeof resp === 'array' && resp.length > 0)
+			if (typeof resp === "array" && resp.length > 0)
 				resp = resp[0];
 
 			// Sent via US api
-			if (typeof resp.candidate_index != 'undefined') {
+			if (typeof resp.candidate_index != "undefined") {
 				if (self.isFreeform()) {
 					var singleLineAddr = (resp.addressee ? resp.addressee + ", " : "") +
 						(resp.delivery_line_1 ? resp.delivery_line_1 + ", " : "") +
@@ -2248,7 +2248,7 @@
 
 			if (!lastField) {
 				for (var prop in fields) {
-					if (!fields[prop].dom || !$(fields[prop].dom).is(':visible'))
+					if (!fields[prop].dom || !$(fields[prop].dom).is(":visible"))
 						continue;
 
 					var dom = fields[prop].dom;
@@ -2414,14 +2414,14 @@
 				obj.street2 = fields.address2.dom.value;
 			}
 			if (fields.address3 && fields.address3.dom && fields.address3.dom.value) {
-				if (typeof obj.street2 === 'undefined') {
+				if (typeof obj.street2 === "undefined") {
 					obj.street2 = fields.address3.dom.value;
 				} else {
 					obj.street2 = obj.street2 += ", " + fields.address3.dom.value;
 				}
 			}
 			if (fields.address4 && fields.address4.dom && fields.address4.dom.value) {
-				if (typeof obj.street2 === 'undefined') {
+				if (typeof obj.street2 === "undefined") {
 					obj.street2 = fields.address4.dom.value;
 				} else {
 					obj.street2 = obj.street2 += ", " + fields.address4.dom.value;
@@ -2486,7 +2486,7 @@
 		};
 
 		this.abort = function (event, keepAccept) {
-			keepAccept = typeof keepAccept === 'undefined' ? false : keepAccept;
+			keepAccept = typeof keepAccept === "undefined" ? false : keepAccept;
 			if (!keepAccept)
 				self.unaccept();
 			delete self.form.processing;
@@ -2503,13 +2503,13 @@
 		};
 
 		this.undo = function (updateDomElement) {
-			updateDomElement = typeof updateDomElement === 'undefined' ? true : updateDomElement;
+			updateDomElement = typeof updateDomElement === "undefined" ? true : updateDomElement;
 			for (var key in fields)
 				this.set(key, fields[key].undo, updateDomElement, false, undefined, true);
 		};
 
 		this.accept = function (data, showValid) {
-			showValid = typeof showValid === 'undefined' ? true : showValid;
+			showValid = typeof showValid === "undefined" ? true : showValid;
 			state = "accepted";
 			ui.enableFields(self);
 			if (showValid) // If user chooses original input or the request timed out, the address wasn't "verified"
@@ -3759,7 +3759,7 @@
 		};
 
 		this.autocompleteVisible = function () {
-			return config.ui && config.autocomplete && $('.smarty-autocomplete.smarty-addr-' + self.id()).is(':visible');
+			return config.ui && config.autocomplete && $(".smarty-autocomplete.smarty-addr-" + self.id()).is(":visible");
 		};
 
 		this.id = function () {
@@ -3809,7 +3809,7 @@
 
 		var maybeDefault = function (idx) {
 			// Assigns index to 0, the default value, if no value is passed in
-			return typeof idx === 'undefined' ? 0 : idx;
+			return typeof idx === "undefined" ? 0 : idx;
 		};
 
 		// PUBLIC-FACING MEMBERS //
@@ -3820,7 +3820,7 @@
 		this.isValid = function () {
 			return (this.length == 1 &&
 			(this.raw[0].analysis.verification_status == "Verified" ||
-			(typeof this.raw[0].analysis.dpv_match_code != 'undefined' && this.raw[0].analysis.dpv_match_code != "N")));
+			(typeof this.raw[0].analysis.dpv_match_code != "undefined" && this.raw[0].analysis.dpv_match_code != "N")));
 		};
 
 		this.isInvalid = function () {
@@ -3829,8 +3829,8 @@
 			(this.raw[0].analysis.verification_status == "None" ||
 			this.raw[0].analysis.verification_status == "Partial" ||
 			this.raw[0].analysis.dpv_match_code == "N" ||
-			(typeof this.raw[0].analysis.verification_status === 'undefined' &&
-			typeof this.raw[0].analysis.dpv_match_code === 'undefined'))));
+			(typeof this.raw[0].analysis.verification_status === "undefined" &&
+			typeof this.raw[0].analysis.dpv_match_code === "undefined"))));
 		};
 
 		this.isAmbiguous = function () {
@@ -3865,10 +3865,10 @@
 
 	// Submits a form by calling `click` on a button element or `submit` on a form element
 	var submitForm = function (invokeOn, invokeFunction) {
-		if (invokeOn && typeof invokeOn !== 'function' && invokeFunction) {
+		if (invokeOn && typeof invokeOn !== "function" && invokeFunction) {
 			if (invokeFunction == "click") {
 				setTimeout(function () {
-					$(invokeOn).click(); // Very particular: we MUST fire the native 'click' event!
+					$(invokeOn).click(); // Very particular: we MUST fire the native "click" event!
 				}, 5);
 			} else if (invokeFunction == "submit")
 				$(invokeOn).submit(); // For submit(), we have to use jQuery's, so that all its submit handlers fire.
@@ -3892,8 +3892,8 @@
 	}
 
 	function lowercase(string) {
-		// Return an empty string if not defined, or a lowercase string with '[]' stripped.
-		return string ? string.toLowerCase().replace('[]', '') : '';
+		// Return an empty string if not defined, or a lowercase string with "[]" stripped.
+		return string ? string.toLowerCase().replace("[]", "") : "";
 	}
 
 	function trigger(eventType, metadata) {
