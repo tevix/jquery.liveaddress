@@ -605,9 +605,9 @@
 							var containerUi = $(".smarty-autocomplete.smarty-addr-" + addr.id()).closest(".smarty-ui");
 							var domFields = addr.getDomFields();
 							var mainInput = "";
-							if (domFields["address1"]) {
+							if (domFields.address1) {
 								mainInput = "address1";
-							} else if (domFields["freeform"]) {
+							} else if (domFields.freeform) {
 								mainInput = "freeform";
 							}
 							if (mainInput !== "") {
@@ -646,9 +646,9 @@
 							var addr = f.addresses[j];
 							var domFields = addr.getDomFields();
 							var mainInput = "";
-							if (domFields["address1"]) {
+							if (domFields.address1) {
 								mainInput = "address1";
-							} else if (domFields["freeform"]) {
+							} else if (domFields.freeform) {
 								mainInput = "freeform";
 							}
 							if (mainInput !== "") {
@@ -697,8 +697,8 @@
 									if (event.keyCode == 9) { // Tab key
 										if (currentChoice.length > 0) {
 											var domFields = event.data.addr.getDomFields();
-											if (domFields["zipcode"])
-												$(domFields["zipcode"]).focus();
+											if (domFields.zipcode)
+												$(domFields.zipcode).focus();
 											else
 												$(domFields[mainInput]).blur();
 											useAutocompleteSuggestion(event.data.addr, autocompleteResponse.suggestions[currentChoice.data("suggIndex")], event.data.containerUi);
@@ -985,37 +985,37 @@
 			ui.hideAutocomplete(addr.id()); // It's important that the suggestions are hidden before AddressChanged event fires
 
 			if (addr.isFreeform()) {
-				$(domfields["freeform"]).val(suggestion.text).change();
+				$(domfields.freeform).val(suggestion.text).change();
 				addr.usedAutocomplete = true;
 			} else {
-				if (domfields["postal_code"]) {
-					$(domfields["postal_code"]).val("").change();
+				if (domfields.postal_code) {
+					$(domfields.postal_code).val("").change();
 				}
-				if (domfields["address1"])
-					$(domfields["address1"]).val(suggestion.street_line).change();
+				if (domfields.address1)
+					$(domfields.address1).val(suggestion.street_line).change();
 				// State filled in before city so autoverify is not invoked without finishing using the suggestion
-				if (domfields["administrative_area"]) {
-					if (domfields["administrative_area"].options) { // Checks for dropdown
-						for (var i = 0; i < domfields["administrative_area"].options.length; i++) {
+				if (domfields.administrative_area) {
+					if (domfields.administrative_area.options) { // Checks for dropdown
+						for (var i = 0; i < domfields.administrative_area.options.length; i++) {
 							// Checks for abbreviation match and maps full state name to abbreviation
-							if (domfields["administrative_area"].options[i].text.toUpperCase() === suggestion.state || allStatesByName[domfields["administrative_area"].options[i].text.toUpperCase()] === suggestion.state) {
-								$(domfields["administrative_area"])[0].selectedIndex = i;
-								$(domfields["administrative_area"]).change();
+							if (domfields.administrative_area.options[i].text.toUpperCase() === suggestion.state || allStatesByName[domfields.administrative_area.options[i].text.toUpperCase()] === suggestion.state) {
+								$(domfields.administrative_area)[0].selectedIndex = i;
+								$(domfields.administrative_area).change();
 								break;
 							}
 						}
 					} else {
-						$(domfields["administrative_area"]).val(suggestion.state).change();
+						$(domfields.administrative_area).val(suggestion.state).change();
 					}
 				}
-				if (domfields["locality"]) {
-					$(domfields["locality"]).val("").change();
+				if (domfields.locality) {
+					$(domfields.locality).val("").change();
 					addr.usedAutocomplete = true;
-					$(domfields["locality"]).val(suggestion.city).change();
+					$(domfields.locality).val(suggestion.city).change();
 				}
 			}
-			if (domfields["country"] && !domfields["country"].options) {
-				$(domfields["country"]).val("USA").change();
+			if (domfields.country && !domfields.country.options) {
+				$(domfields.country).val("USA").change();
 			}
 			trigger("AutocompleteUsed", {
 				address: addr,
@@ -1168,10 +1168,10 @@
 						}
 						$(doms[prop]).unbind("change");
 					}
-					if (doms["address1"])
-						$(doms["address1"]).unbind("keyup").unbind("keydown").unbind("blur");
-					else if (doms["freeform"])
-						$(doms["freeform"]).unbind("keyup").unbind("keydown").unbind("blur");
+					if (doms.address1)
+						$(doms.address1).unbind("keyup").unbind("keydown").unbind("blur");
+					else if (doms.freeform)
+						$(doms.freeform).unbind("keyup").unbind("keydown").unbind("blur");
 				}
 
 				// Unbind our form submit and submit-button click handlers
