@@ -955,18 +955,23 @@
 
 			autocplRequests[autocplrequest.number] = autocplrequest;
 
-			$.getJSON("https://us-autocomplete.api.smartystreets.com/suggest?", {
-				"auth-id": config.key,
-				"auth-token": config.token,
-				prefix: data.input,
-				city_filter: config.cityFilter,
-				state_filter: config.stateFilter,
-				prefer: config.cityStatePreference,
-				suggestions: config.autocomplete,
-				geolocate: config.geolocate,
-				geolocate_precision: config.geolocatePrecision,
-				agent: "smartystreets (plugin:website@" + instance.version + ")",
-			}, function (json) {
+			$.ajax({
+				url: "https://us-autocomplete.api.smartystreets.com/suggest",
+				traditional: true,
+				dataType: "json",
+				data: {
+					"auth-id": config.key,
+					"auth-token": config.token,
+					prefix: data.input,
+					city_filter: config.cityFilter,
+					state_filter: config.stateFilter,
+					prefer: config.cityStatePreference,
+					suggestions: config.autocomplete,
+					geolocate: config.geolocate,
+					geolocate_precision: config.geolocatePrecision,
+					agent: ["smartystreets (plugin:website@" + instance.version + ")", config.agent]
+				}
+			}).success(function (json) {
 				trigger("AutocompleteReceived", $.extend(data, {
 					json: json,
 					autocplrequest: autocplrequest
@@ -2289,7 +2294,7 @@
 			self.verifyCount++;
 			var addrData = self.toRequestIntl();
 			var credentials = config.token ? "auth-id=" + encodeURIComponent(config.key) + "&auth-token=" +
-				encodeURIComponent(config.token) : "auth-id=" + encodeURIComponent(config.key);
+			encodeURIComponent(config.token) : "auth-id=" + encodeURIComponent(config.key);
 			var requestUrl = config.requestUrlInternational;
 			var headers = {};
 			if (self.isDomestic() && config.target.indexOf("US") >= 0) {
