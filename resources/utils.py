@@ -3,7 +3,7 @@ import os.path as path
 
 _MIME_TYPES = {
     '.css': 'text/css',
-    '.js': 'text/javascript',
+    '.js': 'text/javascript; charset=utf-8',
     '.ico': 'image/ico',
     '.jpg' : 'image/jpeg',
     '.png' : 'image/png',
