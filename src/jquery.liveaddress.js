@@ -2481,7 +2481,7 @@
 					(fields.address3 ? fields.address3.value + " " : "") + (fields.address4 ? fields.address4.value + " " : "") +
 					(fields.locality ? fields.locality.value + " " : "");
 				if (fields.administrative_area) {
-					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT") {
+					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT" && fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex]) {
 						addrString += fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex].text + " ";
 					} else {
 						addrString += fields.administrative_area.dom.value + " ";
