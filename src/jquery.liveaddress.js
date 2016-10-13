@@ -1906,7 +1906,7 @@
 			if (!fields[key])
 				fields[key] = {};
 
-			if (typeof fields[key].dom !== "undefined" && fields[key].dom.tagName === "SELECT" && key !== "administrative_area") {
+			if (typeof fields[key].dom !== "undefined" && fields[key].dom.tagName === "SELECT" && key !== "administrative_area" && fields[key].dom.selectedIndex >= 0) {
 				value = fields[key].dom[fields[key].dom.selectedIndex].text.replace(/<|>/g, "");
 			} else {
 				value = value.replace(/<|>/g, ""); // prevents script injection attacks (< and > aren't in addresses, anyway)
@@ -2399,7 +2399,7 @@
 			}
 			for (var key in fields) {
 				var keyval = {};
-				if (fields[key].dom && fields[key].dom.tagName === "SELECT") {
+				if (fields[key].dom && fields[key].dom.tagName === "SELECT" && fields[key].dom.selectedIndex >= 0) {
 					keyval[key] = fields[key].dom[fields[key].dom.selectedIndex].text;
 				} else {
 					keyval[key] = fields[key].value.replace(/\r|\n/g, " "); // Line breaks to spaces
@@ -2435,14 +2435,14 @@
 				}
 			}
 			if (fields.locality && fields.locality.dom) {
-				if (fields.locality.dom.tagName === "SELECT") {
+				if (fields.locality.dom.tagName === "SELECT" && fields.locality.dom.selectedIndex >= 0) {
 					obj.city = fields.locality.dom[fields.locality.dom.selectedIndex].text;
 				} else {
 					obj.city = fields.locality.dom.value;
 				}
 			}
 			if (fields.administrative_area && fields.administrative_area.dom.value) {
-				if (fields.administrative_area.dom.tagName === "SELECT") {
+				if (fields.administrative_area.dom.tagName === "SELECT" && fields.administrative_area.dom.selectedIndex >= 0) {
 					obj.state = fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex].text;
 				} else {
 					obj.state = fields.administrative_area.dom.value;
@@ -2481,7 +2481,7 @@
 					(fields.address3 ? fields.address3.value + " " : "") + (fields.address4 ? fields.address4.value + " " : "") +
 					(fields.locality ? fields.locality.value + " " : "");
 				if (fields.administrative_area) {
-					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT" && fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex]) {
+					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT" && fields.administrative_area.dom.selectedIndex >= 0) {
 						addrString += fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex].text + " ";
 					} else {
 						addrString += fields.administrative_area.dom.value + " ";
@@ -2559,7 +2559,7 @@
 			var countryValue = "";
 			if (fields.country && fields.country.dom) {
 				countryValue = fields.country.dom.value;
-				if (fields.country.dom.selectedOptions)
+				if (fields.country.dom.selectedOptions && fields.country.dom.selectedIndex >= 0)
 					countryValue = fields.country.dom.selectedOptions[0].text;
 			}
 			countryValue = countryValue.toUpperCase().replace(/\.|\s|\(|\)|\\|\/|-/g, "");
