@@ -2558,9 +2558,10 @@
 		this.isDomestic = function () {
 			var countryValue = "";
 			if (fields.country && fields.country.dom) {
-				countryValue = fields.country.dom.value;
-				if (fields.country.dom.selectedOptions && fields.country.dom.selectedIndex >= 0)
-					countryValue = fields.country.dom.selectedOptions[0].text;
+				countryValue = $(fields.country.dom).val();
+				var selectedOption = $(fields.country.dom).children(":selected");
+				if (selectedOption.length > 0 && selectedOption.index() > 0)
+					countryValue = selectedOption.text();
 			}
 			countryValue = countryValue.toUpperCase().replace(/\.|\s|\(|\)|\\|\/|-/g, "");
 			var usa = ["", "0", "1", "US", "USA", "USOFA", "USOFAMERICA", "AMERICAN", // 1 is AmeriCommerce
@@ -2580,9 +2581,10 @@
 
 		this.countryISO = function () {
 			if (config.target.indexOf("INTERNATIONAL") >= 0) {
-				var countryValue = fields.country.dom.value;
-				if (fields.country.dom.selectedOptions)
-					countryValue = fields.country.dom.selectedOptions[0].text;
+				var countryValue = $(fields.country.dom).val();
+				var selectedOption = $(fields.country.dom).children(":selected");
+				if (selectedOption.length > 0)
+					countryValue = selectedOption.text();
 				countryValue = countryValue.toUpperCase().replace(/\.|\s|\(|\)|\\|\/|-|\'|\"|\,|ʻ|\&/g, "");
 				var validCountries = {
 					"AFGHANISTAN": "AFG",
