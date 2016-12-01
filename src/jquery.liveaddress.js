@@ -966,7 +966,7 @@
 					geolocate_precision: config.geolocatePrecision,
 					agent: ["smartystreets (plugin:website@" + instance.version + ")", config.agent]
 				}
-			}).success(function (json) {
+			}).done(function (json) {
 				trigger("AutocompleteReceived", $.extend(data, {
 					json: json,
 					autocplrequest: autocplrequest
