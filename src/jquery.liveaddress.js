@@ -466,10 +466,10 @@
 			version: version
 		};
 
-		// Unbind old handlers then bind each handler to an event
+		// Turn off old handlers then turn on each handler with an event
 		for (var prop in instance.events) {
-			$(document).unbind(prop, HandleEvent);
-			bind(prop);
+			$(document).off(prop, HandleEvent);
+			turnOn(prop);
 		}
 
 		// Map the fields
@@ -615,13 +615,13 @@
 					});
 				}
 
-				$("body").delegate(".smarty-tag-grayed", "click", function (e) {
+				$("body").on("click", ".smarty-tag-grayed", function (e) {
 					// "Verify" clicked -- manually invoke verification
 					var addrId = $(this).data("addressid");
 					instance.verify(addrId);
 				});
 
-				$("body").delegate(".smarty-undo", "click", function (e) {
+				$("body").on("click", ".smarty-undo", function (e) {
 					// "Undo" clicked -- replace field values with previous input
 					var addrId = $(this).parent().data("addressid");
 					var addr = instance.getMappedAddressByID(addrId);
@@ -663,7 +663,7 @@
 
 								containerUi.hide().appendTo("body");
 
-								containerUi.delegate(".smarty-suggestion", "click", {
+								containerUi.on("click", ".smarty-suggestion", {
 									addr: addr,
 									containerUi: containerUi
 								}, function (event) {
@@ -671,12 +671,12 @@
 									useAutocompleteSuggestion(event.data.addr, sugg, event.data.containerUi);
 								});
 
-								containerUi.delegate(".smarty-suggestion", "mouseover", function () {
+								containerUi.on("mouseover", ".smarty-suggestion", function () {
 									$(".smarty-active-suggestion").removeClass("smarty-active-suggestion");
 									$(this).addClass("smarty-active-suggestion");
 								});
 
-								containerUi.delegate(".smarty-active-suggestion", "mouseleave", function () {
+								containerUi.on("mouseleave", ".smarty-active-suggestion", function () {
 									$(this).removeClass("smarty-active-suggestion");
 								});
 								strField.attr("autocomplete", "off"); // Tell Firefox to keep quiet
@@ -810,18 +810,18 @@
 							oldHandlers = $.extend(true, [], eventsRef[eventName]);
 						}
 
-						// Unbind them...
-						$(domElement).unbind(eventName);
+						// Turn them off...
+						$(domElement).off(eventName);
 
-						// ... then bind ours first ...
+						// ... then turn ours on first ...
 						$(domElement)[eventName]({
 							form: f,
 							invoke: domElement,
 							invokeFn: eventName
 						}, submitHandler);
 
-						// ... then bind theirs last:
-						// First bind their onclick="..." or onsubmit="..." handles...
+						// ... then turn on theirs last:
+						// First turn on their onclick="..." or onsubmit="..." handles...
 						if (typeof domElement["on" + eventName] === "function") {
 							var temp = domElement["on" + eventName];
 							domElement["on" + eventName] = null;
@@ -1082,7 +1082,7 @@
 			// Even though there may be more than one bound, and this disables the others,
 			// this is for simplicity: and I figure, it won't happen too often.
 			// (Otherwise "Completed" events are raised by pressing Esc even if nothing is happening)
-			$(document).unbind("keyup");
+			$(document).off("keyup");
 			$(uiPopup).slideUp(defaults.speed, function () {
 				$(this).parent(".smarty-ui").remove();
 			});
@@ -1092,15 +1092,15 @@
 		// When we're done with a "pop-up" where the user chooses what to do,
 		// we need to remove all other events bound on that whole "pop-up"
 		// so that it doesn't interfere with any future "pop-ups".
-		function undelegateAllClicks(selectors) {
+		function turnOffAllClicks(selectors) {
 			if (Array.isArray(selectors) || typeof selectors == "object") {
 				for (var selector in selectors) {
-					$("body").undelegate(selectors[selector], "click");
+					$("body").off("click", selectors[selector]);
 				}
 			} else if (typeof selectors === "string") {
-				$("body").undelegate(selectors, "click");
+				$("body").off("click", selectors);
 			} else {
-				alert("ERROR: Not an array, string, or object passed in to undelegate all clicks");
+				alert("ERROR: Not an array, string, or object passed in to turn off all clicks");
 			}
 		}
 
@@ -1166,28 +1166,28 @@
 								submitButtons[k].style.color = "black";
 							}
 						}
-						$(doms[prop]).unbind("change");
+						$(doms[prop]).off("change");
 					}
 					if (doms.address1)
-						$(doms.address1).unbind("keyup").unbind("keydown").unbind("blur");
+						$(doms.address1).off("keyup").off("keydown").off("blur");
 					else if (doms.freeform)
-						$(doms.freeform).unbind("keyup").unbind("keydown").unbind("blur");
+						$(doms.freeform).off("keyup").off("keydown").off("blur");
 				}
 
 				// Unbind our form submit and submit-button click handlers
 				$.each(forms, function (idx) {
-					$(this.dom).unbind("submit", submitHandler);
+					$(this.dom).off("submit", submitHandler);
 				});
 				$(config.submitSelector, forms[i].dom).each(function (idx) {
-					$(this).unbind("click", submitHandler);
+					$(this).off("click", submitHandler);
 				});
 			}
 
-			$(".smarty-ui").undelegate(".smarty-suggestion", "click").undelegate(".smarty-suggestion", "mouseover").undelegate(".smarty-suggestion", "mouseleave").remove();
-			$("body").undelegate(".smarty-undo", "click");
-			$("body").undelegate(".smarty-tag-grayed", "click");
-			$(window).unbind("resize.smarty");
-			$(document).unbind("keyup");
+			$(".smarty-ui").off("click", ".smarty-suggestion").off("mouseover", ".smarty-suggestion").off("mouseleave", ".smarty-suggestion").remove();
+			$("body").off("click", ".smarty-undo");
+			$("body").off("click", ".smarty-tag-grayed");
+			$(window).off("resize.smarty");
+			$(document).off("keyup");
 
 			forms = [];
 			mappedAddressCount = 0;
@@ -1257,7 +1257,7 @@
 							if (config.debug)
 								console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
 							delete address[fieldType];
-						} else if (matched.parents("form").length == 0) { // We should only map elements inside a <form> tag; otherwise we can't bind to submit handlers later
+						} else if (matched.parents("form").length == 0) { // We should only map elements inside a <form> tag; otherwise we can't turn on submit handlers later
 							if (config.debug)
 								console.log("NOTICE: Element with selector \"" + address[fieldType] + "\" is not inside a <form> tag. Skipping...");
 							delete address[fieldType];
@@ -1385,7 +1385,7 @@
 
 			var domTag = $(".smarty-tag.smarty-tag-green.smarty-addr-" + addr.id());
 			domTag.removeClass("smarty-tag-green").addClass("smarty-tag-grayed").attr("title", "Address not verified. Click to verify.");
-			$(".smarty-tag-text", domTag).text("Verify").unbind("mouseenter mouseleave").removeClass("smarty-undo");
+			$(".smarty-tag-text", domTag).text("Verify").off("mouseenter mouseleave").removeClass("smarty-undo");
 		};
 
 		this.showAmbiguous = function (data) {
@@ -1464,13 +1464,13 @@
 			};
 
 			// User chose a candidate address
-			$("body").delegate(data.selectors.goodAddr, "click", data, function (e) {
+			$("body").on("click", data.selectors.goodAddr, data, function (e) {
 				$(".smarty-popup.smarty-addr-" + addr.id()).slideUp(defaults.speed, function () {
 					$(this).parent(".smarty-ui").remove();
 					$(this).remove();
 				});
 
-				undelegateAllClicks(e.data.selectors);
+				turnOffAllClicks(e.data.selectors);
 				delete e.data.selectors;
 
 				trigger("UsedSuggestedAddress", {
@@ -1483,13 +1483,13 @@
 			});
 
 			// User wants to revert to what they typed (forced accept)
-			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+			$("body").on("click", data.selectors.useOriginal, data, function (e) {
 				$(this).parents(".smarty-popup").slideUp(defaults.speed, function () {
 					$(this).parent(".smarty-ui").remove();
 					$(this).remove();
 				});
 
-				undelegateAllClicks(e.data.selectors);
+				turnOffAllClicks(e.data.selectors);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
@@ -1497,7 +1497,7 @@
 			// User presses Esc key
 			$(document).keyup(data, function (e) {
 				if (e.keyCode == 27) { //Esc
-					undelegateAllClicks(e.data.selectors);
+					turnOffAllClicks(e.data.selectors);
 					delete e.data.selectors;
 					userAborted($(".smarty-popup.smarty-addr-" + e.data.address.id()), e);
 					suppress(e);
@@ -1505,8 +1505,8 @@
 			});
 
 			// User clicks "x" in corner or chooses to try a different address (same effect as Esc key)
-			$("body").delegate(data.selectors.abort, "click", data, function (e) {
-				undelegateAllClicks(e.data.selectors);
+			$("body").on("click", data.selectors.abort, data, function (e) {
+				turnOffAllClicks(e.data.selectors);
 				delete e.data.selectors;
 				userAborted($(this).parents(".smarty-popup"), e);
 			});
@@ -1549,17 +1549,17 @@
 				}, 500);
 			}
 
-			undelegateAllClicks(data.selectors.abort);
+			turnOffAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+			$("body").on("click", data.selectors.abort, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
-			undelegateAllClicks(data.selectors.useOriginal);
+			turnOffAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+			$("body").on("click", data.selectors.useOriginal, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
@@ -1568,7 +1568,7 @@
 			// User presses esc key
 			$(document).keyup(data, function (e) {
 				if (e.keyCode == 27) { //Esc
-					undelegateAllClicks(e.data.selectors);
+					turnOffAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
 					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
@@ -1612,17 +1612,17 @@
 				}, 500);
 			}
 
-			undelegateAllClicks(data.selectors.abort);
+			turnOffAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+			$("body").on("click", data.selectors.abort, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
-			undelegateAllClicks(data.selectors.useOriginal);
+			turnOffAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+			$("body").on("click", data.selectors.useOriginal, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
@@ -1631,7 +1631,7 @@
 			// User presses esc key
 			$(document).keyup(data, function (e) {
 				if (e.keyCode == 27) { //Esc
-					undelegateAllClicks(e.data.selectors);
+					turnOffAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
 					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
@@ -1680,25 +1680,25 @@
 				}, 500);
 			}
 
-			undelegateAllClicks(data.selectors.abort);
+			turnOffAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+			$("body").on("click", data.selectors.abort, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
-			undelegateAllClicks(data.selectors.useOriginal);
+			turnOffAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+			$("body").on("click", data.selectors.useOriginal, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
 			});
 
-			undelegateAllClicks(data.selectors.submit);
+			turnOffAllClicks(data.selectors.submit);
 			// User enters a secondary address
-			$("body").delegate(data.selectors.submit, "click", data, function (e) {
+			$("body").on("click", data.selectors.submit, data, function (e) {
 				e.data.address.secondary = $("#smarty-popup-secondary-number-input-box.smarty-addr-" + e.data.address.id()).val();
 				if (e.data.address.isFreeform()) {
 					e.data.address.address1 = e.data.response.raw[0].delivery_line_1;
@@ -1713,7 +1713,7 @@
 			// User presses esc key
 			$(document).keyup(data, function (e) {
 				if (e.keyCode == 27) { //Esc
-					undelegateAllClicks(e.data.selectors);
+					turnOffAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
 					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
@@ -1757,17 +1757,17 @@
 				}, 500);
 			}
 
-			undelegateAllClicks(data.selectors.abort);
+			turnOffAllClicks(data.selectors.abort);
 			// User rejects original input and agrees to double-check it
-			$("body").delegate(data.selectors.abort, "click", data, function (e) {
+			$("body").on("click", data.selectors.abort, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("InvalidAddressRejected", e.data);
 			});
 
-			undelegateAllClicks(data.selectors.useOriginal);
+			turnOffAllClicks(data.selectors.useOriginal);
 			// User certifies that what they typed is correct
-			$("body").delegate(data.selectors.useOriginal, "click", data, function (e) {
+			$("body").on("click", data.selectors.useOriginal, data, function (e) {
 				userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				delete e.data.selectors;
 				trigger("OriginalInputSelected", e.data);
@@ -1776,7 +1776,7 @@
 			// User presses esc key
 			$(document).keyup(data, function (e) {
 				if (e.keyCode == 27) { //Esc
-					undelegateAllClicks(e.data.selectors);
+					turnOffAllClicks(e.data.selectors);
 					$(data.selectors.abort).click();
 					userAborted(".smarty-popup.smarty-addr-" + e.data.address.id(), e);
 				}
@@ -3906,9 +3906,9 @@
 		$(document).triggerHandler(eventType, metadata);
 	}
 
-	function bind(eventType) {
+	function turnOn(eventType) {
 		// Bind a custom handler to an event
-		$(document).bind(eventType, HandleEvent);
+		$(document).on(eventType, HandleEvent);
 	}
 
 	function suppress(event) {
