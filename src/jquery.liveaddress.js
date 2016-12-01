@@ -65,9 +65,6 @@
 	};
 
 	$.fn.LiveAddress = function (arg) {
-		var matched = this,
-			wasChained = matched.prevObject ? !!matched.prevObject.prevObject : false;
-
 		// Make sure the jQuery version is compatible
 		var vers = $.fn.jquery.split(".");
 		if (vers.length >= 2) {
@@ -380,9 +377,9 @@
 			mapFields: function (map) {
 				var doMap = function (map) {
 					if (typeof map === "object")
-						return ui.mapFields(map, matched);
+						return ui.mapFields(map);
 					else if (!map && typeof config.addresses === "object")
-						return ui.mapFields(config.addresses, matched);
+						return ui.mapFields(config.addresses);
 					else
 						return false;
 				};
@@ -390,8 +387,6 @@
 					doMap(map);
 				else
 					$(function () {
-						if (!wasChained)
-							matched = $(matched.selector);
 						doMap(map);
 					});
 			},
@@ -1224,11 +1219,9 @@
 		}
 
 		// ** MANUAL MAPPING ** //
-		this.mapFields = function (map, context) {
+		this.mapFields = function (map) {
 			// "map" should be an array of objects mapping field types
 			// to a field by selector, all supplied by the user.
-			// "context" should be the set of elements in which fields will be mapped
-			// Context can be acquired like: $("#something").not("#something-else").LiveAddress( ... ); ...
 
 			if (config.debug)
 				console.log("Manually mapping fields given this data:", map);
@@ -1259,7 +1252,7 @@
 							delete address[fieldType];
 							continue;
 						}
-						var matched = $(address[fieldType], context);
+						var matched = $(address[fieldType]);
 						if (matched.length == 0) { // Don't try to map an element that couldn't be matched or found at all
 							if (config.debug)
 								console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
