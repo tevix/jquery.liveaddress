@@ -493,7 +493,7 @@
 	 */
 	function UI() {
 		var submitHandler; // Function which is later bound to handle form submits
-		var formDataProperty = "smarty-form"; // Indicates whether we've stored the form already
+		var formDataProperty = "smartyForm"; // Indicates whether we've stored the form already
 		var autocompleteResponse; // The latest response from the autocomplete server
 		var autocplCounter = 0; // A counter so that only the most recent JSONP request is used
 		var autocplRequests = []; // The array that holds autocomplete requests in order
