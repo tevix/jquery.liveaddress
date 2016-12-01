@@ -1921,18 +1921,21 @@
 				if (fields[key].dom.tagName === "INPUT") {
 					$(fields[key].dom).val(value);
 				} else if (fields[key].dom.tagName === "SELECT" && key === "administrative_area" && self.isDomestic()) {
-					$(fields[key].dom).find("option").filter(function () {
+					var selectedVal = "";
+					$(fields[key].dom).find("option").each(function () {
 						if ($(this).text().toUpperCase() === value) {
-							return true;
+							selectedVal = $(this).val();
+							return false;
 						} else {
 							for (state in allStatesByName) {
 								if (allStatesByName[state] === value && state === $(this).text().toUpperCase()) {
-									return true;
+									selectedVal = $(this).val();
+									return false;
 								}
 							}
-							return false;
 						}
-					}).attr("selected", true);
+					});
+					$(fields[key].dom).val(selectedVal);
 				}
 			}
 
