@@ -2065,12 +2065,38 @@
 					// This is known behavior and is actually proper functioning in this uncommon edge case.
 					!isData && $(domMap[prop]).change(data, function (e) {
 
+						function clickyIsNull() {
+							return clicky == null;
+						}
+
+						function clickyIsBold() {
+							return clicky[0].tagName == "B";
+						}
+
+						function elementIsActiveSuggestion(el) {
+							return el.className == "smarty-suggestion smarty-active-suggestion";
+						}
+
+						function typeyIsNull() {
+							return typey == null;
+						}
+
+						function clickyIsBoldAndNotActive() {
+							return !clickyIsNull() && clickyIsBold() && !elementIsActiveSuggestion(clicky[0].parentElement);
+						}
+
+						function clickyIsNotBoldAndNotActive() {
+							return !clickyIsNull() && !clickyIsBold() && !elementIsActiveSuggestion(clicky[0]);
+						}
+
+						function clickyAndTypeyAreNullAndAutocompleteVisible() {
+							return clickyIsNull() && typeyIsNull() && e.data.address.autocompleteVisible();
+						}
+
 						// Hides the autocomplete UI when necessary
 						// Don't hide unless the user didn't click on the autocomplete suggestion
 						// Helps handle iOS arrow "tabs"
-						if (clicky != null && clicky[0].className != "smarty-suggestion smarty-active-suggestion") {
-							ui.hideAutocomplete(e.data.address.id());
-						} else if (clicky == null && typey == null && e.data.address.autocompleteVisible()) {
+						if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
 							ui.hideAutocomplete(e.data.address.id());
 						}
 						e.data.address.set(e.data.field, e.target.value, false, false, e, false);
