@@ -468,8 +468,10 @@
 
 		// Turn off old handlers then turn on each handler with an event
 		for (var prop in instance.events) {
-			$(document).off(prop, HandleEvent);
-			turnOn(prop);
+			if (instance.events.hasOwnProperty(prop)) {
+				$(document).off(prop, HandleEvent);
+				turnOn(prop);
+			}
 		}
 
 		// Map the fields
@@ -1095,7 +1097,9 @@
 		function turnOffAllClicks(selectors) {
 			if (Array.isArray(selectors) || typeof selectors == "object") {
 				for (var selector in selectors) {
-					$("body").off("click", selectors[selector]);
+					if (selectors.hasOwnProperty(selector)) {
+						$("body").off("click", selectors[selector]);
+					}
 				}
 			} else if (typeof selectors === "string") {
 				$("body").off("click", selectors);
@@ -1159,14 +1163,16 @@
 				for (var j = 0; j < forms[i].addresses.length; j++) {
 					var doms = forms[i].addresses[j].getDomFields();
 					for (var prop in doms) {
-						if (config.debug) {
-							$(doms[prop]).css("background", "none").attr("placeholder", "");
-							var submitButtons = $(config.submitSelector);
-							for (var k = 0; k < submitButtons.length; k++) {
-								submitButtons[k].style.color = "black";
+						if (doms.hasOwnProperty(prop)) {
+							if (config.debug) {
+								$(doms[prop]).css("background", "none").attr("placeholder", "");
+								var submitButtons = $(config.submitSelector);
+								for (var k = 0; k < submitButtons.length; k++) {
+									submitButtons[k].style.color = "black";
+								}
 							}
+							$(doms[prop]).off("change");
 						}
-						$(doms[prop]).off("change");
 					}
 					if (doms.address1)
 						$(doms.address1).off("keyup").off("keydown").off("blur");
@@ -1231,84 +1237,88 @@
 			map = map instanceof Array ? map : [map];
 
 			for (var addrIdx in map) {
-				var address = map[addrIdx];
+				if (map.hasOwnProperty(addrIdx)) {
+					var address = map[addrIdx];
 
-				if (!address.country && config.target.indexOf("US") < 0)
-					continue;
+					if (!address.country && config.target.indexOf("US") < 0)
+						continue;
 
-				// Convert selectors into actual DOM references
+					// Convert selectors into actual DOM references
 
-				var match = "";
+					var match = "";
 
-				for (var fieldType in address) {
-					if (fieldType == "match") {
-						match = address[fieldType];
-						delete address[fieldType];
+					for (var fieldType in address) {
+						if (address.hasOwnProperty(fieldType)) {
+							if (fieldType == "match") {
+								match = address[fieldType];
+								delete address[fieldType];
+							}
+							if (fieldType != "id") {
+								if (!arrayContains(acceptableFields, fieldType)) { // Make sure the field name is allowed
+									if (config.debug)
+										console.log("NOTICE: Field named " + fieldType + " is not allowed. Skipping...");
+									delete address[fieldType];
+									continue;
+								}
+								var matched = $(address[fieldType]);
+								if (matched.length == 0) { // Don't try to map an element that couldn't be matched or found at all
+									if (config.debug)
+										console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
+									delete address[fieldType];
+								} else if (matched.parents("form").length == 0) { // We should only map elements inside a <form> tag; otherwise we can't turn on submit handlers later
+									if (config.debug)
+										console.log("NOTICE: Element with selector \"" + address[fieldType] + "\" is not inside a <form> tag. Skipping...");
+									delete address[fieldType];
+								} else
+									address[fieldType] = matched[0];
+							}
+						}
 					}
-					if (fieldType != "id") {
-						if (!arrayContains(acceptableFields, fieldType)) { // Make sure the field name is allowed
+					if (config.target.indexOf("INTERNATIONAL") >= 0) {
+						if (!((address.country && address.freeform) || (address.country && address.address1 && address.postal_code) || (address.country && address.address1 && address.locality && address.administrative_area))) {
 							if (config.debug)
-								console.log("NOTICE: Field named " + fieldType + " is not allowed. Skipping...");
-							delete address[fieldType];
+								console.log("NOTICE: Address map (index " + addrIdx + ") was not mapped to a complete street address. Skipping...");
 							continue;
 						}
-						var matched = $(address[fieldType]);
-						if (matched.length == 0) { // Don't try to map an element that couldn't be matched or found at all
+					} else {
+						if (!((address.freeform) || (address.address1 && address.postal_code) || (address.address1 && address.locality && address.administrative_area))) {
 							if (config.debug)
-								console.log("NOTICE: No matches found for selector " + address[fieldType] + ". Skipping...");
-							delete address[fieldType];
-						} else if (matched.parents("form").length == 0) { // We should only map elements inside a <form> tag; otherwise we can't turn on submit handlers later
-							if (config.debug)
-								console.log("NOTICE: Element with selector \"" + address[fieldType] + "\" is not inside a <form> tag. Skipping...");
-							delete address[fieldType];
-						} else
-							address[fieldType] = matched[0];
-					}
-				}
-				if (config.target.indexOf("INTERNATIONAL") >= 0) {
-					if (!((address.country && address.freeform) || (address.country && address.address1 && address.postal_code) || (address.country && address.address1 && address.locality && address.administrative_area))) {
-						if (config.debug)
-							console.log("NOTICE: Address map (index " + addrIdx + ") was not mapped to a complete street address. Skipping...");
-						continue;
-					}
-				} else {
-					if (!((address.freeform) || (address.address1 && address.postal_code) || (address.address1 && address.locality && address.administrative_area))) {
-						if (config.debug)
-							console.log("NOTICE: Address map (index " + addrIdx + ") was not mapped to a complete street address. Skipping...");
-						continue;
-					}
-				}
-
-				// Acquire the form based on the first member
-				var formDom = $(address.address1).parents("form")[0];
-				if (!formDom) {
-					formDom = $(address.freeform).parents("form")[0];
-				}
-				var form = new Form(formDom);
-
-				// Persist a reference to the form if it wasn't acquired before
-				if (!$(formDom).data(formDataProperty)) {
-					// Mark the form as mapped then add it to our list
-					$(formDom).data(formDataProperty, 1);
-					disableBrowserAutofill(form.dom);
-					addDefaultToStateDropdown(form.dom);
-					formsFound.push(form);
-				} else {
-					// Find the form in our list since we already put it there
-					for (var i = 0; i < formsFound.length; i++) {
-						if (formsFound[i].dom == formDom) {
-							form = formsFound[i];
-							break;
+								console.log("NOTICE: Address map (index " + addrIdx + ") was not mapped to a complete street address. Skipping...");
+							continue;
 						}
 					}
+
+					// Acquire the form based on the first member
+					var formDom = $(address.address1).parents("form")[0];
+					if (!formDom) {
+						formDom = $(address.freeform).parents("form")[0];
+					}
+					var form = new Form(formDom);
+
+					// Persist a reference to the form if it wasn't acquired before
+					if (!$(formDom).data(formDataProperty)) {
+						// Mark the form as mapped then add it to our list
+						$(formDom).data(formDataProperty, 1);
+						disableBrowserAutofill(form.dom);
+						addDefaultToStateDropdown(form.dom);
+						formsFound.push(form);
+					} else {
+						// Find the form in our list since we already put it there
+						for (var i = 0; i < formsFound.length; i++) {
+							if (formsFound[i].dom == formDom) {
+								form = formsFound[i];
+								break;
+							}
+						}
+					}
+
+					// Add this address to the form
+					mappedAddressCount++;
+					form.addresses.push(new Address(address, form, address.id, match));
+
+					if (config.debug)
+						console.log("Finished mapping address with ID: " + form.addresses[form.addresses.length - 1].id());
 				}
-
-				// Add this address to the form
-				mappedAddressCount++;
-				form.addresses.push(new Address(address, form, address.id, match));
-
-				if (config.debug)
-					console.log("Finished mapping address with ID: " + form.addresses[form.addresses.length - 1].id());
 			}
 
 			forms = formsFound;
@@ -1321,8 +1331,11 @@
 				return;
 
 			var fields = address.getDomFields();
-			for (var field in fields)
-				$(fields[field]).prop ? $(fields[field]).prop("disabled", true) : $(fields[field]).attr("disabled", "disabled");
+			for (var field in fields) {
+				if (fields.hasOwnProperty(field)) {
+					$(fields[field]).prop ? $(fields[field]).prop("disabled", true) : $(fields[field]).attr("disabled", "disabled");
+				}
+			}
 
 			// Disable submit buttons
 			if (address.form && address.form.dom) {
@@ -1337,8 +1350,11 @@
 				return;
 
 			var fields = address.getDomFields();
-			for (var field in fields)
-				$(fields[field]).prop ? $(fields[field]).prop("disabled", false) : $(fields[field]).removeAttr("disabled");
+			for (var field in fields) {
+				if (fields.hasOwnProperty(field)) {
+					$(fields[field]).prop ? $(fields[field]).prop("disabled", false) : $(fields[field]).removeAttr("disabled");
+				}
+			}
 
 			// Enable submit buttons
 			if (address.form && address.form.dom) {
@@ -1993,114 +2009,116 @@
 				var isEmpty = true; // Whether the address has data in it (pre-populated) -- first assume it is empty.
 
 				for (var prop in domMap) {
-					if (!arrayContains(acceptableFields, prop)) // Skip "id" and any other unacceptable field
-						continue;
+					if (domMap.hasOwnProperty(prop)) {
+						if (!arrayContains(acceptableFields, prop)) // Skip "id" and any other unacceptable field
+							continue;
 
-					if (typeof domMap[prop] == "object" && domMap[prop].getBoundingClientRect().top > this.lastField.getBoundingClientRect().top) {
-						this.lastField = domMap[prop];
+						if (typeof domMap[prop] == "object" && domMap[prop].getBoundingClientRect().top > this.lastField.getBoundingClientRect().top) {
+							this.lastField = domMap[prop];
+						}
+
+						var elem, val, elemArray, isData;
+						try {
+							elem = $(domMap[prop]);
+							elemArray = elem.toArray();
+							isData = elemArray ? elemArray.length == 0 : false;
+						} catch (e) {
+							isData = true;
+						}
+
+						if (isData) // Didn't match an HTML element, so treat it as an address string ("street1" data) instead
+							val = domMap[prop] || "";
+						else
+							val = elem.val() || "";
+
+						fields[prop] = {};
+						fields[prop].value = val;
+						fields[prop].undo = val;
+
+						if (!isData) {
+							if (config.debug) {
+								elem.css("background", "#FFFFCC");
+								elem.attr("placeholder", prop + ":" + id);
+							}
+							fields[prop].dom = domMap[prop];
+						}
+
+						// This has to be passed in at bind-time; they cannot be obtained at run-time
+						var data = {
+							address: this,
+							field: prop,
+							value: val
+						};
+
+						// Capture the element that is clicked on so we know whether or not to close the autocomplete UI
+						// (http://stackoverflow.com/a/11544766/4462191)
+						var clicky;
+
+						$(document).mousedown(function (e) {
+							// The latest element clicked
+							clicky = $(e.target);
+						});
+
+						// when "clicky == null" on blur, we know it was not caused by a click
+						// but maybe by pressing the tab key
+						$(document).mouseup(function (e) {
+							clicky = null;
+						});
+
+						var typey;
+
+						$(document).keydown(function (e) {
+							typey = $(e.target);
+						});
+
+						$(document).keyup(function (e) {
+							typey = null;
+						});
+
+						// Bind the DOM element to needed events, passing in the data above
+						// NOTE: When the user types a street, city, and state, then hits Enter without leaving
+						// the state field, this change() event fires before the form is submitted, and if autoVerify is
+						// on, the verification will not invoke form submit, because it didn't come from a form submit.
+						// This is known behavior and is actually proper functioning in this uncommon edge case.
+						!isData && $(domMap[prop]).change(data, function (e) {
+
+							function clickyIsNull() {
+								return clicky == null;
+							}
+
+							function clickyIsBold() {
+								return clicky[0].tagName == "B";
+							}
+
+							function elementIsActiveSuggestion(el) {
+								return el.className == "smarty-suggestion smarty-active-suggestion";
+							}
+
+							function typeyIsNull() {
+								return typey == null;
+							}
+
+							function clickyIsBoldAndNotActive() {
+								return !clickyIsNull() && clickyIsBold() && !elementIsActiveSuggestion(clicky[0].parentElement);
+							}
+
+							function clickyIsNotBoldAndNotActive() {
+								return !clickyIsNull() && !clickyIsBold() && !elementIsActiveSuggestion(clicky[0]);
+							}
+
+							function clickyAndTypeyAreNullAndAutocompleteVisible() {
+								return clickyIsNull() && typeyIsNull() && e.data.address.autocompleteVisible();
+							}
+
+							// Hides the autocomplete UI when necessary
+							// Don't hide unless the user didn't click on the autocomplete suggestion
+							// Helps handle iOS arrow "tabs"
+							if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
+								ui.hideAutocomplete(e.data.address.id());
+							}
+							e.data.address.set(e.data.field, e.target.value, false, false, e, false);
+						});
 					}
-
-					var elem, val, elemArray, isData;
-					try {
-						elem = $(domMap[prop]);
-						elemArray = elem.toArray();
-						isData = elemArray ? elemArray.length == 0 : false;
-					} catch (e) {
-						isData = true;
-					}
-
-					if (isData) // Didn't match an HTML element, so treat it as an address string ("street1" data) instead
-						val = domMap[prop] || "";
-					else
-						val = elem.val() || "";
-
-					fields[prop] = {};
-					fields[prop].value = val;
-					fields[prop].undo = val;
-
-					if (!isData) {
-						if (config.debug) {
-							elem.css("background", "#FFFFCC");
-							elem.attr("placeholder", prop + ":" + id);
-						}
-						fields[prop].dom = domMap[prop];
-					}
-
-					// This has to be passed in at bind-time; they cannot be obtained at run-time
-					var data = {
-						address: this,
-						field: prop,
-						value: val
-					};
-
-					// Capture the element that is clicked on so we know whether or not to close the autocomplete UI
-					// (http://stackoverflow.com/a/11544766/4462191)
-					var clicky;
-
-					$(document).mousedown(function (e) {
-						// The latest element clicked
-						clicky = $(e.target);
-					});
-
-					// when "clicky == null" on blur, we know it was not caused by a click
-					// but maybe by pressing the tab key
-					$(document).mouseup(function (e) {
-						clicky = null;
-					});
-
-					var typey;
-
-					$(document).keydown(function (e) {
-						typey = $(e.target);
-					});
-
-					$(document).keyup(function (e) {
-						typey = null;
-					});
-
-					// Bind the DOM element to needed events, passing in the data above
-					// NOTE: When the user types a street, city, and state, then hits Enter without leaving
-					// the state field, this change() event fires before the form is submitted, and if autoVerify is
-					// on, the verification will not invoke form submit, because it didn't come from a form submit.
-					// This is known behavior and is actually proper functioning in this uncommon edge case.
-					!isData && $(domMap[prop]).change(data, function (e) {
-
-						function clickyIsNull() {
-							return clicky == null;
-						}
-
-						function clickyIsBold() {
-							return clicky[0].tagName == "B";
-						}
-
-						function elementIsActiveSuggestion(el) {
-							return el.className == "smarty-suggestion smarty-active-suggestion";
-						}
-
-						function typeyIsNull() {
-							return typey == null;
-						}
-
-						function clickyIsBoldAndNotActive() {
-							return !clickyIsNull() && clickyIsBold() && !elementIsActiveSuggestion(clicky[0].parentElement);
-						}
-
-						function clickyIsNotBoldAndNotActive() {
-							return !clickyIsNull() && !clickyIsBold() && !elementIsActiveSuggestion(clicky[0]);
-						}
-
-						function clickyAndTypeyAreNullAndAutocompleteVisible() {
-							return clickyIsNull() && typeyIsNull() && e.data.address.autocompleteVisible();
-						}
-
-						// Hides the autocomplete UI when necessary
-						// Don't hide unless the user didn't click on the autocomplete suggestion
-						// Helps handle iOS arrow "tabs"
-						if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
-							ui.hideAutocomplete(e.data.address.id());
-						}
-						e.data.address.set(e.data.field, e.target.value, false, false, e, false);
-					});
 				}
 
 				state = "changed";
@@ -2115,8 +2133,11 @@
 				return doSet(key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify);
 			else if (typeof key === "object") {
 				var successful = true;
-				for (var prop in key)
-					successful = doSet(prop, key[prop], updateDomElement, keepState, sourceEvent, suppressAutoVerify) ? successful : false;
+				for (var prop in key) {
+					if (key.hasOwnProperty(prop)) {
+						successful = doSet(prop, key[prop], updateDomElement, keepState, sourceEvent, suppressAutoVerify) ? successful : false;
+					}
+				}
 				return successful;
 			}
 		};
@@ -2275,18 +2296,20 @@
 
 			if (!lastField) {
 				for (var prop in fields) {
-					if (!fields[prop].dom || !$(fields[prop].dom).is(":visible"))
-						continue;
+					if (fields.hasOwnProperty(prop)) {
+						if (!fields[prop].dom || !$(fields[prop].dom).is(":visible"))
+							continue;
 
-					var dom = fields[prop].dom;
-					var offset = $(dom).offset();
-					offset.right = offset.left + $(dom).outerWidth(false);
-					offset.bottom = offset.top + $(dom).outerHeight(false);
+						var dom = fields[prop].dom;
+						var offset = $(dom).offset();
+						offset.right = offset.left + $(dom).outerWidth(false);
+						offset.bottom = offset.top + $(dom).outerHeight(false);
 
-					corners.top = !corners.top ? offset.top : Math.min(corners.top, offset.top);
-					corners.left = !corners.left ? offset.left : Math.min(corners.left, offset.left);
-					corners.right = !corners.right ? offset.right : Math.max(corners.right, offset.right);
-					corners.bottom = !corners.bottom ? offset.bottom : Math.max(corners.bottom, offset.bottom);
+						corners.top = !corners.top ? offset.top : Math.min(corners.top, offset.top);
+						corners.left = !corners.left ? offset.left : Math.min(corners.left, offset.left);
+						corners.right = !corners.right ? offset.right : Math.max(corners.right, offset.right);
+						corners.bottom = !corners.bottom ? offset.bottom : Math.max(corners.bottom, offset.bottom);
+					}
 				}
 			} else {
 				var jqDom = $(self.lastField);
@@ -2316,7 +2339,7 @@
 			self.verifyCount++;
 			var addrData = self.toRequestIntl();
 			var credentials = config.token ? "auth-id=" + encodeURIComponent(config.key) + "&auth-token=" +
-			encodeURIComponent(config.token) : "auth-id=" + encodeURIComponent(config.key);
+				encodeURIComponent(config.token) : "auth-id=" + encodeURIComponent(config.key);
 			var requestUrl = config.requestUrlInternational;
 			var headers = {};
 			if (self.isDomestic() && config.target.indexOf("US") >= 0) {
@@ -2420,13 +2443,15 @@
 				delete fields.postal_code;
 			}
 			for (var key in fields) {
-				var keyval = {};
-				if (fields[key].dom && fields[key].dom.tagName === "SELECT" && fields[key].dom.selectedIndex >= 0) {
-					keyval[key] = fields[key].dom[fields[key].dom.selectedIndex].text;
-				} else {
-					keyval[key] = fields[key].value.replace(/\r|\n/g, " "); // Line breaks to spaces
+				if (fields.hasOwnProperty(key)) {
+					var keyval = {};
+					if (fields[key].dom && fields[key].dom.tagName === "SELECT" && fields[key].dom.selectedIndex >= 0) {
+						keyval[key] = fields[key].dom[fields[key].dom.selectedIndex].text;
+					} else {
+						keyval[key] = fields[key].value.replace(/\r|\n/g, " "); // Line breaks to spaces
+					}
+					$.extend(obj, keyval);
 				}
-				$.extend(obj, keyval);
 			}
 			obj.geocode = config.geocode;
 			return obj;
@@ -2533,8 +2558,11 @@
 
 		this.undo = function (updateDomElement) {
 			updateDomElement = typeof updateDomElement === "undefined" ? true : updateDomElement;
-			for (var key in fields)
-				this.set(key, fields[key].undo, updateDomElement, false, undefined, true);
+			for (var key in fields) {
+				if (fields.hasOwnProperty(key)) {
+					this.set(key, fields[key].undo, updateDomElement, false, undefined, true);
+				}
+			}
 		};
 
 		this.accept = function (data, showValid) {
@@ -2564,17 +2592,21 @@
 			// Gets just the DOM elements for each field
 			var obj = {};
 			for (var prop in fields) {
-				var ext = {};
-				ext[prop] = fields[prop].dom;
-				$.extend(obj, ext);
+				if (fields.hasOwnProperty(prop)) {
+					var ext = {};
+					ext[prop] = fields[prop].dom;
+					$.extend(obj, ext);
+				}
 			}
 			return obj;
 		};
 
 		this.hasDomFields = function () {
-			for (var prop in fields)
-				if (fields[prop].dom)
+			for (var prop in fields) {
+				if (fields.hasOwnProperty(prop) && fields[prop].dom) {
 					return true;
+				}
+			}
 		};
 
 		this.isDomestic = function () {
@@ -3912,8 +3944,11 @@
 
 	function arrayContains(array, subject) {
 		// See if an array contains a particular value
-		for (var i in array)
-			if (array[i] === subject) return true;
+		for (var i in array) {
+			if (array.hasOwnProperty(i) && array[i] === subject) {
+				return true;
+			}
+		}
 		return false;
 	}
 
