@@ -3765,6 +3765,7 @@
 					"AMERICA": "USA",
 					"THECOLONIES": "USA",
 					"USA": "USA",
+					"US": "USA",
 
 					"URUGUAY": "URY",
 					"EASTERNREPUBLICOFURUGUAY": "URY",
