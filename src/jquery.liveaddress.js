@@ -39,7 +39,7 @@
 		ambiguousMessage: "Matched multiple addresses.<br>which did you mean?", // Message when address is ambiguous
 		invalidMessage: "You entered an unknown address:", // Message when address is invalid
 		invalidCountryMessage: "Unknown country", // Message when the country is invalid
-		missingSecondaryMessage: "Did you forget your apt/suite number?", // Message when address is missing a secondary number
+		missingSecondaryMessage: "You forgot your apt/suite number or entered an unknown apt/suite number", // Message when address is missing a secondary number
 		certifyMessage: "Use as it is",
 		missingInputMessage: "You didn't enter enough information",
 		changeMessage: "Go back",
@@ -1669,7 +1669,7 @@
 				"</div>" + "<div class=\"smarty-popup-typed-address\">" + addr.toString() + "</div>" +
 				"<form class=\"smarty-popup-secondary-number-form\">" +
 				"<input id=\"smarty-popup-secondary-number-input-box\" class=\"smarty-addr-" + addr.id() +
-				"\" type=\"text\" name=\"secondarynumber\" placeholder=\"Enter apt/suite number here\"><br>" +
+				"\" type=\"text\" name=\"secondarynumber\" placeholder=\"Enter number here\"><br>" +
 				"<input id=\"smarty-popup-secondary-number-form-submit-button\" class=\"smarty-addr-" + addr.id() +
 				"\" type=\"submit\" value=\"Submit\">" +
 				"</form>" +
