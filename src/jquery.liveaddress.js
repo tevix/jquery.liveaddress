@@ -146,7 +146,7 @@
 						console.log("EVENT:", "FieldsMapped", "(Fields mapped to their respective addresses)", event, data);
 
 					// We wait until the window is all loaded in case some elements are still loading
-					window.loaded ? ui.postMappingOperations() : $(window).on("load", ui.postMappingOperations);
+					window.loaded ? ui.postMappingOperations() : $(ui.postMappingOperations);
 				},
 
 				MapInitialized: function (event, data) {
