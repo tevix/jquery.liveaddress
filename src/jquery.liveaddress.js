@@ -2520,6 +2520,18 @@
 			return obj;
 		};
 
+		function getStringOfPossibleDropdown(field) {
+			var addrString = "";
+			if (field.dom && field.dom.tagName === "SELECT" && field.dom.selectedIndex >= 0) {
+				if (field.dom.selectedIndex > 0) {
+					addrString += field.dom[field.dom.selectedIndex].text + " ";
+				}
+			} else {
+				addrString += field.dom.value + " ";
+			}
+			return addrString;
+		}
+
 		this.toString = function () {
 			if (fields.freeform) {
 				return (fields.freeform ? fields.freeform.value + " " : "") + (fields.country ? fields.country.value : "");
@@ -2528,13 +2540,12 @@
 					(fields.address3 ? fields.address3.value + " " : "") + (fields.address4 ? fields.address4.value + " " : "") +
 					(fields.locality ? fields.locality.value + " " : "");
 				if (fields.administrative_area) {
-					if (fields.administrative_area.dom && fields.administrative_area.dom.tagName === "SELECT" && fields.administrative_area.dom.selectedIndex >= 0) {
-						addrString += fields.administrative_area.dom[fields.administrative_area.dom.selectedIndex].text + " ";
-					} else {
-						addrString += fields.administrative_area.dom.value + " ";
-					}
+					addrString += getStringOfPossibleDropdown(fields.administrative_area);
 				}
-				addrString += (fields.postal_code ? fields.postal_code.value + " " : "") + (fields.country ? fields.country.value : "");
+				addrString += (fields.postal_code ? fields.postal_code.value + " " : "");
+				if (fields.country) {
+					addrString += getStringOfPossibleDropdown(fields.country);
+				}
 				return addrString;
 			}
 		};
