@@ -2521,15 +2521,14 @@
 		};
 
 		function getStringOfPossibleDropdown(field) {
-			var addrString = "";
-			if (field.dom && field.dom.tagName === "SELECT" && field.dom.selectedIndex >= 0) {
-				if (field.dom.selectedIndex > 0) {
-					addrString += field.dom[field.dom.selectedIndex].text + " ";
+			if (field.dom) {
+				if (field.dom.tagName !== "SELECT") {
+					return field.dom.value + " ";
+				} else if (field.dom.selectedIndex > 0) {
+					return field.dom[field.dom.selectedIndex].text + " ";
 				}
-			} else {
-				addrString += field.dom.value + " ";
 			}
-			return addrString;
+			return "";
 		}
 
 		this.toString = function () {
