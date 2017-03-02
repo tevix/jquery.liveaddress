@@ -1936,8 +1936,8 @@
 							selectedVal = $(this).val();
 							return false;
 						} else {
-							for (state in allStatesByName) {
-								if (allStatesByName[state] === value && state === $(this).text().toUpperCase()) {
+							for (var stateName in allStatesByName) {
+								if (allStatesByName[stateName] === value && stateName === $(this).text().toUpperCase()) {
 									selectedVal = $(this).val();
 									return false;
 								}
