@@ -2,7 +2,7 @@
  LiveAddress International API jQuery Plugin
  by SmartyStreets - smartystreets.com
 
- (c) 2016 SmartyStreets
+ (c) 2017 SmartyStreets
 
  LICENSED UNDER THE GNU GENERAL PUBLIC LICENSE VERSION 3
  (http://opensource.org/licenses/gpl-3.0.html)
