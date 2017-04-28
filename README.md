@@ -5,8 +5,8 @@ Add real-time, plug-and-play, free address verification and autocomplete to your
 [SmartyStreets](http://smartystreets.com). Drop a couple lines of code into your webpage
 and... voilà! Instant address validation.
 
-This plugin should be thought of as merely a framework. It is designed for only basic functionality. Just like
-jQuery is a framework, if you want to do something custom, you'll have to code it yourself. Fortunately,
+This plugin should be thought of as merely a library. It is designed for only basic functionality. Just like
+jQuery is a library, if you want to do something custom, you'll have to code it yourself. Fortunately,
 it's pretty easy (see the documentation, link below) and we have
 [a small repository of some customizations](https://github.com/smartystreets/jquery.liveaddress/tree/master/customizations)
 our customers have used before that you can copy+paste into your page, then tweak for your situation.
