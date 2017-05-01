@@ -1171,7 +1171,7 @@
 									submitButtons[k].style.color = "black";
 								}
 							}
-							$(doms[prop]).off("change");
+							$(doms[prop]).off("change", actionsOnChange);
 						}
 					}
 					if (doms.address1)
@@ -2052,8 +2052,6 @@
 
 						// Capture the element that is clicked on so we know whether or not to close the autocomplete UI
 						// (http://stackoverflow.com/a/11544766/4462191)
-						var clicky;
-
 						$(document).mousedown(function (e) {
 							// The latest element clicked
 							clicky = $(e.target);
@@ -2064,8 +2062,6 @@
 						$(document).mouseup(function (e) {
 							clicky = null;
 						});
-
-						var typey;
 
 						$(document).keydown(function (e) {
 							typey = $(e.target);
@@ -2080,44 +2076,7 @@
 						// the state field, this change() event fires before the form is submitted, and if autoVerify is
 						// on, the verification will not invoke form submit, because it didn't come from a form submit.
 						// This is known behavior and is actually proper functioning in this uncommon edge case.
-						!isData && $(domMap[prop]).change(data, function (e) {
-
-							function clickyIsNull() {
-								return clicky == null;
-							}
-
-							function clickyIsBold() {
-								return clicky[0].tagName == "B";
-							}
-
-							function elementIsActiveSuggestion(el) {
-								return el.className == "smarty-suggestion smarty-active-suggestion";
-							}
-
-							function typeyIsNull() {
-								return typey == null;
-							}
-
-							function clickyIsBoldAndNotActive() {
-								return !clickyIsNull() && clickyIsBold() && !elementIsActiveSuggestion(clicky[0].parentElement);
-							}
-
-							function clickyIsNotBoldAndNotActive() {
-								return !clickyIsNull() && !clickyIsBold() && !elementIsActiveSuggestion(clicky[0]);
-							}
-
-							function clickyAndTypeyAreNullAndAutocompleteVisible() {
-								return clickyIsNull() && typeyIsNull() && e.data.address.autocompleteVisible();
-							}
-
-							// Hides the autocomplete UI when necessary
-							// Don't hide unless the user didn't click on the autocomplete suggestion
-							// Helps handle iOS arrow "tabs"
-							if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
-								ui.hideAutocomplete(e.data.address.id());
-							}
-							e.data.address.set(e.data.field, e.target.value, false, false, e, false);
-						});
+						!isData && $(domMap[prop]).change(data, actionsOnChange);
 					}
 				}
 
@@ -3935,6 +3894,48 @@
 		var handler = instance.events[event.type];
 		if (handler)
 			handler(event, data);
+	}
+
+	var clicky;
+	var typey;
+
+	function actionsOnChange(e) {
+
+		function clickyIsNull() {
+			return clicky === null;
+		}
+
+		function clickyIsBold() {
+			return clicky[0].tagName === "B";
+		}
+
+		function elementIsActiveSuggestion(el) {
+			return el.className === "smarty-suggestion smarty-active-suggestion";
+		}
+
+		function typeyIsNull() {
+			return typey === null;
+		}
+
+		function clickyIsBoldAndNotActive() {
+			return !clickyIsNull() && clickyIsBold() && !elementIsActiveSuggestion(clicky[0].parentElement);
+		}
+
+		function clickyIsNotBoldAndNotActive() {
+			return !clickyIsNull() && !clickyIsBold() && !elementIsActiveSuggestion(clicky[0]);
+		}
+
+		function clickyAndTypeyAreNullAndAutocompleteVisible() {
+			return clickyIsNull() && typeyIsNull() && e.data.address.autocompleteVisible();
+		}
+
+		// Hides the autocomplete UI when necessary
+		// Don't hide unless the user didn't click on the autocomplete suggestion
+		// Helps handle iOS arrow "tabs"
+		if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
+			ui.hideAutocomplete(e.data.address.id());
+		}
+		e.data.address.set(e.data.field, e.target.value, false, false, e, false);
 	}
 
 	// Submits a form by calling `click` on a button element or `submit` on a form element
