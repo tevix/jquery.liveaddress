@@ -28,7 +28,7 @@ Quick Start
 -----------------------
 
 1. Be sure jQuery is brought into your page early on. If you don't already have it, something like this should do the trick:
-```<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>```
+```<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>```
 2. Bring the LiveAddress API jQuery Plugin onto your page:
 ```<script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/3.3/jquery.liveaddress.min.js"></script>```
 3. Initialize the plugin with an HTML key from your account and proper mapping to the address fields in your form:
