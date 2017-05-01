@@ -1,7 +1,7 @@
 Customize your LiveAddress plugin
 -----------------------
 
-As this LiveAddress jQuery plugin is more like a framework than a fully-finished, custom solution,
+As this LiveAddress jQuery plugin is more like a library than a fully-finished, custom solution,
 you may need to customize your implementation to work for you best. This folder has some
 common customizations used by or contributed by customers like yourself.
 
