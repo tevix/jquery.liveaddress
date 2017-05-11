@@ -2707,8 +2707,8 @@
 			handler(event, data);
 	}
 
-	var clicky;
-	var typey;
+	var clicky = null;
+	var typey = null;
 
 	function actionsOnChange(e) {
 
