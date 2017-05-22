@@ -2662,17 +2662,21 @@
 		this.length = json.length;
 
 		this.isValid = function () {
-			return (this.length == 1 &&
-			(this.raw[0].analysis.verification_status == "Verified" ||
-			(typeof this.raw[0].analysis.dpv_match_code != "undefined" && this.raw[0].analysis.dpv_match_code != "N")));
+			return (this.length === 1 &&
+			(this.raw[0].analysis.verification_status === "Verified" ||
+			this.raw[0].analysis.verification_status === "Partial" ||
+			(typeof this.raw[0].analysis.dpv_match_code !== "undefined" && this.raw[0].analysis.dpv_match_code !== "N")));
 		};
 
 		this.isInvalid = function () {
-			return (this.length == 0 ||
-			(this.length == 1 &&
-			(this.raw[0].analysis.verification_status == "None" ||
-			this.raw[0].analysis.verification_status == "Partial" ||
-			this.raw[0].analysis.dpv_match_code == "N" ||
+			return (this.length === 0 ||
+			(this.length === 1 &&
+			(this.raw[0].analysis.verification_status === "None" ||
+			this.raw[0].analysis.address_precision === "None" ||
+			this.raw[0].analysis.address_precision === "AdministrativeArea" ||
+			this.raw[0].analysis.address_precision === "Locality" ||
+			this.raw[0].analysis.address_precision === "Thoroughfare" ||
+			this.raw[0].analysis.dpv_match_code === "N" ||
 			(typeof this.raw[0].analysis.verification_status === "undefined" &&
 			typeof this.raw[0].analysis.dpv_match_code === "undefined"))));
 		};
