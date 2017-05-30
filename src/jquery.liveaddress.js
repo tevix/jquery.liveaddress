@@ -1414,7 +1414,7 @@
 			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 294;
-			corners.height = response.length * 63 + 124;
+			corners.height = response.length * 63 + 164;
 
 			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
 				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
