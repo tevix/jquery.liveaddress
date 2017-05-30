@@ -1538,7 +1538,7 @@
 			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
-			corners.height = 130;
+			corners.height = 170;
 
 			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
 				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
@@ -1601,7 +1601,7 @@
 			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
-			corners.height = 130;
+			corners.height = 170;
 
 			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
 				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
@@ -1746,7 +1746,7 @@
 			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
-			corners.height = 120;
+			corners.height = 170;
 
 			var html = "<div class=\"smarty-ui\" style=\"top: " + corners.top + "px; left: " + corners.left + "px;\">" +
 				"<div class=\"smarty-popup smarty-addr-" + addr.id() + "\" style=\"width: " + corners.width + "px; height: " +
