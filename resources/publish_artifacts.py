@@ -55,6 +55,11 @@ def upload_to_s3(resource, bucket):
     entry.key = path.join(DESTINATION.format(os.environ['branch']), path.basename(resource))
     entry.set_metadata('Content-Encoding', 'gzip')
     entry.set_metadata('Content-Type', get_mime_type(resource))
+    entry.set_metadata('Link', '<https://us-autocomplete.api.smartystreets.com/suggest>; rel=preconnect; crossorigin')
+    entry.set_metadata('Link', '<https://us-autocomplete.api.smartystreets.com/suggest>; rel=dns-prefetch; crossorigin')
+    entry.set_metadata('Link', '<https://us-street.api.smartystreets.com/street-address>; rel=preconnect; crossorigin')
+    entry.set_metadata('Link', '<https://us-street.api.smartystreets.com/street-address>; rel=dns-prefetch; crossorigin')
+
 
     print 'Publishing {0} to {1}...'.format(resource, entry.key)
     entry.set_contents_from_filename(resource)
