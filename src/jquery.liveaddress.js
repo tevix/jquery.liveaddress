@@ -46,7 +46,8 @@
 		noSuggestionsMessage: "No suggestions",
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
-		target: "US"
+		target: "US",
+		preferRatio: 0.333333333
 	};
 	var config = {}; // Configuration settings as set by the user or just the defaults
 	var forms = []; // List of forms (which hold lists of addresses)
@@ -126,6 +127,7 @@
 		config.geocode = typeof config.geocode === "undefined" ? false : config.geocode;
 		config.enforceVerification = typeof config.enforceVerification === "undefined" ? false : config.enforceVerification;
 		config.agent = typeof config.agent === "undefined" ? "" : config.agent;
+		config.preferRatio = config.preferRatio || defaults.preferRatio;
 
 		if (typeof config.autocomplete === "number" && config.autocomplete < 1) {
 			config.autocomplete = false;
@@ -968,6 +970,7 @@
 					suggestions: config.autocomplete,
 					geolocate: config.geolocate,
 					geolocate_precision: config.geolocatePrecision,
+					prefer_ratio: config.preferRatio,
 					agent: ["smartystreets (plugin:website@" + instance.version + ")", config.agent]
 				}
 			}).done(function (json) {
