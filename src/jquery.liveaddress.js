@@ -1537,7 +1537,6 @@
 				return;
 
 			var addr = data.address;
-			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
 
@@ -1598,7 +1597,6 @@
 				return;
 
 			var addr = data.address;
-			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
 
@@ -1739,7 +1737,6 @@
 				return;
 
 			var addr = data.address;
-			var response = data.response;
 			var corners = addr.corners();
 			corners.width = 300;
 
