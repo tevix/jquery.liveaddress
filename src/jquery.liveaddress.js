@@ -47,7 +47,8 @@
 		fieldSelector: "input[type=text], input:not([type]), textarea, select", // Selector for possible address-related form elements
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US",
-		preferRatio: 0.333333333
+		preferRatio: 0.333333333,
+		ajaxSettings: {}
 	};
 	var config = {}; // Configuration settings as set by the user or just the defaults
 	var forms = []; // List of forms (which hold lists of addresses)
@@ -128,6 +129,7 @@
 		config.enforceVerification = typeof config.enforceVerification === "undefined" ? false : config.enforceVerification;
 		config.agent = typeof config.agent === "undefined" ? "" : config.agent;
 		config.preferRatio = config.preferRatio || defaults.preferRatio;
+		config.ajaxSettings = config.ajaxSettings || defaults.ajaxSettings;
 
 		if (typeof config.autocomplete === "number" && config.autocomplete < 1) {
 			config.autocomplete = false;
@@ -957,7 +959,7 @@
 
 			autocplRequests[autocplrequest.number] = autocplrequest;
 
-			$.ajax({
+			var ajaxSettings = {
 				url: "https://us-autocomplete.api.smartystreets.com/suggest",
 				traditional: true,
 				dataType: "json",
@@ -974,7 +976,9 @@
 					prefer_ratio: config.preferRatio,
 					agent: ["smartystreets (plugin:website@" + instance.version + ")", config.agent]
 				}
-			}).done(function (json) {
+			}
+
+			$.ajax($.extend({}, config.ajaxSettings, ajaxSettings)).done(function (json) {
 				trigger("AutocompleteReceived", $.extend(data, {
 					json: json,
 					autocplrequest: autocplrequest
@@ -2303,12 +2307,14 @@
 			if (config.agent)
 				agent += "&agent=" + encodeURIComponent(config.agent);
 
-			$.ajax({
+			var ajaxSettings = {
 				url: requestUrl + "?" + credentials + agent,
 				contentType: "jsonp",
 				data: addrData,
 				timeout: config.timeout
-			})
+			}
+
+			$.ajax($.extend({}, config.ajaxSettings, ajaxSettings))
 				.done(function (response, statusText, xhr) {
 					trigger("ResponseReceived", {
 						address: self,
