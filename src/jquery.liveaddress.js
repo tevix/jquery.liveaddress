@@ -2165,6 +2165,7 @@
 							fullPostalCode = fullPostalCode + "-" + resp.components.postal_code_extra;
 						self.set("postal_code", fullPostalCode, updateDomElement, true, e, false);
 					}
+					removeComponentsFromAddressLines(resp);
 					if (this.getDomFields().address4) {
 						if (resp.address1)
 							self.set("address1", resp.address1, updateDomElement, true, e, false);
@@ -2231,6 +2232,50 @@
 					if (resp.components.country_iso_3)
 						self.set("country", resp.components.country_iso_3, updateDomElement, true, e, false);
 				}
+			}
+		};
+
+		var removeComponentFromAddressLine = function (addressComponent, componentName, lineNumber, resp) {
+			if (addressComponent.indexOf(componentName) !== -1) {
+				var addressLineComponent = "address" + lineNumber;
+				var regex = new RegExp(" *" + resp.components[componentName] + " *", "g");
+				var newAddressLine = resp[addressLineComponent].replace(regex, "");
+				newAddressLine = newAddressLine.replace(/^\W *| *\W/, "");
+				resp[addressLineComponent] = newAddressLine;
+			}
+		};
+
+		var emptyLastNonEmptyAddressLine = function (resp) {
+			for (var lineNumber = 12; lineNumber >= 1; lineNumber--) {
+				var addressLineComponent = "address" + lineNumber;
+
+				if (resp.hasOwnProperty(addressLineComponent) && resp[addressLineComponent] !== "") {
+					resp[addressLineComponent] = "";
+					return;
+				}
+			}
+		};
+
+		var removeComponentsFromAddressLines = function (resp) {
+			if (resp.metadata.hasOwnProperty("address_format")) {
+				var componentsToRemove = [
+					"locality",
+					"administrative_area",
+					"postal_code",
+					"country"
+				];
+				var addressFormatLines = resp.metadata.address_format.split("|");
+
+				for (var addressLineNumber in addressFormatLines) {
+					var addressComponent = addressFormatLines[addressLineNumber];
+					var lineNumberAsInt = parseInt(addressLineNumber) + 1;
+
+					componentsToRemove.map(function (componentName) {
+						removeComponentFromAddressLine(addressComponent, componentName, lineNumberAsInt, resp);
+					});
+				}
+			} else {
+				emptyLastNonEmptyAddressLine(resp);
 			}
 		};
 

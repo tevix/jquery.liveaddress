@@ -4,3 +4,4 @@ _gitignore
 .idea
 working
 resources/instructions.txt
+/node_modules/
