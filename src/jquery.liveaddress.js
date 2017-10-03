@@ -976,7 +976,7 @@
 					prefer_ratio: config.preferRatio,
 					agent: ["smartystreets (plugin:website@" + instance.version + ")", config.agent]
 				}
-			}
+			};
 
 			$.ajax($.extend({}, config.ajaxSettings, ajaxSettings)).done(function (json) {
 				trigger("AutocompleteReceived", $.extend(data, {
@@ -2357,7 +2357,7 @@
 				contentType: "jsonp",
 				data: addrData,
 				timeout: config.timeout
-			}
+			};
 
 			$.ajax($.extend({}, config.ajaxSettings, ajaxSettings))
 				.done(function (response, statusText, xhr) {
