@@ -192,7 +192,7 @@
 					// AND the form, if any, isn't already chewing on an address...
 					// THEN verification has been invoked.
 					if (config.autoVerify && data.address.enoughInput() && (data.address.verifyCount == 0 ||
-						data.address.isFreeform() || data.address.usedAutocomplete) && !data.suppressAutoVerification && data.address.hasDomFields() &&
+							data.address.isFreeform() || data.address.usedAutocomplete) && !data.suppressAutoVerification && data.address.hasDomFields() &&
 						data.address.active && !data.address.autocompleteVisible() &&
 						(data.address.form && !data.address.form.processing))
 						trigger("VerificationInvoked", {
@@ -399,8 +399,8 @@
 			makeAddress: function (addressData) {
 				if (typeof addressData !== "object")
 					return instance.getMappedAddressByID(addressData) || new Address({
-							address1: addressData
-						});
+						address1: addressData
+					});
 				else
 					return new Address(addressData);
 			},
@@ -2705,22 +2705,22 @@
 
 		this.isValid = function () {
 			return (this.length === 1 &&
-			(this.raw[0].analysis.verification_status === "Verified" ||
-			this.raw[0].analysis.verification_status === "Partial" ||
-			(typeof this.raw[0].analysis.dpv_match_code !== "undefined" && this.raw[0].analysis.dpv_match_code !== "N")));
+				(this.raw[0].analysis.verification_status === "Verified" ||
+					this.raw[0].analysis.verification_status === "Partial" ||
+					(typeof this.raw[0].analysis.dpv_match_code !== "undefined" && this.raw[0].analysis.dpv_match_code !== "N")));
 		};
 
 		this.isInvalid = function () {
 			return (this.length === 0 ||
-			(this.length === 1 &&
-			(this.raw[0].analysis.verification_status === "None" ||
-			this.raw[0].analysis.address_precision === "None" ||
-			this.raw[0].analysis.address_precision === "AdministrativeArea" ||
-			this.raw[0].analysis.address_precision === "Locality" ||
-			this.raw[0].analysis.address_precision === "Thoroughfare" ||
-			this.raw[0].analysis.dpv_match_code === "N" ||
-			(typeof this.raw[0].analysis.verification_status === "undefined" &&
-			typeof this.raw[0].analysis.dpv_match_code === "undefined"))));
+				(this.length === 1 &&
+					(this.raw[0].analysis.verification_status === "None" ||
+						this.raw[0].analysis.address_precision === "None" ||
+						this.raw[0].analysis.address_precision === "AdministrativeArea" ||
+						this.raw[0].analysis.address_precision === "Locality" ||
+						this.raw[0].analysis.address_precision === "Thoroughfare" ||
+						this.raw[0].analysis.dpv_match_code === "N" ||
+						(typeof this.raw[0].analysis.verification_status === "undefined" &&
+							typeof this.raw[0].analysis.dpv_match_code === "undefined"))));
 		};
 
 		this.isAmbiguous = function () {
