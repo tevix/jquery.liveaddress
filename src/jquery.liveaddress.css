@@ -8,26 +8,29 @@
 }
 
 .smarty-ui {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	position: absolute;
-	z-index: 999;
-	text-shadow: none;
 	text-align: left;
 	text-decoration: none;
+	text-shadow: none;
+	z-index: 999;
 }
 
 .smarty-popup {
-	padding: 20px 30px;
 	background: #fff;
-	display: inline-block;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	display: inline-block;
+	padding: 20px 30px;
 }
 
 .smarty-popup-header {
-	text-transform: uppercase;
-	font: bold 10pt/1em 'Helvetica', sans-serif;
 	color: #cea737;
+	line-height: 1em;
+	font-weight: bold;
+	font-size: 10pt;
 	padding: 12px 0 0;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 .smarty-popup-ambiguous-header {
@@ -43,39 +46,37 @@
 }
 
 .smarty-popup-typed-address {
-	font-family: sans-serif;
+	text-align: center;
 	font-size: 10pt;
 	font-style: italic;
-	text-align: center;
 	margin: 15px 0;
 }
 
 .smarty-popup-secondary-number-form {
-	font-family: sans-serif;
-	margin: 10px auto 20px;
-	padding: 0;
+	background: none;
 	border: none;
 	float: none;
-	background: none;
-	width: auto;
+	margin: 10px auto 20px;
+	padding: 0;
 	text-align: center;
+	width: auto;
 }
 
 .smarty-popup-secondary-number-input-box {
-	width: 200px;
 	font-size: 11pt;
 	margin-bottom: 10px;
 	text-align: center;
+	width: 200px;
 }
 
 .smarty-popup-secondary-number-form-submit-button {
-	line-height: 23px;
 	background: #606060;
 	border: none;
-	color: #fff;
 	border-radius: 3px;
-	padding: 2px 15px;
+	color: #fff;
 	font-size: 11pt;
+	line-height: 23px;
+	padding: 2px 15px;
 	width: 215px;
 }
 
@@ -89,23 +90,25 @@
 
 .smarty-choice-list .smarty-choice {
 	background: #fff;
-	padding: 10px 15px;
 	color: #9b9b9b;
 	margin-bottom: 10px;
+	padding: 10px 15px;
 }
 
 .smarty-choice {
-	display: block;
-	font: 300 10pt/1em sans-serif;
-	text-decoration: none;
 	border: 1px solid #d4d4d4;
+	display: block;
+	line-height: 1em;
+	font-weight: 300;
+	font-size: 10pt;
+	text-decoration: none;
 }
 
 .smarty-choice-list .smarty-choice:hover {
-	color: #333;
 	background: #f7f7f7;
+	border: 1px solid #333;
+	color: #333;
 	text-decoration: none;
-	border: 1px solid #333
 }
 
 .smarty-choice-alt {
@@ -115,13 +118,13 @@
 
 .smarty-choice-alt .smarty-choice-abort,
 .smarty-choice-override {
-	padding: 8px 10px;
+	background: #606060;
+	border: none;
+	border-radius: 3px;
 	color: #fff;
 	font-size: 10pt;
+	padding: 8px 10px;
 	text-decoration: none;
-	background: #606060;
-	border-radius: 3px;
-	border: none;
 }
 
 .smarty-choice-override {
@@ -145,24 +148,25 @@
 }
 
 .smarty-tag {
-	position: absolute;
-	display: block;
-	overflow: hidden;
-	font: 15px/1.2em sans-serif;
-	text-decoration: none;
-	width: 20px;
-	height: 18px;
 	border-radius: 25px;
+	display: block;
+	line-height: 1.2em;
+	font-size: 15px;
+	height: 18px;
+	overflow: hidden;
+	position: absolute;
+	text-decoration: none;
 	transition: all .25s;
 	-moz-transition: all .25s;
 	-webkit-transition: all .25s;
 	-o-transition: all .25s;
+	width: 20px;
 }
 
 .smarty-tag:hover {
-	width: 70px;
-	text-decoration: none;
 	color: #999;
+	text-decoration: none;
+	width: 70px;
 }
 
 .smarty-tag:hover .smarty-tag-text {
@@ -170,17 +174,17 @@
 }
 
 .smarty-tag-grayed {
-	border: 1px solid #b4b4b4;
-	color: #999;
 	background: #ddd;
+	border: 1px solid #b4b4b4;
 	box-shadow: inset 0 9px 15px #fff;
+	color: #999;
 }
 
 .smarty-tag-green {
-	border: 1px solid #407513;
-	color: #407513;
 	background: #a6d187;
+	border: 1px solid #407513;
 	box-shadow: inset 0 9px 15px #e3f6d5;
+	color: #407513;
 }
 
 .smarty-tag-grayed:hover {
@@ -188,45 +192,45 @@
 }
 
 .smarty-tag-check {
-	padding-left: 4px;
 	text-decoration: none;
+	padding-left: 4px;
 }
 
 .smarty-tag-text {
 	font-size: 12px;
+	left: 16px;
 	position: absolute;
 	top: 0;
-	left: 16px;
-	width: 50px;
 	text-align: center;
+	width: 50px;
 }
 
 .smarty-autocomplete {
-	border: 1px solid #777;
 	background: white;
+	border: 1px solid #777;
+	box-shadow: 1px 1px 3px #555;
 	overflow: hidden;
 	white-space: nowrap;
-	box-shadow: 1px 1px 3px #555;
 }
 
 .smarty-suggestion {
-	display: block;
 	color: #444;
-	text-decoration: none;
-	font-size: 12px;
+	display: block;
+	font-size: 14px;
 	padding: 1px 5px;
+	text-decoration: none;
 }
 
 .smarty-active-suggestion {
 	background: #eee;
-	color: #000;
 	border: none;
+	color: #000;
 	outline: none;
 }
 
 .smarty-no-suggestions {
-	padding: 1px 5px;
-	font-size: 12px;
 	color: #aaa;
+	font-size: 12px;
 	font-style: italic;
+	padding: 1px 5px;
 }
