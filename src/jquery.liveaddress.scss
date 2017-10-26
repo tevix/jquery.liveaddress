@@ -1,4 +1,5 @@
 $standard-font-stack: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$border-radius: 3px;
 $smarty-yellow: #cea737;
 $smarty-green: #407513;
 $error-color: #d0021b;
@@ -8,6 +9,9 @@ $light-grey: #b4b4b4;
 $medium-grey: #9b9b9b;
 $grey: #606060;
 $dark-grey: #333;
+$black: #0a0a0a;
+
+// TODO: Consolidate colors into meaningful base values from which other values are derived.
 
 .smarty-dots {
 	display: none;
@@ -83,7 +87,7 @@ $dark-grey: #333;
 .smarty-popup-secondary-number-form-submit-button {
 	background: $grey;
 	border: none;
-	border-radius: 3px;
+	border-radius: $border-radius;
 	color: $white;
 	font-size: 11pt;
 	line-height: 23px;
@@ -91,8 +95,10 @@ $dark-grey: #333;
 	width: 215px;
 }
 
-.smarty-popup-secondary-number-form-submit-button:hover {
-	background: $dark-grey;
+.smarty-popup-secondary-number-form-submit-button {
+	&:hover {
+		background: $dark-grey;
+	}
 }
 
 .smarty-hr {
@@ -103,11 +109,20 @@ $dark-grey: #333;
 	margin-bottom: 20px;
 }
 
-.smarty-choice-list .smarty-choice {
-	background: $white;
-	color: $medium-grey;
-	margin-bottom: 10px;
-	padding: 10px 15px;
+.smarty-choice-list {
+	.smarty-choice {
+		background: $white;
+		color: $medium-grey;
+		margin-bottom: 10px;
+		padding: 10px 15px;
+
+		&:hover {
+			background: $off-white;
+			border: 1px solid $dark-grey;
+			color: $dark-grey;
+			text-decoration: none;
+		}
+	}
 }
 
 .smarty-choice {
@@ -116,13 +131,6 @@ $dark-grey: #333;
 	line-height: 1em;
 	font-weight: 300;
 	font-size: 10pt;
-	text-decoration: none;
-}
-
-.smarty-choice-list .smarty-choice:hover {
-	background: $off-white;
-	border: 1px solid $dark-grey;
-	color: $dark-grey;
 	text-decoration: none;
 }
 
@@ -135,7 +143,7 @@ $dark-grey: #333;
 .smarty-choice-override {
 	background: $grey;
 	border: none;
-	border-radius: 3px;
+	border-radius: $border-radius;
 	color: $white;
 	font-size: 10pt;
 	padding: 8px 10px;
@@ -158,8 +166,12 @@ $dark-grey: #333;
 	}
 }
 
-.smarty-choice-alt .smarty-choice:first-child {
-	border-top: 0;
+.smarty-choice-alt {
+	.smarty-choice {
+		&:first-child {
+			border-top: 0;
+		}
+	}
 }
 
 .smarty-tag {
@@ -173,15 +185,15 @@ $dark-grey: #333;
 	text-decoration: none;
 	transition: all .25s;
 	width: 20px;
-}
 
-.smarty-tag:hover {
-	color: #999;
-	text-decoration: none;
-	width: 70px;
+	&:hover {
+		color: #999;
+		text-decoration: none;
+		width: 70px;
 
-	.smarty-tag-text {
-		color: #000;
+		.smarty-tag-text {
+			color: $black;
+		}
 	}
 }
 
@@ -236,7 +248,7 @@ $dark-grey: #333;
 .smarty-active-suggestion {
 	background: #eee;
 	border: none;
-	color: #000;
+	color: $black;
 	outline: none;
 }
 
