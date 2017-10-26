@@ -1,3 +1,14 @@
+$standard-font-stack: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$smarty-yellow: #cea737;
+$smarty-green: #407513;
+$error-color: #d0021b;
+$white: #fefefe;
+$off-white: #f7f7f7;
+$light-grey: #b4b4b4;
+$medium-grey: #9b9b9b;
+$grey: #606060;
+$dark-grey: #333;
+
 .smarty-dots {
 	display: none;
 	position: absolute;
@@ -8,7 +19,7 @@
 }
 
 .smarty-ui {
-	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-family: $standard-font-stack;
 	position: absolute;
 	text-align: left;
 	text-decoration: none;
@@ -17,14 +28,14 @@
 }
 
 .smarty-popup {
-	background: #fff;
+	background: $white;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	display: inline-block;
 	padding: 20px 30px;
 }
 
 .smarty-popup-header {
-	color: #cea737;
+	color: $smarty-yellow;
 	line-height: 1em;
 	font-weight: bold;
 	font-size: 10pt;
@@ -34,15 +45,15 @@
 }
 
 .smarty-popup-ambiguous-header {
-	color: #cea737;
+	color: $smarty-yellow;
 }
 
 .smarty-popup-invalid-header {
-	color: #d0021b;
+	color: $error-color;
 }
 
 .smarty-popup-missing-input-header {
-	color: #cea737;
+	color: $smarty-yellow;
 }
 
 .smarty-popup-typed-address {
@@ -70,10 +81,10 @@
 }
 
 .smarty-popup-secondary-number-form-submit-button {
-	background: #606060;
+	background: $grey;
 	border: none;
 	border-radius: 3px;
-	color: #fff;
+	color: $white;
 	font-size: 11pt;
 	line-height: 23px;
 	padding: 2px 15px;
@@ -81,16 +92,20 @@
 }
 
 .smarty-popup-secondary-number-form-submit-button:hover {
-	background: #333;
+	background: $dark-grey;
 }
 
 .smarty-hr {
-	margin-bottom: 15px;
+	border-top: 1px solid $light-grey;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+	margin-bottom: 20px;
 }
 
 .smarty-choice-list .smarty-choice {
-	background: #fff;
-	color: #9b9b9b;
+	background: $white;
+	color: $medium-grey;
 	margin-bottom: 10px;
 	padding: 10px 15px;
 }
@@ -105,9 +120,9 @@
 }
 
 .smarty-choice-list .smarty-choice:hover {
-	background: #f7f7f7;
-	border: 1px solid #333;
-	color: #333;
+	background: $off-white;
+	border: 1px solid $dark-grey;
+	color: $dark-grey;
 	text-decoration: none;
 }
 
@@ -118,33 +133,33 @@
 
 .smarty-choice-alt .smarty-choice-abort,
 .smarty-choice-override {
-	background: #606060;
+	background: $grey;
 	border: none;
 	border-radius: 3px;
-	color: #fff;
+	color: $white;
 	font-size: 10pt;
 	padding: 8px 10px;
 	text-decoration: none;
 }
 
 .smarty-choice-override {
-	float: right
+	float: right;
+
+	&:hover {
+		background: $dark-grey;
+	}
 }
 
 .smarty-choice-abort {
-	float: left
+	float: left;
+
+	&:hover {
+		background: $dark-grey;
+	}
 }
 
 .smarty-choice-alt .smarty-choice:first-child {
 	border-top: 0;
-}
-
-.smarty-choice-abort:hover {
-	background: #333;
-}
-
-.smarty-choice-override:hover {
-	background: #333;
 }
 
 .smarty-tag {
@@ -157,9 +172,6 @@
 	position: absolute;
 	text-decoration: none;
 	transition: all .25s;
-	-moz-transition: all .25s;
-	-webkit-transition: all .25s;
-	-o-transition: all .25s;
 	width: 20px;
 }
 
@@ -167,28 +179,28 @@
 	color: #999;
 	text-decoration: none;
 	width: 70px;
-}
 
-.smarty-tag:hover .smarty-tag-text {
-	color: #000;
+	.smarty-tag-text {
+		color: #000;
+	}
 }
 
 .smarty-tag-grayed {
 	background: #ddd;
-	border: 1px solid #b4b4b4;
-	box-shadow: inset 0 9px 15px #fff;
+	border: 1px solid $light-grey;
+	box-shadow: inset 0 9px 15px $white;
 	color: #999;
+
+	&:hover {
+		border-color: $dark-grey;
+	}
 }
 
 .smarty-tag-green {
-	background: #a6d187;
-	border: 1px solid #407513;
-	box-shadow: inset 0 9px 15px #e3f6d5;
-	color: #407513;
-}
-
-.smarty-tag-grayed:hover {
-	border-color: #333;
+	background: desaturate(lighten($smarty-green, 40), 25);
+	border: 1px solid $smarty-green;
+	box-shadow: inset 0 9px 15px desaturate(lighten($smarty-green, 63), 15);
+	color: $smarty-green;
 }
 
 .smarty-tag-check {
