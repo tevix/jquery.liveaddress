@@ -5,3 +5,6 @@ _gitignore
 working
 resources/instructions.txt
 /node_modules/
+*.css
+package-lock.json
+/dist

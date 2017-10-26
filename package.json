@@ -26,6 +26,9 @@
     "email": "support@smartystreets.com",
     "url": "http://smartystreets.com"
   },
+  "scripts": {
+    "dev": "gulp dev"
+  },
   "maintainers": [
     {
       "name": "SmartyStreets",
@@ -55,6 +58,8 @@
     "jquery": ">=1.5.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
     "jasmine": "^2.8.0",
     "jasmine-ajax": "^3.3.1",
     "karma": "^1.7.1",
