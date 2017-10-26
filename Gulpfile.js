@@ -6,10 +6,7 @@ var config = {
 	}
 };
 
-gulp.task("dev", function () {
-	console.log("Hi world.");
-	gulp.run("transpile-scss");
-});
+gulp.task("dev", ["transpile-scss"]);
 
 gulp.task("transpile-scss", function () {
 	var sass = require("gulp-sass");
