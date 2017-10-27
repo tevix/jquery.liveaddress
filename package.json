@@ -60,6 +60,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
+    "gulp-scss-lint": "^0.5.0",
     "jasmine": "^2.8.0",
     "jasmine-ajax": "^3.3.1",
     "karma": "^1.7.1",

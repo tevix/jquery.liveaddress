@@ -14,247 +14,243 @@ $black: #0a0a0a;
 // TODO: Consolidate colors into meaningful base values from which other values are derived.
 
 .smarty-dots {
-	display: none;
-	position: absolute;
-	z-index: 999;
-	width: 24px;
-	height: 8px;
-	background-image: url('data:image/gif;base64,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');
+  background-image: url('data:image/gif;base64,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');
+  display: none;
+  height: 8px;
+  position: absolute;
+  width: 24px;
+  z-index: 999;
 }
 
 .smarty-ui {
-	font-family: $standard-font-stack;
-	position: absolute;
-	text-align: left;
-	text-decoration: none;
-	text-shadow: none;
-	z-index: 999;
+  font-family: $standard-font-stack;
+  position: absolute;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: none;
+  z-index: 999;
 }
 
 .smarty-popup {
-	background: $white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	display: inline-block;
-	padding: 20px 30px;
+  background: $white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+  display: inline-block;
+  padding: 20px 30px;
 }
 
 .smarty-popup-header {
-	color: $smarty-yellow;
-	line-height: 1em;
-	font-weight: bold;
-	font-size: 10pt;
-	padding: 12px 0 0;
-	text-align: center;
-	text-transform: uppercase;
+  color: $smarty-yellow;
+  font-size: 10pt;
+  font-weight: bold;
+  line-height: 1em;
+  padding: 12px 0 0;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .smarty-popup-ambiguous-header {
-	color: $smarty-yellow;
+  color: $smarty-yellow;
 }
 
 .smarty-popup-invalid-header {
-	color: $error-color;
+  color: $error-color;
 }
 
 .smarty-popup-missing-input-header {
-	color: $smarty-yellow;
+  color: $smarty-yellow;
 }
 
 .smarty-popup-typed-address {
-	text-align: center;
-	font-size: 10pt;
-	font-style: italic;
-	margin: 15px 0;
+  font-size: 10pt;
+  font-style: italic;
+  margin: 15px 0;
+  text-align: center;
 }
 
 .smarty-popup-secondary-number-form {
-	background: none;
-	border: none;
-	float: none;
-	margin: 10px auto 20px;
-	padding: 0;
-	text-align: center;
-	width: auto;
+  background: none;
+  border: 0;
+  float: none;
+  margin: 10px auto 20px;
+  padding: 0;
+  text-align: center;
+  width: auto;
 }
 
 .smarty-popup-secondary-number-input-box {
-	font-size: 11pt;
-	margin-bottom: 10px;
-	text-align: center;
-	width: 200px;
+  font-size: 11pt;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 200px;
 }
 
 .smarty-popup-secondary-number-form-submit-button {
-	background: $grey;
-	border: none;
-	border-radius: $border-radius;
-	color: $white;
-	font-size: 11pt;
-	line-height: 23px;
-	padding: 2px 15px;
-	width: 215px;
-}
+  background: $grey;
+  border: 0;
+  border-radius: $border-radius;
+  color: $white;
+  font-size: 11pt;
+  line-height: 23px;
+  padding: 2px 15px;
+  width: 215px;
 
-.smarty-popup-secondary-number-form-submit-button {
-	&:hover {
-		background: $dark-grey;
-	}
+  &:hover {
+    background: $dark-grey;
+  }
 }
 
 .smarty-hr {
-	border-top: 1px solid $light-grey;
-	border-left: 0;
-	border-right: 0;
-	border-bottom: 0;
-	margin-bottom: 20px;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 1px solid $light-grey;
+  margin-bottom: 20px;
 }
 
 .smarty-choice-list {
-	.smarty-choice {
-		background: $white;
-		color: $medium-grey;
-		margin-bottom: 10px;
-		padding: 10px 15px;
+  .smarty-choice {
+    background: $white;
+    color: $medium-grey;
+    margin-bottom: 10px;
+    padding: 10px 15px;
 
-		&:hover {
-			background: $off-white;
-			border: 1px solid $dark-grey;
-			color: $dark-grey;
-			text-decoration: none;
-		}
-	}
+    &:hover {
+      background: $off-white;
+      border: 1px solid $dark-grey;
+      color: $dark-grey;
+      text-decoration: none;
+    }
+  }
 }
 
 .smarty-choice {
-	border: 1px solid #d4d4d4;
-	display: block;
-	line-height: 1em;
-	font-weight: 300;
-	font-size: 10pt;
-	text-decoration: none;
+  border: 1px solid #d4d4d4;
+  display: block;
+  font-size: 10pt;
+  font-weight: 300;
+  line-height: 1em;
+  text-decoration: none;
 }
 
 .smarty-choice-alt {
-	background: inherit;
-	clear: both;
+  background: inherit;
+  clear: both;
+
+  .smarty-choice {
+    &:first-child {
+      border-top: 0;
+    }
+  }
 }
 
 .smarty-choice-alt .smarty-choice-abort,
 .smarty-choice-override {
-	background: $grey;
-	border: none;
-	border-radius: $border-radius;
-	color: $white;
-	font-size: 10pt;
-	padding: 8px 10px;
-	text-decoration: none;
+  background: $grey;
+  border: 0;
+  border-radius: $border-radius;
+  color: $white;
+  font-size: 10pt;
+  padding: 8px 10px;
+  text-decoration: none;
 }
 
 .smarty-choice-override {
-	float: right;
+  float: right;
 
-	&:hover {
-		background: $dark-grey;
-	}
+  &:hover {
+    background: $dark-grey;
+  }
 }
 
 .smarty-choice-abort {
-	float: left;
+  float: left;
 
-	&:hover {
-		background: $dark-grey;
-	}
-}
-
-.smarty-choice-alt {
-	.smarty-choice {
-		&:first-child {
-			border-top: 0;
-		}
-	}
+  &:hover {
+    background: $dark-grey;
+  }
 }
 
 .smarty-tag {
-	border-radius: 25px;
-	display: block;
-	line-height: 1.2em;
-	font-size: 15px;
-	height: 18px;
-	overflow: hidden;
-	position: absolute;
-	text-decoration: none;
-	transition: all .25s;
-	width: 20px;
+  border-radius: 25px;
+  display: block;
+  font-size: 15px;
+  height: 18px;
+  line-height: 1.2em;
+  overflow: hidden;
+  position: absolute;
+  text-decoration: none;
+  transition: all .25s;
+  width: 20px;
 
-	&:hover {
-		color: #999;
-		text-decoration: none;
-		width: 70px;
+  &:hover {
+    color: #999;
+    text-decoration: none;
+    width: 70px;
 
-		.smarty-tag-text {
-			color: $black;
-		}
-	}
+    .smarty-tag-text {
+      color: $black;
+    }
+  }
 }
 
 .smarty-tag-grayed {
-	background: #ddd;
-	border: 1px solid $light-grey;
-	box-shadow: inset 0 9px 15px $white;
-	color: #999;
+  background: #ddd;
+  border: 1px solid $light-grey;
+  box-shadow: inset 0 9px 15px $white;
+  color: #999;
 
-	&:hover {
-		border-color: $dark-grey;
-	}
+  &:hover {
+    border-color: $dark-grey;
+  }
 }
 
 .smarty-tag-green {
-	background: desaturate(lighten($smarty-green, 40), 25);
-	border: 1px solid $smarty-green;
-	box-shadow: inset 0 9px 15px desaturate(lighten($smarty-green, 63), 15);
-	color: $smarty-green;
+  background: desaturate(lighten($smarty-green, 40), 25);
+  border: 1px solid $smarty-green;
+  box-shadow: inset 0 9px 15px desaturate(lighten($smarty-green, 63), 15);
+  color: $smarty-green;
 }
 
 .smarty-tag-check {
-	text-decoration: none;
-	padding-left: 4px;
+  padding-left: 4px;
+  text-decoration: none;
 }
 
 .smarty-tag-text {
-	font-size: 12px;
-	left: 16px;
-	position: absolute;
-	top: 0;
-	text-align: center;
-	width: 50px;
+  font-size: 12px;
+  left: 16px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 50px;
 }
 
 .smarty-autocomplete {
-	background: white;
-	border: 1px solid #777;
-	box-shadow: 1px 1px 3px #555;
-	overflow: hidden;
-	white-space: nowrap;
+  background: $white;
+  border: 1px solid #777;
+  box-shadow: 1px 1px 3px #555;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .smarty-suggestion {
-	color: #444;
-	display: block;
-	font-size: 14px;
-	padding: 1px 5px;
-	text-decoration: none;
+  color: #444;
+  display: block;
+  font-size: 14px;
+  padding: 1px 5px;
+  text-decoration: none;
 }
 
 .smarty-active-suggestion {
-	background: #eee;
-	border: none;
-	color: $black;
-	outline: none;
+  background: #eee;
+  border: 0;
+  color: $black;
+  outline: none;
 }
 
 .smarty-no-suggestions {
-	color: #aaa;
-	font-size: 12px;
-	font-style: italic;
-	padding: 1px 5px;
+  color: #aaa;
+  font-size: 12px;
+  font-style: italic;
+  padding: 1px 5px;
 }

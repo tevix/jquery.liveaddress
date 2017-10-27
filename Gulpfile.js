@@ -6,13 +6,21 @@ var config = {
 	}
 };
 
-gulp.task("dev", ["transpile-scss"]);
+gulp.task("dev", ["lint-scss", "transpile-scss"]);
 
 gulp.task("transpile-scss", function () {
 	var sass = require("gulp-sass");
 	return gulp.src(config.scss.src)
 		.pipe(sass().on("error", sass.logError))
 		.pipe(gulp.dest(config.scss.dest));
+});
+
+gulp.task("lint-scss", function () {
+	var scssLint = require("gulp-scss-lint");
+	var scssLintOptions = {};
+
+	return gulp.src(config.scss.src)
+		.pipe(scssLint(scssLintOptions));
 });
 
 gulp.task("minify-css", function () {
