@@ -80,6 +80,8 @@
 		if (arg.debug)
 			console.log("LiveAddress API jQuery Plugin version " + version + " (Debug mode)");
 
+		addPreconnectLinksToHead();
+
 		// Mapping fields requires that the document be fully loaded in order to attach UI elements
 		if (document.readyState === "complete")
 			window.loaded = true;
@@ -2849,6 +2851,20 @@
 		if (event.stopImmediatePropagation) event.stopImmediatePropagation();
 		event.cancelBubble = true;
 		return false;
+	}
+
+	function addPreconnectLinksToHead() {
+		var usStreetApi = "//us-street.api.smartystreets.com";
+		var usAutocompleteApi = "//us-autocomplete.api.smartystreets.com";
+		var internationalStreetApi = "//international-street.api.smartystreets.com";
+
+		var endpoints = [usStreetApi, usAutocompleteApi, internationalStreetApi];
+
+		for (var i = 0; i < endpoints.length; i++) {
+			var href = "href=\"" + endpoints[i] + "\">";
+
+			$("head").append($("<link rel=\"preconnect\" " + href)).append("<link rel=\"dns-prefetch\" " + href);
+		}
 	}
 
 })(jQuery, window, document);
