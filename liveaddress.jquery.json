@@ -22,13 +22,13 @@
   "author": {
     "name": "SmartyStreets",
     "email": "support@smartystreets.com",
-    "url": "http://smartystreets.com"
+    "url": "https://smartystreets.com"
   },
   "maintainers": [
     {
       "name": "SmartyStreets",
       "email": "support@smartystreets.com",
-      "url": "http://smartystreets.com"
+      "url": "https://smartystreets.com"
     }
   ],
   "licenses": [
@@ -38,9 +38,9 @@
     }
   ],
   "bugs": "https://github.com/smartystreets/jquery.liveaddress/issues",
-  "homepage": "http://smartystreets.com/kb/liveaddress-api/website-forms",
-  "docs": "http://smartystreets.com/kb/liveaddress-api/website-forms#install",
-  "demo": "http://smartystreets.com/kb/liveaddress-api/website-forms#example",
+  "homepage": "https://smartystreets.com/docs/plugins/website",
+  "docs": "https://smartystreets.com/docs/plugins/website/install",
+  "demo": "https://smartystreets.com/docs/plugins/website/examples",
   "download": "https://d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/5.1/jquery.liveaddress.min.js",
   "dependencies": {
     "jquery": ">=1.5.1"
