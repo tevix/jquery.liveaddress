@@ -2372,7 +2372,10 @@
 					});
 				})
 				.fail(function (xhr, statusText) {
-					var indexOfCountry = xhr.responseText.split("\n")[0].indexOf("country");
+					var indexOfCountry = -1;
+					if (xhr.responseText) {
+						indexOfCountry = xhr.responseText.split("\n")[0].indexOf("country");
+					}
 					if (xhr.status === 422 && indexOfCountry > -1) {
 						return trigger("CountryWasInvalid", {
 							address: self,
