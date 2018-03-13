@@ -30,6 +30,8 @@
 	var version = "5.1.4"; // Version of this copy of the script
 
 	var defaults = {
+		container: "body",
+		autocompleteDropdown: null,
 		candidates: 3, // Number of suggestions to show if ambiguous
 		autocomplete: 10, // Number of autocomplete suggestions; set to 0 or false to disable
 		requestUrlInternational: "https://international-street.api.smartystreets.com/verify", // International API endpoint
@@ -102,6 +104,8 @@
 		}
 
 		// Enforce some defaults
+		config.container = config.container || defaults.container;
+		config.autocompleteDropdown = config.autocompleteDropdown || defaults.autocompleteDropdown;
 		config.candidates = config.candidates || defaults.candidates;
 		config.ui = typeof config.ui === "undefined" ? true : config.ui;
 		config.autoVerify = config.autoVerify !== true && config.autoVerify !== false ? true : config.autoVerify;
@@ -583,9 +587,9 @@
 				var addresses = instance.getMappedAddresses();
 				for (var i = 0; i < addresses.length; i++) {
 					var id = addresses[i].id();
-					$("body").append("<div class=\"smarty-ui\"><div title=\"Loading...\" class=\"smarty-dots smarty-addr-" + id + "\"></div></div>");
+					$(config.container).append("<div class=\"smarty-ui\"><div title=\"Loading...\" class=\"smarty-dots smarty-addr-" + id + "\"></div></div>");
 					var offset = uiTagOffset(addresses[i].corners(true));
-					$("body").append("<div class=\"smarty-ui\" style=\"top: " + offset.top + "px; left: " + offset.left +
+					$(config.container).append("<div class=\"smarty-ui\" style=\"top: " + offset.top + "px; left: " + offset.left +
 						"px;\"><a href=\"javascript:\" class=\"smarty-tag smarty-tag-grayed smarty-addr-" + id +
 						"\" title=\"Address not verified. Click to verify.\" data-addressid=\"" + id +
 						"\"><span class=\"smarty-tag-check\">&#10003;</span><span class=\"smarty-tag-text\">Verify</span></a></div>");
@@ -607,7 +611,7 @@
 							.css("top", addrOffset.top + "px")
 							.css("left", addrOffset.left + "px");
 
-						if (config.autocomplete) { // Position of autocomplete boxes
+						if (config.autocomplete && config.autocompleteDropdown == null) { // Position of autocomplete boxes
 							var containerUi = $(".smarty-autocomplete.smarty-addr-" + addr.id()).closest(".smarty-ui");
 							var domFields = addr.getDomFields();
 							var mainInput = "";
@@ -660,19 +664,27 @@
 							if (mainInput !== "") {
 								var strField = $(domFields[mainInput]);
 								var containerUi = $("<div class=\"smarty-ui\"></div>");
-								var autoUi = $("<div class=\"smarty-autocomplete\"></div>");
+								var autoUi;
+								if (config.autocompleteDropdown){
+									autoUi = $(config.autocompleteDropdown);
+									containerUi = autoUi;
+								}else{
+									autoUi = $("<div class=\"smarty-autocomplete\"></div>");
+								}
 
 								autoUi.addClass("smarty-addr-" + addr.id());
 								containerUi.data("addrID", addr.id());
-								containerUi.append(autoUi);
-
-								containerUi.css({
-									"position": "absolute",
-									"left": strField.offset().left + "px",
-									"top": (strField.offset().top + strField.outerHeight(false)) + "px"
-								});
-
-								containerUi.hide().appendTo("body");
+								if (!config.autocompleteDropdown){
+									containerUi.append(autoUi);
+									containerUi.css({
+										"position": "absolute",
+										"left": strField.offset().left + "px",
+										"top": (strField.offset().top + strField.outerHeight(false)) + "px"
+									});
+	
+									containerUi.hide().appendTo( config.container );
+								}
+								
 
 								containerUi.on("click", ".smarty-suggestion", {
 									addr: addr,
@@ -696,7 +708,7 @@
 									containerUi: containerUi,
 									addr: addr
 								}, function (event) {
-									var suggContainer = $(".smarty-autocomplete", event.data.containerUi);
+									var suggContainer = (config.autocompleteDropdown && config.autocompleteDropdown != '') ? $(config.autocompleteDropdown) : $(".smarty-autocomplete", event.data.containerUi);
 									var currentChoice = $(".smarty-active-suggestion:visible", suggContainer).first();
 									var choiceSelectionIsNew = false;
 
@@ -871,7 +883,7 @@
 			var streetField = event.data.streetField;
 			var input = $.trim(event.data.streetField.val());
 			var containerUi = event.data.containerUi;
-			var suggContainer = $(".smarty-autocomplete", containerUi);
+			var suggContainer = (config.autocompleteDropdown && config.autocompleteDropdown != '' ) ? event.data.containerUi : $(".smarty-autocomplete", containerUi);
 
 			if (!input) {
 				addr.lastStreetInput = input;
@@ -1134,7 +1146,11 @@
 
 		// Hides the autocomplete UI
 		this.hideAutocomplete = function (addressID) {
-			$(".smarty-autocomplete.smarty-addr-" + addressID).closest(".smarty-ui").hide();
+			if (config.autocompleteDropdown && config.autocompleteDropdown != ""){
+				$(config.autocompleteDropdown).hide();
+			}else{
+				$(".smarty-autocomplete.smarty-addr-" + addressID).closest(".smarty-ui").hide();
+			}
 		};
 
 		//shows the SmartyUI when activating 1 address
@@ -1149,7 +1165,7 @@
 		//hides the SmartyUI when deactivating 1 address
 		this.hideSmartyUI = function (addressID) {
 			var smartyui = $(".smarty-addr-" + addressID + ":visible");
-			var autocompleteui = $(".smarty-autocomplete.smarty-addr-" + addressID);
+			var autocompleteui = (config.autocompleteDropdown && config.autocompleteDropdown != '') ? $("config.autocompleteDropdown.smarty-addr-" + addressID) : $(".smarty-autocomplete.smarty-addr-" + addressID);
 			smartyui.addClass("deactivated");
 			smartyui.parent().addClass("deactivated");
 			autocompleteui.addClass("deactivated");
@@ -1474,7 +1490,7 @@
 				html += "<a href=\"javascript:\" class=\"smarty-choice smarty-choice-override\">" + config.certifyMessage + "</a>";
 			}
 			html += "</div></div></div>";
-			$(html).hide().appendTo("body").show(defaults.speed);
+			$(html).hide().appendTo(config.container).show(defaults.speed);
 
 			// Scroll to it if needed
 			if ($(document).scrollTop() > corners.top - 100 || $(document).scrollTop() < corners.top - $(window).height() + 100) {
@@ -1558,7 +1574,7 @@
 			}
 			html += "</div></div>";
 
-			$(html).hide().appendTo("body").show(defaults.speed);
+			$(html).hide().appendTo(config.container).show(defaults.speed);
 
 			data.selectors = {
 				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
@@ -1618,7 +1634,7 @@
 			}
 			html += "</div></div>";
 
-			$(html).hide().appendTo("body").show(defaults.speed);
+			$(html).hide().appendTo(config.container).show(defaults.speed);
 
 			data.selectors = {
 				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
@@ -1683,7 +1699,7 @@
 			}
 			html += "</div></div></div>";
 
-			$(html).hide().appendTo("body").show(defaults.speed);
+			$(html).hide().appendTo(config.container).show(defaults.speed);
 
 			data.selectors = {
 				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
@@ -1758,7 +1774,7 @@
 			}
 			html += "</div></div>";
 
-			$(html).hide().appendTo("body").show(defaults.speed);
+			$(html).hide().appendTo(container).show(defaults.speed);
 
 			data.selectors = {
 				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
@@ -2651,7 +2667,11 @@
 		};
 
 		this.autocompleteVisible = function () {
-			return config.ui && config.autocomplete && $(".smarty-autocomplete.smarty-addr-" + self.id()).is(":visible");
+			if (config.autocompleteDropdown && config.autocompleteDropdown != ""){
+				return config.ui && config.autocomplete && $(config.autocompleteDropdown + ".smarty-addr-" + self.id()).is(":visible");
+			}else{
+				return config.ui && config.autocomplete && $(".smarty-autocomplete.smarty-addr-" + self.id()).is(":visible");
+			}
 		};
 
 		this.id = function () {
