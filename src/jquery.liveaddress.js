@@ -1774,7 +1774,7 @@
 			}
 			html += "</div></div>";
 
-			$(html).hide().appendTo(container).show(defaults.speed);
+			$(html).hide().appendTo(config.container).show(defaults.speed);
 
 			data.selectors = {
 				useOriginal: ".smarty-popup.smarty-addr-" + addr.id() + " .smarty-choice-override ",
