@@ -713,7 +713,7 @@
 									var choiceSelectionIsNew = false;
 
 									if (event.keyCode == 9) { // Tab key
-										if (currentChoice.length > 0) {
+										/*if (currentChoice.length > 0) {
 											var domFields = event.data.addr.getDomFields();
 											if (domFields.zipcode)
 												$(domFields.zipcode).focus();
@@ -721,7 +721,7 @@
 												$(domFields[mainInput]).blur();
 											useAutocompleteSuggestion(event.data.addr, autocompleteResponse.suggestions[currentChoice.data("suggIndex")], event.data.containerUi);
 											return addr.isFreeform() ? true : suppress(event);
-										} else
+										} else*/
 											ui.hideAutocomplete(event.data.addr.id());
 									} else if (event.keyCode == 40) { // Down arrow
 										if (!currentChoice.hasClass("smarty-suggestion")) {
